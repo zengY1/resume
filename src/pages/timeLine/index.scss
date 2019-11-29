@@ -1,0 +1,44 @@
+.timeLine {
+  .timeLine-item {
+    display: flex;
+    height: 200rpx;
+
+
+    .circle-line {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      justify-content: center;
+      width: 32rpx;
+
+      .circle {
+        border: 1px solid red;
+        width: 24rpx;
+        height: 24rpx;
+        border-radius: 50%;
+        margin-bottom: 5rpx;
+      }
+
+      .line {
+        width: 1rpx;
+        height: 70%;
+        background: black;
+        display: inline-block;
+        margin: auto 0;
+        margin-left: 12rpx;
+      }
+
+    }
+
+  }
+
+  >view:last-child .timeLine-item .line {
+    opacity: 0;
+  }
+
+  .content {
+    // border: 1px solid black;
+    // height: 100px;
+    padding: 0 15rpx;
+  }
+}
