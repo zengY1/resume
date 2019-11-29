@@ -32,12 +32,13 @@ class App extends Component {
       'pages/resume-item/resumeItem',
       'pages/addItem/addItem',
       'pages/addSchool/addSchool',
-      'pages/school/school'
+      'pages/school/school',
+      'pages/myPage/phone/index'
     ],
     window: {
       backgroundTextStyle: 'light',
       navigationBarBackgroundColor: '#fff',
-      // navigationBarTitleText: '是微信吗？',
+      navigationBarTitleText: '是微信吗？',
       navigationBarTextStyle: 'black'
     },
     permission: {

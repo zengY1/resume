@@ -1,7 +1,7 @@
 import Taro, { Component, Config } from '@tarojs/taro'
-import { View, Text, Image,Button } from '@tarojs/components'
+import { View, Text, Image, Button } from '@tarojs/components'
 import './my.scss'
-import { AtButton, AtCard, AtTabBar,AtModal, AtModalHeader, AtModalContent, AtModalAction } from 'taro-ui'
+import { AtButton, AtCard, AtTabBar, AtModal, AtModalHeader, AtModalContent, AtModalAction } from 'taro-ui'
 const httpUtil = require('../../utils/httpUtil')
 interface IProps {
 
@@ -9,7 +9,7 @@ interface IProps {
 interface Istate {
   userInfo?: any,
   getUserInfo?: any,
-  modalVisible?: boolean,
+  phoneModalVisible?: boolean,
   current?: number
 }
 export default class My extends Component<IProps, Istate> {
@@ -17,7 +17,7 @@ export default class My extends Component<IProps, Istate> {
     super(props)
     this.state = {
       getUserInfo: {},
-      modalVisible: false,
+      phoneModalVisible: true,
       current: 1
     }
   }
@@ -78,8 +78,21 @@ export default class My extends Component<IProps, Istate> {
       }
     })
   }
+  // model的取消
+  cancelModal = () => {
+    this.setState({
+      phoneModalVisible: false
+    })
+  }
+  // modal的确定
+  modalOk=()=>{
+    Taro.navigateTo({url:'../myPage/phone/index'})
+    this.setState({
+      phoneModalVisible: false
+    })
+  }
   render() {
-    const { getUserInfo, modalVisible } = this.state
+    const { getUserInfo, phoneModalVisible } = this.state
     console.log('modalVisible', getUserInfo)
     return (
       <View className='container'>
@@ -104,15 +117,15 @@ export default class My extends Component<IProps, Istate> {
           </View>
         </View>
         {/* 手机号的提示框 */}
-        <AtModal isOpened={true}>
-  <AtModalHeader>标题</AtModalHeader>
-  <AtModalContent>
-    这里是正文内容，欢迎加入京东凹凸实验室
-    这里是正文内容，欢迎加入京东凹凸实验室
-    这里是正文内容，欢迎加入京东凹凸实验室
-  </AtModalContent>
-  <AtModalAction> <Button>取消</Button> <Button>确定</Button> </AtModalAction>
-</AtModal>
+        <AtModal isOpened={phoneModalVisible}>
+          <AtModalHeader>绑定手机号</AtModalHeader>
+          <AtModalContent>
+            <View>
+              <View>绑定的手机号将用于web端的登陆和拨打电话的功能</View>
+            </View>
+          </AtModalContent>
+          <AtModalAction> <Button onClick={this.cancelModal}>取消</Button> <Button onClick={this.modalOk}>确定</Button> </AtModalAction>
+        </AtModal>
       </View>
     )
   }
