@@ -1,3 +1,6 @@
+.page{
+  // background-color: rgba(57, 77, 97, 0.1);
+}
 .container {
   position: relative;
 }
@@ -77,4 +80,41 @@
 .login_btn{
     color: #FEFEFE;
     border: none;
+}
+.main{
+  padding:30rpx 0;
+}
+.card{
+  width: 94%;
+  height: 100%;
+  margin-left: 3%;
+  margin-right: 3%;
+  background-color: #fff;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 4rpx;
+}
+
+.item{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  width: 33.33%;
+  padding: 35rpx 0;
+}
+.item-img{
+  width: 64rpx;
+  height: 64rpx;
+}
+
+.item-name{
+  padding-top: 13rpx;
+  font-size: 24rpx;
+  color: #666666;
+  min-width: 80rpx;
+  text-align: center;
 }

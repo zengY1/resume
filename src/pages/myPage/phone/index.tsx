@@ -1,8 +1,9 @@
 import Taro, { Component, Config } from '@tarojs/taro'
 import { View, Text, Image } from '@tarojs/components'
 import './index.scss'
-import { AtButton, AtCard, AtTabBar, AtForm, AtInput } from 'taro-ui'
+import { AtButton, AtCard, AtTabBar, AtForm, AtInput,AtMessage } from 'taro-ui'
 const httpUtil = require('../../../utils/httpUtil')
+import regMobile from '../../../utils/mobile'
 interface IProps {
 
 }
@@ -56,10 +57,64 @@ export default class Phone extends Component<IProps, Istate> {
             rePsd:data
         })
     }
+    // 点击确认事件
+    addMobileBtn=()=>{
+        const { mobile, psd, rePsd } = this.state
+        const reg=regMobile(mobile)
+        if(!reg){
+            Taro.atMessage({
+                'message':'请输入正确的手机号码！',
+                'type':'warning'
+            })
+            return 
+        }
+        if(psd==''){
+            Taro.atMessage({
+                'message':'密码不能为空！',
+                'type':'warning'
+            })
+            return 
+        }
+        if(psd==rePsd){
+            httpUtil.request({
+                url:'/user/mobile/add',
+                method:'POST',
+                data:{
+                    mobile:mobile,
+                    passWord:psd
+                },
+                success(res){
+                    console.log('新增手机号码',res)
+                    if(res.code=='20001'){
+                        Taro.showToast({
+                            title:'该手机号已绑定其他用户，请联系客服修改！',
+                            icon:'none',
+                            duration:2500
+                        })
+                        return 
+                    }
+                    if(res.errorCode=='00000'){
+                        Taro.setStorage({key:'mobile',data:mobile})
+                        Taro.navigateBack()
+                        Taro.showToast({
+                            title:'手机号绑定成功！'
+                        })
+                    }
+                }
+            })
+        }else{
+            Taro.atMessage({
+                'message':'确认密码与密码不一致！',
+                'type':'warning'
+            })
+        }
+
+    }
     render() {
         const { mobile, psd, rePsd } = this.state
         return (
             <View>
+                <AtMessage/>
                 <AtForm>
                     <AtInput
                         name='item'
@@ -90,7 +145,7 @@ export default class Phone extends Component<IProps, Istate> {
                     />
                 </AtForm>
                 <View>
-                    <AtButton>确认</AtButton>
+                    <AtButton onClick={this.addMobileBtn}>确认</AtButton>
                 </View>
             </View>
         )

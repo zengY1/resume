@@ -1,6 +1,6 @@
 import Taro from '@tarojs/taro'
-const baseUrl = 'http://47.111.148.57:9090'
-// const baseUrl='localhost:8080'
+// const baseUrl = 'http://47.111.148.57:9090'
+const baseUrl='http://localhost:9090'
 
 function request(resquestHeader) {
     const accessToken = Taro.getStorageSync('token')

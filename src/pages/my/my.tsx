@@ -10,15 +10,17 @@ interface Istate {
   userInfo?: any,
   getUserInfo?: any,
   phoneModalVisible?: boolean,
-  current?: number
+  current?: number,
+  loginOutModal?: boolean
 }
 export default class My extends Component<IProps, Istate> {
   constructor(props) {
     super(props)
     this.state = {
       getUserInfo: {},
-      phoneModalVisible: true,
-      current: 1
+      phoneModalVisible: false,
+      current: 1,
+      loginOutModal: false
     }
   }
   /**
@@ -36,9 +38,18 @@ export default class My extends Component<IProps, Istate> {
 
   componentDidMount() {
     const userInfo = Taro.getStorageSync('userInfo')
+    const mobile = Taro.getStorageSync('mobile')
     if (userInfo) {
+      // 如果用户信息中的手机号码不存在，显示弹框
+      let fag = false
+      if (!mobile) {
+        fag = true
+      } else {
+        fag = false
+      }
       this.setState({
-        getUserInfo: userInfo
+        getUserInfo: userInfo,
+        phoneModalVisible: fag
       })
     }
   }
@@ -68,11 +79,14 @@ export default class My extends Component<IProps, Istate> {
             avatarUrl: userInfo.avatarUrl
           },
           success: function (res) {
+            console.log('success', res)
             Taro.setStorage({ key: 'token', data: res.token })
             Taro.setStorage({ key: 'userInfo', data: res.info[0] })
+            Taro.setStorage({ key: 'mobile', data: res.info[0].mobile })
             that.setState({
               getUserInfo: res.info[0]
             })
+            that.componentDidMount()
           }
         })
       }
@@ -81,39 +95,83 @@ export default class My extends Component<IProps, Istate> {
   // model的取消
   cancelModal = () => {
     this.setState({
-      phoneModalVisible: false
+      phoneModalVisible: false,
+      loginOutModal: false
     })
   }
   // modal的确定
-  modalOk=()=>{
-    Taro.navigateTo({url:'../myPage/phone/index'})
+  modalOk = () => {
+    Taro.navigateTo({ url: '../myPage/phone/index' })
     this.setState({
       phoneModalVisible: false
     })
   }
+  // 退出登录
+  loginOut = () => {
+    this.setState({
+      loginOutModal: true
+    })
+  }
+  // 退出登录的确定
+  loginOutOk = () => {
+    Taro.clearStorageSync()
+    Taro.reLaunch({ url: '../index/index' })
+  }
   render() {
-    const { getUserInfo, phoneModalVisible } = this.state
+    const { getUserInfo, phoneModalVisible, loginOutModal } = this.state
     console.log('modalVisible', getUserInfo)
     return (
-      <View className='container'>
-        <View className='top-container'>
-          <Image className='bg-img' src='../../img/my/mine_bg_3x.png'></Image>
+      <View className='page'>
+        <View className='container'>
+          <View className='top-container'>
+            <Image className='bg-img' src='../../img/my/mine_bg_3x.png'></Image>
 
-          <View className='logout' >
-            <View className='logout_item' hidden={getUserInfo.id ? false : true}>
-              <Image className='logout-img' src='../../img/my/icon_out_3x.png'></Image>
-              <Text className='logout-txt' >退出</Text>
+            <View className='logout' >
+              <View className='logout_item' hidden={getUserInfo.id ? false : true} onClick={this.loginOut}>
+                <Image className='logout-img' src='../../img/my/icon_out_3x.png'></Image>
+                <Text className='logout-txt' >退出</Text>
+              </View>
+            </View>
+
+            <View className='user'>
+              <Image className='avatar-img' src={getUserInfo.id ? getUserInfo.avatarUrl : '../../img/my/mine_def_touxiang_3x.png'}></Image>
+              <View className='user-info-mobile'>
+                {
+                  getUserInfo.id ? <Text>{getUserInfo.userName}</Text> : <AtButton onGetUserInfo={this.userLogin} openType="getUserInfo"><Text className='login_btn'>请登陆</Text></AtButton>
+                }
+              </View>
             </View>
           </View>
+          <View className='main'>
+            <View className='card'>
+              <View  className='item' >
+                <Image className='item-img' src='../../img/my/mine_icon_jiayouzhan_3x.png'></Image>
+                <Text className='item-name'>加油站</Text>
+              </View>
 
-          <View className='user'>
-            <Image className='avatar-img' src={getUserInfo.id ? getUserInfo.avatarUrl : '../../img/my/mine_def_touxiang_3x.png'}></Image>
-            <View className='user-info-mobile'>
-              {
-                getUserInfo.id ? <Text>{getUserInfo.userName}</Text> : <AtButton onGetUserInfo={this.userLogin} openType="getUserInfo"><Text className='login_btn'>请登陆</Text></AtButton>
-              }
+              <View  className='item' >
+                <Image className='item-img' src='../../img/my/mine_icon_jiayouzhan_3x.png'></Image>
+                <Text className='item-name'>加油站</Text>
+              </View>
 
+              <View  className='item' >
+                <Image className='item-img' src='../../img/my/mine_icon_jiayouzhan_3x.png'></Image>
+                <Text className='item-name'>加油站</Text>
+              </View>
+              <View  className='item' >
+                <Image className='item-img' src='../../img/my/mine_icon_jiayouzhan_3x.png'></Image>
+                <Text className='item-name'>加油站</Text>
+              </View>
+              <View  className='item' >
+                <Image className='item-img' src='../../img/my/mine_icon_jiayouzhan_3x.png'></Image>
+                <Text className='item-name'>加油站</Text>
+              </View>
+              <View  className='item' >
+                <Image className='item-img' src='../../img/my/mine_icon_jiayouzhan_3x.png'></Image>
+                <Text className='item-name'>加油站</Text>
+              </View>
             </View>
+
           </View>
         </View>
         {/* 手机号的提示框 */}
@@ -125,6 +183,16 @@ export default class My extends Component<IProps, Istate> {
             </View>
           </AtModalContent>
           <AtModalAction> <Button onClick={this.cancelModal}>取消</Button> <Button onClick={this.modalOk}>确定</Button> </AtModalAction>
+        </AtModal>
+        {/* 用户退出的提示框 */}
+        <AtModal isOpened={loginOutModal}>
+          <AtModalHeader>退出登录</AtModalHeader>
+          <AtModalContent>
+            <View>
+              <View>是否退出当前用户的登陆？</View>
+            </View>
+          </AtModalContent>
+          <AtModalAction> <Button onClick={this.cancelModal}>取消</Button> <Button onClick={this.loginOutOk}>确定</Button> </AtModalAction>
         </AtModal>
       </View>
     )
