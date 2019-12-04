@@ -94,32 +94,39 @@ export default class User extends Component<IProps, Istate> {
         const { resumeInfo, buttonType } = this.state
         return (
             <View>
-                <View className='item'>
-                    <View className='infoItem'>
-                        <View className='infoLabel'><Text>姓名：</Text></View>
-                        <View className='infoContent'><Text>{resumeInfo.realName}</Text></View>
-                    </View>
-                    <View className='infoItem'>
-                        <View className='infoLabel'><Text>性别：</Text></View>
-                        <View className='infoContent'><Text>{resumeInfo.sex == 1 ? '女' : '男'}</Text></View>
-                    </View>
-                    <View className='infoItem'>
-                        <View className='infoLabel'><Text>出生日期：</Text></View>
-                        <View className='infoContent'><Text>{resumeInfo.birthday}</Text></View>
-                    </View>
-                    <View className='infoItem'>
-                        <View className='infoLabel'><Text>籍贯：</Text></View>
-                        <View className='infoContent'><Text>{resumeInfo.province}-{resumeInfo.city}</Text></View>
-                    </View>
-                    <View className='infoItem'>
-                        <View className='infoLabel'><Text>期望薪资：</Text></View>
-                        <View className='infoContent'><Text>{resumeInfo.salary}</Text></View>
-                    </View>
-                    <View className='infoItem'>
-                        <View className='infoLabel'><Text>联系方式：</Text></View>
-                        <View className='infoContent'><Text>{resumeInfo.mobile}</Text></View>
-                    </View>
-                </View>
+                {
+                     buttonType === 'edit' ? <View className='item'>
+                     <View className='infoItem'>
+                         <View className='infoLabel'><Text>姓名：</Text></View>
+                         <View className='infoContent'><Text>{resumeInfo.realName}</Text></View>
+                     </View>
+                     <View className='infoItem'>
+                         <View className='infoLabel'><Text>性别：</Text></View>
+                         <View className='infoContent'><Text>{resumeInfo.sex == 1 ? '女' : '男'}</Text></View>
+                     </View>
+                     <View className='infoItem'>
+                         <View className='infoLabel'><Text>出生日期：</Text></View>
+                         <View className='infoContent'><Text>{resumeInfo.birthday}</Text></View>
+                     </View>
+                     <View className='infoItem'>
+                         <View className='infoLabel'><Text>籍贯：</Text></View>
+                         <View className='infoContent'><Text>{resumeInfo.province}-{resumeInfo.city}</Text></View>
+                     </View>
+                     <View className='infoItem'>
+                         <View className='infoLabel'><Text>居住地址：</Text></View>
+                         <View className='infoContent'><Text>{resumeInfo.address}</Text></View>
+                     </View>
+                     <View className='infoItem'>
+                         <View className='infoLabel'><Text>期望薪资：</Text></View>
+                         <View className='infoContent'><Text>{resumeInfo.salary}</Text></View>
+                     </View>
+                     <View className='infoItem'>
+                         <View className='infoLabel'><Text>联系方式：</Text></View>
+                         <View className='infoContent'><Text>{resumeInfo.mobile}</Text></View>
+                     </View>
+                 </View>:<View className='empty'>暂无信息！</View>
+                }
+               
                 {
                     buttonType === 'edit' ? <View className='buttonGroup'>
                         <AtButton circle type="primary" onClick={this.goToAddPage} className='addBtn'>编辑个人信息</AtButton>

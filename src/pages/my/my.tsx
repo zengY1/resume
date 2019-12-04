@@ -121,10 +121,12 @@ export default class My extends Component<IProps, Istate> {
   goToPage = (page) => {
     if (page === 1) {
       Taro.navigateTo({
-        url:'../resume/userInfo/userInfo'
+        url:'/pages/resume/userInfo/userInfo'
       })
     } else if (page === 2) {
-
+      Taro.navigateTo({
+        url:'/pages/resume/school/school'
+      })
     }else if (page === 3) {
 
     }else if (page === 4) {

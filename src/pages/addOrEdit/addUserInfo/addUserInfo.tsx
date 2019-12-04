@@ -1,7 +1,7 @@
 import Taro, { Component, Config } from '@tarojs/taro'
 import { View, Text, Image, Picker } from '@tarojs/components'
 import './index.scss'
-import { AtButton, AtCard, AtInput, AtForm, AtRadio } from 'taro-ui'
+import { AtButton, AtCard, AtInput, AtForm, AtRadio, AtMessage } from 'taro-ui'
 const httpUtil = require('../../../utils/httpUtil')
 interface IProps {
 
@@ -11,7 +11,7 @@ interface Istate {
     getUserInfo?: any,
     modalVisible?: boolean,
     userList?: any[],
-    mobile?: number | undefined,
+    mobile?: string,
     realName?: string,
     sex?: string,
     birthday: string,
@@ -22,7 +22,8 @@ interface Istate {
     cardTitle?: string,
     selector?: any,
     buttonType?: string,
-    editId?: number
+    editId?: number,
+    address?:string
 }
 export default class AddUserInfo extends Component<IProps, Istate> {
     constructor(props) {
@@ -40,7 +41,8 @@ export default class AddUserInfo extends Component<IProps, Istate> {
             cardTitle: '新增',
             selector: ['男', '女'],
             buttonType: 'add',
-            editId: 0
+            editId: 0,
+            address:''
         }
     }
     componentDidMount() {
@@ -81,13 +83,58 @@ export default class AddUserInfo extends Component<IProps, Istate> {
                     price: resumeInfo.salary,
                     buttonType: buttonType,
                     editId: resumeInfo.id,
-                    cardTitle: '编辑'
+                    cardTitle: '编辑',
+                    address:resumeInfo.address
                 })
             }
         })
     }
+    // 提交
     onSubmit = () => {
-        const { mobile, realName, sex, birthday, provice, city, price } = this.state
+        const { mobile, realName, sex, birthday, provice, city, price,address } = this.state
+        if (mobile == '') {
+            Taro.atMessage({
+                'message': '手机号码不能为空！',
+                'type': 'error',
+            })
+            return
+        } else if (realName == '') {
+            Taro.atMessage({
+                'message': '姓名不能为空！',
+                'type': 'error',
+            })
+            return
+        } else if (sex == '') {
+            Taro.atMessage({
+                'message': '性别不能为空！',
+                'type': 'error',
+            })
+            return
+        } else if (birthday == '') {
+            Taro.atMessage({
+                'message': '出生日期不能为空！',
+                'type': 'error',
+            })
+            return
+        } else if (provice == '') {
+            Taro.atMessage({
+                'message': '户籍省不能为空！',
+                'type': 'error',
+            })
+            return
+        } else if (city == '') {
+            Taro.atMessage({
+                'message': '户籍市不能为空！',
+                'type': 'error',
+            })
+            return
+        } else if (price == '') {
+            Taro.atMessage({
+                'message': '期望薪资不能为空！',
+                'type': 'error',
+            })
+            return
+        }
         httpUtil.request({
             url: '/info/edit',
             method: 'POST',
@@ -98,7 +145,8 @@ export default class AddUserInfo extends Component<IProps, Istate> {
                 birthday,
                 province: provice,
                 city,
-                salary: price
+                salary: price,
+                address
             },
             success(res) {
                 if (res.code === '00000') {
@@ -132,18 +180,21 @@ export default class AddUserInfo extends Component<IProps, Istate> {
     changeProvice = (data) => {
         this.setState({ provice: data })
     }
-
+    changeAddress = (data) => {
+        this.setState({ address: data })
+    }
     render() {
-        const { mobile, realName, sex, birthday, provice, city, price, resumeInfo, cardTitle, selector, origoArr } = this.state
+        const { mobile, realName, sex, birthday, provice, city, price, resumeInfo, cardTitle, selector, address } = this.state
         return (
             <View>
+                <AtMessage />
                 <AtCard
                     title={cardTitle}
                 >
                     <AtForm>
                         <AtInput
                             name='realName'
-                            border={false}
+                            border={true}
                             title='姓名'
                             type='text'
                             placeholder='姓名'
@@ -165,7 +216,7 @@ export default class AddUserInfo extends Component<IProps, Istate> {
                         </View>
                         <AtInput
                             name='mobile'
-                            border={false}
+                            border={true}
                             title='手机号码'
                             type='phone'
                             placeholder='手机号码'
@@ -174,7 +225,7 @@ export default class AddUserInfo extends Component<IProps, Istate> {
                         />
                         <AtInput
                             name='provice'
-                            border={false}
+                            border={true}
                             title='户籍省'
                             type='text'
                             placeholder='户籍省'
@@ -183,7 +234,7 @@ export default class AddUserInfo extends Component<IProps, Istate> {
                         />
                         <AtInput
                             name='city'
-                            border={false}
+                            border={true}
                             title='户籍市'
                             type='text'
                             placeholder='户籍市'
@@ -191,8 +242,17 @@ export default class AddUserInfo extends Component<IProps, Istate> {
                             onChange={(data) => this.changeCity(data)}
                         />
                         <AtInput
+                            name='address'
+                            border={true}
+                            title='居住地址'
+                            type='text'
+                            placeholder='居住地址'
+                            value={address}
+                            onChange={(data) => this.changeAddress(data)}
+                        />
+                        <AtInput
                             name='price'
-                            border={false}
+                            border={true}
                             title='期望薪资'
                             type='text'
                             placeholder='价格'

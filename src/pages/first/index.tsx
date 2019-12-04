@@ -50,19 +50,19 @@ export default class First extends Component<IProps, Istate> {
   componentDidHide() { }
 
   goToUser=()=>{
-    Taro.navigateTo({url:'../user/user'})
+    Taro.navigateTo({url:'../resume/user/user'})
   }
   goToMap=()=>{
-    Taro.navigateTo({url:'../map/map'})
+    Taro.navigateTo({url:'../resume/map/map'})
   }
   goToUserInfo=()=>{
-    Taro.navigateTo({url:'../resume-userInfo/resume-userInfo'})
+    Taro.navigateTo({url:'../resume/resume-userInfo/resume-userInfo'})
   }
   goToTimeLine=()=>{
-    Taro.navigateTo({url:'../timeLine/timeLine'})
+    Taro.navigateTo({url:'../resume/timeLine/timeLine'})
   }
   goToSchool=()=>{
-    Taro.navigateTo({url:'../school/school'})
+    Taro.navigateTo({url:'../resume/school/school'})
   }
  
   render() {

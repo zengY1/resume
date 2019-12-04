@@ -17,7 +17,8 @@ interface Istate {
     address?: string,
     longitude?: string,
     latitude?: string,
-    id?: number
+    id?: number,
+    cardTitle?: string
 
 
 
@@ -27,7 +28,7 @@ export default class AddSchool extends Component<IProps, Istate> {
         super(props)
         this.state = {
             records: ['博士后', '博士', '硕士', '本科', '大专', '高中', '中专', '初中', '小学'],
-            record: 0,
+            record: -1,
             schoolName: '',
             projectName: '',
             beginDate: '',
@@ -36,24 +37,31 @@ export default class AddSchool extends Component<IProps, Istate> {
             address: '',
             longitude: '',
             latitude: '',
-            id: 0
+            id: 0,
+            cardTitle: '新增学历信息',
         }
     }
     config: Config = {
-        navigationBarTitleText: 'school'
+        navigationBarTitleText: '新增学历信息'
     }
     componentDidMount() {
         const params = this.$router.params
         const sid = params.sid
         if (sid) {
             this.getOneSchool(sid)
+            Taro.setNavigationBarTitle({
+                title: '编辑学历信息'
+            })
+            this.setState({
+                cardTitle: '编辑学历信息'
+            })
         }
     }
-    // 获取一个school
+    // 学历的回显
     getOneSchool(sid) {
         const that = this
         httpUtil.request({
-            url: '/school/schoolByUid',
+            url: '/school/schoolBySid',
             data: { id: sid },
             success(res) {
                 console.log('res', res)
@@ -66,7 +74,9 @@ export default class AddSchool extends Component<IProps, Istate> {
                     record: data.record,
                     projectName: data.projectName,
                     beginDate: data.schoolBeginDate,
-                    overDate: data.schoolOverDate
+                    overDate: data.schoolOverDate,
+                    latitude: data.latitude,
+                    longitude: data.longitude
 
                 })
             }
@@ -100,8 +110,50 @@ export default class AddSchool extends Component<IProps, Istate> {
     // 提交
     addSchool = () => {
         const { id, record, schoolName, projectName, beginDate, overDate, schoolDsc, address, latitude, longitude } = this.state
-        console.log('data', record, schoolName, projectName, beginDate, overDate)
         const that = this
+        if (schoolName == '') {
+            Taro.atMessage({
+                'message': '学校名称不能为空！',
+                'type': 'error',
+            })
+            return
+        } else if (projectName == '') {
+            Taro.atMessage({
+                'message': '专业名称不能为空！',
+                'type': 'error',
+            })
+            return
+        } else if (record == -1) {
+            Taro.atMessage({
+                'message': '学历不能为空！',
+                'type': 'error',
+            })
+            return
+        } else if (address == '') {
+            Taro.atMessage({
+                'message': '学校地址不能为空！',
+                'type': 'error',
+            })
+            return
+        } else if (beginDate == '') {
+            Taro.atMessage({
+                'message': '入学时间不能为空！',
+                'type': 'error',
+            })
+            return
+        } else if (overDate == '') {
+            Taro.atMessage({
+                'message': '毕业时间不能为空！',
+                'type': 'error',
+            })
+            return
+        } else if (schoolDsc == '') {
+            Taro.atMessage({
+                'message': '学校简介不能为空！',
+                'type': 'error',
+            })
+            return
+        }
         if (id) {
             httpUtil.request({
                 url: '/school/edit',
@@ -122,6 +174,10 @@ export default class AddSchool extends Component<IProps, Istate> {
                     that.setState({
                         id: 0
                     })
+                    Taro.navigateBack()
+                    Taro.showToast({
+                        title: '编辑成功！'
+                    })
                 }
             })
         } else {
@@ -141,6 +197,10 @@ export default class AddSchool extends Component<IProps, Istate> {
                 },
                 success(res) {
                     console.log('res', res)
+                    Taro.navigateBack()
+                    Taro.showToast({
+                        title: '新增成功！'
+                    })
                 }
             })
         }
@@ -167,60 +227,62 @@ export default class AddSchool extends Component<IProps, Istate> {
         })
     }
     render() {
-        const { records, record, schoolName, projectName, beginDate, overDate, address, schoolDsc } = this.state
+        const { records, record, schoolName, projectName, beginDate, overDate, address, schoolDsc, cardTitle } = this.state
         return (
             <View>
                 <AtCard
-                    title='新增教育经历'>
+                    title={cardTitle}>
                     <AtForm>
                         <AtInput
                             name='school'
                             border={false}
-                            title='学校'
+                            title='学校名称'
                             type='text'
-                            placeholder='学校'
+                            placeholder='请输入学校名称'
                             value={schoolName}
                             onChange={(data) => this.changeSchoolName(data)}
                         />
                         <AtInput
                             name='school'
                             border={false}
-                            title='专业'
+                            title='专业名称'
                             type='text'
-                            placeholder='专业'
+                            placeholder='请输出专业名称'
                             value={projectName}
                             onChange={(data) => this.changeProjectName(data)}
                         />
-                        <View className='page-section'>
-                            <Text>学历</Text>
-                            <View>
-                                <Picker mode='selector' range={records} onChange={this.onRecordsChange}>
-                                    <View className='picker'>
-                                        当前选择：{record}
-                                    </View>
-                                </Picker>
+                        <View className='form-item'>
+                            <View className='label'>学历</View>
+                            <Picker mode='selector' range={records} onChange={this.onRecordsChange}>
+                                <View className='content'>{record == -1 ? '请选择' : records[record]}</View>
+                            </Picker>
+                        </View>
+                        <View className='form-item'>
+                            <View className='label'>入学时间</View>
+                            <Picker mode='date' onChange={this.changeBeginDate}>
+                                <View className='content'>
+                                    {beginDate == '' ? '请选择入学时间' : beginDate}
+                                </View>
+                            </Picker>
+                        </View>
+                        <View className='form-item'>
+                            <View className='label'>毕业时间</View>
+                            <Picker mode='date' onChange={this.changeOverDate}>
+                                <View className='content'>
+                                    {overDate == '' ? '请选择毕业时间' : overDate}
+                                </View>
+                            </Picker>
+                        </View>
+                        <View className='form-item'>
+                            <View className='label'>学校地址</View>
+                            <Text onClick={this.getLocation} >{address == '' ? '选择学校地址' : address}</Text>
+                        </View>
+                        <View className='form-item'>
+                            <View className='label'>学校简介</View>
+                            <View className='content'>
+                                <AtTextarea value={schoolDsc} onChange={this.changeSchoolDsc} maxLength={200} placeholder='请输入学校简介' className='schoolDsc' />
                             </View>
                         </View>
-                        <View>
-                            <AtButton onClick={this.getLocation}>选择地址</AtButton>
-                            <Text>地址：{address}</Text>
-                        </View>
-                        <View className='addItem'>开始时间：
-                            <Picker mode='date' onChange={this.changeBeginDate}>
-                                <View>
-                                    当前选择：{beginDate}
-                                </View>
-                            </Picker>
-                        </View>
-                        <View className='addItem'>结束时间：
-                            <Picker mode='date' onChange={this.changeOverDate}>
-                                <View>
-                                    当前选择：{overDate}
-                                </View>
-                            </Picker>
-                        </View>
-                        <View>学校简介：</View>
-                        <AtTextarea value={schoolDsc} onChange={this.changeSchoolDsc} maxLength={200} placeholder='学校简介' />
 
                     </AtForm>
                     <AtButton onClick={this.addSchool} type="primary">提交</AtButton>
