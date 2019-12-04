@@ -22,7 +22,7 @@ function request(resquestHeader) {
                     success(res){
                         if(res.confirm){
                             Taro.reLaunch({
-                                url:'../index/index'
+                                url:'/pages/index/index'
                             })
                         }
                         else{
@@ -39,7 +39,7 @@ function request(resquestHeader) {
                         if(res.confirm){
                             Taro.clearStorage()
                             Taro.reLaunch({
-                                url:'../index/index'
+                                url:'/pages/index/index'
                             })
                         }
                         else{

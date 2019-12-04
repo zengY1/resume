@@ -117,6 +117,24 @@ export default class My extends Component<IProps, Istate> {
     Taro.clearStorageSync()
     Taro.reLaunch({ url: '../index/index' })
   }
+  // 跳转页面
+  goToPage = (page) => {
+    if (page === 1) {
+      Taro.navigateTo({
+        url:'../resume/userInfo/userInfo'
+      })
+    } else if (page === 2) {
+
+    }else if (page === 3) {
+
+    }else if (page === 4) {
+
+    }else if (page === 5) {
+
+    }else if (page === 6) {
+
+    }
+  }
   render() {
     const { getUserInfo, phoneModalVisible, loginOutModal } = this.state
     console.log('modalVisible', getUserInfo)
@@ -144,32 +162,36 @@ export default class My extends Component<IProps, Istate> {
           </View>
           <View className='main'>
             <View className='card'>
-              <View  className='item' >
+              <View className='item' onClick={() => this.goToPage(1)}>
                 <Image className='item-img' src='../../img/my/mine_icon_jiayouzhan_3x.png'></Image>
-                <Text className='item-name'>加油站</Text>
+                <Text className='item-name'>个人信息</Text>
               </View>
 
-              <View  className='item' >
+              <View className='item' onClick={() => this.goToPage(2)}>
                 <Image className='item-img' src='../../img/my/mine_icon_jiayouzhan_3x.png'></Image>
-                <Text className='item-name'>加油站</Text>
+                <Text className='item-name'>学历信息</Text>
               </View>
 
-              <View  className='item' >
+              <View className='item' onClick={() => this.goToPage(3)}>
                 <Image className='item-img' src='../../img/my/mine_icon_jiayouzhan_3x.png'></Image>
-                <Text className='item-name'>加油站</Text>
+                <Text className='item-name'>工作经历</Text>
               </View>
-              <View  className='item' >
+              <View className='item' onClick={() => this.goToPage(4)}>
                 <Image className='item-img' src='../../img/my/mine_icon_jiayouzhan_3x.png'></Image>
-                <Text className='item-name'>加油站</Text>
+                <Text className='item-name'>项目经验</Text>
               </View>
-              <View  className='item' >
+              <View className='item' onClick={() => this.goToPage(5)}>
                 <Image className='item-img' src='../../img/my/mine_icon_jiayouzhan_3x.png'></Image>
-                <Text className='item-name'>加油站</Text>
+                <Text className='item-name'>证书技能</Text>
               </View>
-              <View  className='item' >
+              <View className='item' onClick={() => this.goToPage(6)}>
                 <Image className='item-img' src='../../img/my/mine_icon_jiayouzhan_3x.png'></Image>
-                <Text className='item-name'>加油站</Text>
+                <Text className='item-name'>个人作品</Text>
               </View>
+              {/* <View className='item' >
+                <Image className='item-img' src='../../img/my/mine_icon_jiayouzhan_3x.png'></Image>
+                <Text className='item-name'>联系客服</Text>
+              </View> */}
             </View>
 
           </View>

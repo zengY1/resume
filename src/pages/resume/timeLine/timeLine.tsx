@@ -2,7 +2,7 @@ import Taro, { Component, Config } from '@tarojs/taro'
 import { View, Text, Image, Map, Picker } from '@tarojs/components'
 import './index.scss'
 import { AtButton, AtCard, AtInput, AtForm, AtRadio, AtTimeline, AtTag } from 'taro-ui'
-const httpUtil = require('../../utils/httpUtil')
+const httpUtil = require('../../../utils/httpUtil')
 interface IProps {
 
 }
