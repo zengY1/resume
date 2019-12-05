@@ -128,9 +128,13 @@ export default class My extends Component<IProps, Istate> {
         url:'/pages/resume/school/school'
       })
     }else if (page === 3) {
-
+      Taro.navigateTo({
+        url:'/pages/resume/timeLine/timeLine'
+      })
     }else if (page === 4) {
-
+      Taro.navigateTo({
+        url:'/pages/resume/resume-item/resumeItem'
+      })
     }else if (page === 5) {
 
     }else if (page === 6) {

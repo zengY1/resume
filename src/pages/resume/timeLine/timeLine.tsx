@@ -27,12 +27,6 @@ export default class TimeLine extends Component<IProps, Istate> {
             latitude: 0,
             longitude: 0,
             address: '',
-            timeLine: [
-                { title: '刷牙洗脸' },
-                { title: '吃早餐' },
-                { title: '上班' },
-                { title: '睡觉' }
-            ],
             companyName: '',
             postName: '',
             salary: '',
@@ -42,19 +36,15 @@ export default class TimeLine extends Component<IProps, Istate> {
         }
     }
     config: Config = {
-        navigationBarTitleText: 'timeLine'
+        navigationBarTitleText: '工作经历'
     }
-    componentDidMount() {
+    componentDidShow() {
         this.getTimeLine()
     }
 
-
-
-
-
     // timeLine的新增
     addTimeLine = () => {
-        Taro.navigateTo({ url: '../addTimeLine/addTimeLine' })
+        Taro.navigateTo({ url: '/pages/addOrEdit/addTimeLine/addTimeLine' })
     }
     // 获取timeLine的数据
     getTimeLine = () => {
@@ -78,29 +68,35 @@ export default class TimeLine extends Component<IProps, Istate> {
     }
     // 公司的编辑
     editCompany = (data) => {
-        // console.log('data',data)
-        Taro.navigateTo({ url: `../addTimeLine/addTimeLine?cid=${data.id}` })
+        Taro.navigateTo({ url: `/pages/addOrEdit/addTimeLine/addTimeLine?cid=${data.id}` })
     }
     // 删除
     deleteCompany = (data) => {
         const that = this
-        httpUtil.request({
-            url: '/company/delete',
-            method: 'POST',
-            data: {
-                cid: data.id
-            },
+        Taro.showModal({
+            title: '删除',
+            content: '确定删除该工作经历？',
             success(res) {
-                that.getTimeLine()
-                console.log('res', res)
+                if (res.confirm) {
+                    httpUtil.request({
+                        url: '/company/delete',
+                        method: 'POST',
+                        data: {
+                            cid: data.id
+                        },
+                        success(res) {
+                            that.getTimeLine()
+                        }
+                    })
+                }
             }
         })
     }
     goToCompanyInfo = (data) => {
-        Taro.navigateTo({ url: `../companyInfo/companyInfo?cid=${data.id}` })
+        Taro.navigateTo({ url: `/pages/resume/companyInfo/companyInfo?cid=${data.id}` })
     }
     render() {
-        const { address, longitude, latitude, timeLine, companyName, postName, salary, beginDate, overDate, timeLineArr } = this.state
+        const { timeLineArr } = this.state
 
         const time = timeLineArr.map((item, index) => {
             return (
@@ -112,26 +108,41 @@ export default class TimeLine extends Component<IProps, Istate> {
                         </View>
                         <View className='content'>
                             <View onClick={() => this.goToCompanyInfo(item)}>
-                                <View>公司：{item.companyName}</View>
-                                <View>时间：{item.beginDate}至{item.overDate}</View>
-                                <View>职位：{item.postName}</View>
+                                <View className='infoItem'>
+                                    <View className='infoLabel'><Text>公司名称：</Text></View>
+                                    <View className='infoContent'><Text>{item.companyName}</Text></View>
+                                </View>
+                                <View className='infoItem'>
+                                    <View className='infoLabel'><Text>岗位名称：</Text></View>
+                                    <View className='infoContent'><Text>{item.postName}</Text></View>
+                                </View>
+                                <View className='infoItem'>
+                                    <View className='infoLabel'><Text>在职时间：</Text></View>
+                                    <View className='infoContent'><Text>{item.beginDate}至{item.overDate}</Text></View>
+                                </View>
                             </View>
-                            <AtTag type='primary' size='small' active={true} circle onClick={() => this.editCompany(item)}>编辑</AtTag>
-                            <AtTag size='small' active={true} circle onClick={() => this.deleteCompany(item)}>删除</AtTag>
+                            <View className='tagBtn'>
+                                <AtTag type='primary' size='small' active={true} circle onClick={() => this.editCompany(item)}>编辑</AtTag>
+                                <View className='zhanwei'></View>
+                                <AtTag size='small' active={true} circle onClick={() => this.deleteCompany(item)}>删除</AtTag>
+                            </View>
                         </View>
                     </View>
                 </View>
             )
         })
         return (
-            <View>
+            <View className='com-page'>
                 <AtCard
-                    title='timeLine'>
-                    <AtButton onClick={this.addTimeLine} type="primary">新增timeLine</AtButton>
+                    title='工作经历'>
+
                     <View className='timeLine'>
-                        {time}
+                        {timeLineArr.length > 0 ? time :
+                            <View className='empty'>暂无信息！</View>
+                        }
                     </View>
                 </AtCard>
+                <View className='bottomBtn'><AtButton onClick={this.addTimeLine} type="primary">新增工作经历</AtButton></View>
             </View>
         )
     }

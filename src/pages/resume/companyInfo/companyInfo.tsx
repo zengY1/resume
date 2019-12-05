@@ -1,7 +1,7 @@
 import Taro, { Component, Config } from '@tarojs/taro'
 import { View, Text, Image, Map, Picker } from '@tarojs/components'
 import './index.scss'
-import { AtButton, AtCard, AtInput, AtForm, AtRadio, AtTimeline, AtTag, AtTabs, AtTabsPane } from 'taro-ui'
+import { AtButton, AtIcon, AtInput, AtForm, AtRadio, AtTimeline, AtTag, AtTabs, AtTabsPane } from 'taro-ui'
 const httpUtil = require('../../../utils/httpUtil')
 interface IProps {
 
@@ -48,10 +48,7 @@ export default class CompanyInfo extends Component<IProps, Istate> {
             tabList: [{ title: '公司简介' }]
         }
     }
-    config: Config = {
-        navigationBarTitleText: 'companyInfo'
-    }
-    componentDidMount() {
+    componentDidShow() {
         const params = this.$router.params
         const cid = params.cid
         if (cid) {
@@ -67,6 +64,9 @@ export default class CompanyInfo extends Component<IProps, Istate> {
             data: { cid: cid },
             success(res) {
                 console.log('res', res.data)
+                Taro.setNavigationBarTitle({
+                    title: res.data.companyName
+                })
                 that.setState({
                     cid: cid,
                     address: res.data.address,
@@ -133,28 +133,39 @@ export default class CompanyInfo extends Component<IProps, Istate> {
     // 新增项目
     goToAddItem = () => {
         const { cid } = this.state
-        Taro.navigateTo({ url: `../addItem/addItem?cid=${cid}` })
+        Taro.navigateTo({ url: `/pages/addOrEdit/addItem/addItem?cid=${cid}` })
     }
     // 编辑项目
-    editItem=(item)=>{
-        Taro.navigateTo({ url: `../addItem/addItem?iid=${item.id}` })
+    editItem = (item) => {
+        Taro.navigateTo({ url: `/pages/addOrEdit/addItem/addItem?iid=${item.id}` })
     }
     // 删除项目
-    deleteItem=(item)=>{
-       httpUtil.request({
-           url:'/item/delete',
-           method:'POST',
-           data:{
-               iid:item.id+'',
-               cid:item.cid
-           },
-           success(res){
-               console.log('删除成功',res)
-           }
-       })
+    deleteItem = (item) => {
+        httpUtil.request({
+            url: '/item/delete',
+            method: 'POST',
+            data: {
+                iid: item.id + '',
+                cid: item.cid
+            },
+            success(res) {
+                console.log('删除成功', res)
+            }
+        })
+    }
+    // go here
+    locationGoHere = () => {
+        const { longitude, latitude } = this.state
+        const lat = Number(latitude)
+        const log = Number(longitude)
+        Taro.openLocation({
+            latitude: lat,
+            longitude: log,
+            scale: 18
+        })
     }
     render() {
-        const { itemArr, workDsc, companyDsc, current, tabList, longitude, latitude, timeLine, companyName, postName, salary, beginDate, overDate, timeLineArr, markers } = this.state
+        const { itemArr, workDsc, companyDsc, current, tabList, longitude, latitude, timeLine, companyName, postName, salary, beginDate, overDate, timeLineArr, markers, address } = this.state
 
         return (
             <View>
@@ -163,20 +174,42 @@ export default class CompanyInfo extends Component<IProps, Istate> {
                     <AtButton onClick={this.goToAddItem}>新增项目</AtButton>
                     <AtTabs current={current} onClick={(data) => this.tabChange(data)} tabList={tabList} scroll>
                         <AtTabsPane current={current} index={0} >
-                            <View  >
-                                <View>公司名称：{companyName}</View>
-                                <View>在职日期：{beginDate}至{overDate}</View>
-                                <View>公司简介：{companyDsc}</View>
-                                <View>工作描述：{workDsc}</View>
-                                <View>职位：{postName}</View>
-                                <View>薪资：{salary}</View>
+                            <View>
+                                <View className='infoItem'>
+                                    <View className='infoLabel'><Text>公司名称：</Text></View>
+                                    <View className='infoContent'><Text>{companyName}</Text></View>
+                                </View>
+                                <View className='infoItem'>
+                                    <View className='infoLabel'><Text>岗位名称：</Text></View>
+                                    <View className='infoContent'><Text>{postName}</Text></View>
+                                </View>
+                                <View className='infoItem'>
+                                    <View className='infoLabel'><Text>在职薪资：</Text></View>
+                                    <View className='infoContent'><Text>{salary}</Text></View>
+                                </View>
+                                <View className='infoItem'>
+                                    <View className='infoLabel'><Text>公司地址：</Text></View>
+                                    <View className='infoContent'><View>{address}<Text className='goHere' onClick={this.locationGoHere}>去这里</Text></View></View>
+                                </View>
+                                <View className='infoItem'>
+                                    <View className='infoLabel'><Text>工作描述：</Text></View>
+                                    <View className='infoContent'><Text>{workDsc}</Text></View>
+                                </View>
+                                <View className='infoItem'>
+                                    <View className='infoLabel'><Text>在职时间：</Text></View>
+                                    <View className='infoContent'><Text>{beginDate}至{overDate}</Text></View>
+                                </View>
+                                <View className='infoItem'>
+                                    <View className='infoLabel'><Text>公司简介：</Text></View>
+                                    <View className='infoContent'><Text>{companyDsc}</Text></View>
+                                </View>
                             </View>
                         </AtTabsPane>
                         {
                             itemArr ? itemArr.map((item, index) => {
                                 console.log('item', item)
                                 return (
-                                    <AtTabsPane current={current} index={index + 1} key={index+1}>
+                                    <AtTabsPane current={current} index={index + 1} key={index + 1}>
                                         <AtTag type='primary' size='small' active={true} circle onClick={() => this.editItem(item)}>编辑</AtTag>
                                         <AtTag size='small' active={true} circle onClick={() => this.deleteItem(item)}>删除</AtTag>
                                         <View>项目名称：{item.itemName}</View>
