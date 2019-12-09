@@ -1,4 +1,4 @@
-import Taro, { Component, Config } from '@tarojs/taro'
+import Taro, { Component, Config, saveImageToPhotosAlbum } from '@tarojs/taro'
 import { View, Text, Image, Map, Picker } from '@tarojs/components'
 import './index.scss'
 import { AtButton, AtIcon, AtInput, AtForm, AtRadio, AtTimeline, AtTag, AtTabs, AtTabsPane } from 'taro-ui'
@@ -23,7 +23,7 @@ interface Istate {
     companyDsc?: string,
     workDsc?: string,
     itemArr?: any,
-    tabList?: any
+    tabList?: any,
 
 }
 export default class CompanyInfo extends Component<IProps, Istate> {
@@ -45,15 +45,17 @@ export default class CompanyInfo extends Component<IProps, Istate> {
             companyDsc: '',
             workDsc: '',
             itemArr: [],
-            tabList: [{ title: '公司简介' }]
+            tabList: [{ title: '公司简介' }],
         }
     }
     componentDidShow() {
         const params = this.$router.params
         const cid = params.cid
+        console.log('companyInfoCid', cid)
         if (cid) {
             this.getCompanyInfoByCid(cid)
             this.getItemInfoByCid(cid)
+
         }
     }
     // 公司的详情
@@ -103,7 +105,7 @@ export default class CompanyInfo extends Component<IProps, Istate> {
     // 获取公司下的项目
     getItemInfoByCid = (cid) => {
         const that = this
-        const { tabList } = this.state
+        const tabList = [{ title: '公司简介' }]
         httpUtil.request({
             url: '/item/list',
             data: { cid },
@@ -141,6 +143,7 @@ export default class CompanyInfo extends Component<IProps, Istate> {
     }
     // 删除项目
     deleteItem = (item) => {
+        const that = this
         httpUtil.request({
             url: '/item/delete',
             method: 'POST',
@@ -150,6 +153,9 @@ export default class CompanyInfo extends Component<IProps, Istate> {
             },
             success(res) {
                 console.log('删除成功', res)
+                that.getCompanyInfoByCid(item.cid)
+                that.getItemInfoByCid(item.cid)
+                that.setState({ current: 0 })
             }
         })
     }
@@ -171,7 +177,8 @@ export default class CompanyInfo extends Component<IProps, Istate> {
             <View>
                 <View className='company-info'>
                     <Map markers={markers} longitude={longitude} latitude={latitude} scale={15} showLocation={true} subkey="SLSBZ-MRXKQ-LLW5C-GPCGS-BY7US-7XFN7" style="width: 100%;" />
-                    <AtButton onClick={this.goToAddItem}>新增项目</AtButton>
+                    {/* 新增项目经验的入口  */}
+                    {/* <AtButton onClick={this.goToAddItem}>新增项目</AtButton> */}
                     <AtTabs current={current} onClick={(data) => this.tabChange(data)} tabList={tabList} scroll>
                         <AtTabsPane current={current} index={0} >
                             <View>
@@ -210,13 +217,29 @@ export default class CompanyInfo extends Component<IProps, Istate> {
                                 console.log('item', item)
                                 return (
                                     <AtTabsPane current={current} index={index + 1} key={index + 1}>
-                                        <AtTag type='primary' size='small' active={true} circle onClick={() => this.editItem(item)}>编辑</AtTag>
-                                        <AtTag size='small' active={true} circle onClick={() => this.deleteItem(item)}>删除</AtTag>
-                                        <View>项目名称：{item.itemName}</View>
-                                        <View>项目时间：{item.itemBeginDate}至{item.itemOverDate}</View>
-                                        <View>职位：{item.postName}</View>
-                                        <View>项目描述：{item.itemDsc}</View>
-                                        <View>我的分工：{item.myDivision}</View>
+                                        {/* 修改和删除项目经验 */}
+                                        {/* <AtTag type='primary' size='small' active={true} circle onClick={() => this.editItem(item)}>编辑</AtTag>
+                                        <AtTag size='small' active={true} circle onClick={() => this.deleteItem(item)}>删除</AtTag> */}
+                                        <View className='infoItem'>
+                                            <View className='infoLabel'><Text>项目名称：</Text></View>
+                                            <View className='infoContent'><Text>{item.itemName}</Text></View>
+                                        </View>
+                                        <View className='infoItem'>
+                                            <View className='infoLabel'><Text>项目时间：</Text></View>
+                                            <View className='infoContent'><Text>{item.itemBeginDate}至{item.itemOverDate}</Text></View>
+                                        </View>
+                                        <View className='infoItem'>
+                                            <View className='infoLabel'><Text>职位：</Text></View>
+                                            <View className='infoContent'><Text>{item.postName}</Text></View>
+                                        </View>
+                                        <View className='infoItem'>
+                                            <View className='infoLabel'><Text>项目描述：</Text></View>
+                                            <View className='infoContent'><Text>{item.itemDsc}</Text></View>
+                                        </View>
+                                        <View className='infoItem'>
+                                            <View className='infoLabel'><Text>我的分工：</Text></View>
+                                            <View className='infoContent'><Text>{item.myDivision}</Text></View>
+                                        </View>
                                     </AtTabsPane>
                                 )
                             }) : ''

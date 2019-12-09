@@ -21,12 +21,35 @@ export default class ResumeItem extends Component<IProps, Istate> {
         Taro.navigateTo({ url: `/pages/addOrEdit/addItem/addItem` })
     }
     // 删除项目经验
-    deleteItem=()=>{
-
+    deleteItem = (item) => {
+        const that = this
+        httpUtil.request({
+            url: '/item/delete',
+            method: 'POST',
+            data: {
+                iid: item.id + '',
+                cid: item.cid
+            },
+            success(res) {
+                console.log('删除成功', res)
+                that.componentDidShow()
+            }
+        })
     }
     // 编辑项目经验
-    editItem=()=>{
-
+    editItem = (item) => {
+        Taro.navigateTo({ url: `/pages/addOrEdit/addItem/addItem?iid=${item.id}` })
+    }
+    componentDidShow() {
+        const that = this
+        httpUtil.request({
+            url: '/item/listByUid',
+            method: 'GET',
+            success(res) {
+                console.log('itemList', res)
+                that.setState({ itemList: res.data })
+            }
+        })
     }
     render() {
         const { itemList } = this.state
@@ -38,24 +61,24 @@ export default class ResumeItem extends Component<IProps, Istate> {
                         return (
                             <View key={index} className='school-item'>
                                 <View className='infoItem'>
-                                    <View className='infoLabel'><Text>学校：</Text></View>
-                                    <View className='infoContent'><Text>{item.schoolName}</Text></View>
+                                    <View className='infoLabel'><Text>项目名称：</Text></View>
+                                    <View className='infoContent'><Text>{item.itemName}</Text></View>
                                 </View>
                                 <View className='infoItem'>
-                                    <View className='infoLabel'><Text>学历：</Text></View>
-                                    <View className='infoContent'><Text>{records[item.record]}</Text></View>
+                                    <View className='infoLabel'><Text>职位：</Text></View>
+                                    <View className='infoContent'><Text>{item.postName}</Text></View>
                                 </View>
                                 <View className='infoItem'>
-                                    <View className='infoLabel'><Text>专业：</Text></View>
-                                    <View className='infoContent'><Text>{item.projectName}</Text></View>
+                                    <View className='infoLabel'><Text>项目时间：</Text></View>
+                                    <View className='infoContent'><Text>{item.itemBeginDate}至{item.itemBeginDate}</Text></View>
                                 </View>
                                 <View className='infoItem'>
-                                    <View className='infoLabel'><Text>入学日期：</Text></View>
-                                    <View className='infoContent'><Text>{item.schoolBeginDate}</Text></View>
+                                    <View className='infoLabel'><Text>项目描述：</Text></View>
+                                    <View className='infoContent'><Text>{item.itemDsc}</Text></View>
                                 </View>
                                 <View className='infoItem'>
-                                    <View className='infoLabel'><Text>毕业日期：</Text></View>
-                                    <View className='infoContent'><Text>{item.schoolOverDate}</Text></View>
+                                    <View className='infoLabel'><Text>我的分工：</Text></View>
+                                    <View className='infoContent'><Text>{item.myDivision}</Text></View>
                                 </View>
                                 <View className='tagBtn'>
                                     <AtTag size='small' active={true} circle onClick={() => this.deleteItem(item)}>删除</AtTag>

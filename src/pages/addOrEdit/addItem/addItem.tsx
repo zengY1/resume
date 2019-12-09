@@ -15,7 +15,8 @@ interface Istate {
     itemDsc?: any,
     workDsc?: any,
     iid?: any,
-    companyList?:any
+    companyList?: any,
+    companyPickValue?: string,
 
 
 }
@@ -23,15 +24,16 @@ export default class TimeLine extends Component<IProps, Istate> {
     constructor(props) {
         super(props)
         this.state = {
-            itemName: '这是第二个项目',
-            postName: '开发',
-            beginDate: '2019-05-22',
-            overDate: '2019-10-21',
+            itemName: '',
+            postName: '',
+            beginDate: '',
+            overDate: '',
             cid: 0,
             itemDsc: '项目的描述，这是什么项目，是用来干什么用的',
             workDsc: '我的分工 我在这项目中扮演着什么角色 负责什么模块',
             iid: 0,
-            companyList:[]
+            companyList: [],
+            companyPickValue: ''
         }
     }
     config: Config = {
@@ -44,26 +46,39 @@ export default class TimeLine extends Component<IProps, Istate> {
         if (iid) {
             this.getItemInfoByIid(iid)
         }
+        this.getCompanyListByUid()
         this.setState({
             cid: cid
         })
     }
     // 根据uid查公司的列表
-    getCompanyListByUid=()=>{
-        const that=this
+    getCompanyListByUid = () => {
+        const that = this
         httpUtil.request({
             url: '/company/list',
             method: 'GET',
             success(res) {
                 const companyList = res.data
+                const {cid}=that.state
                 companyList.sort(function (a, b) {
                     const date1 = new Date(a.beginDate).getTime()
                     const date2 = new Date(b.beginDate).getTime()
                     return date2 - date1
 
                 })
+                let newArrList: any = []
+                companyList.map((item) => {
+                    const a = {
+                        id: item.id,
+                        name: item.companyName
+                    }
+                    newArrList.push(a)
+                })
+                const inde=cid?newArrList.findIndex((item)=>item.id==cid):''
+                
                 that.setState({
-                    companyList: companyList
+                    companyList: newArrList,
+                    companyPickValue:inde
                 })
             }
         })
@@ -75,8 +90,8 @@ export default class TimeLine extends Component<IProps, Istate> {
             url: '/item/infoByIid',
             data: { iid: iid },
             success(res) {
-                console.log('itemInfo', res)
                 const info = res.data
+                console.log('itemInfo', info.cid)
                 that.setState({
                     iid: info.id,
                     itemName: info.itemName,
@@ -125,6 +140,17 @@ export default class TimeLine extends Component<IProps, Istate> {
             workDsc: data.detail.value
         })
     }
+    // 公司的选择
+    companySelectChange = (data) => {
+        console.log('select', data.detail.value)
+        const value = data.detail.value
+        const { companyList } = this.state
+        this.setState({
+            companyPickValue: value,
+            cid: companyList[value].id
+        })
+
+    }
     // item的提交
     addItem = () => {
         const { iid, workDsc, itemDsc, itemName, postName, beginDate, overDate, cid } = this.state
@@ -172,19 +198,19 @@ export default class TimeLine extends Component<IProps, Istate> {
         console.log('add', options)
     }
     render() {
-        const { workDsc, itemDsc, itemName, postName, beginDate, overDate } = this.state
-
+        const { workDsc, itemDsc, itemName, postName, beginDate, overDate, companyList, companyPickValue,cid } = this.state
+        console.log('companyPickValue',companyPickValue)
         return (
             <View>
                 <AtCard
                     title='新增的Item'>
                     <AtForm>
-                    {/* <View className='form-item'>
+                        <View className='form-item'>
                             <View className='label'>公司</View>
-                            <Picker mode='selector' range={records} onChange={this.onRecordsChange}>
-                                <View className='content'>{record == -1 ? '请选择' : records[record]}</View>
+                            <Picker mode='selector' range={companyList} onChange={this.companySelectChange} range-key='name'>
+                                <View className='content'>{companyPickValue === '' ? '请选择' : companyList[companyPickValue].name}</View>
                             </Picker>
-                        </View> */}
+                        </View>
                         <AtInput
                             name='item'
                             border={true}
