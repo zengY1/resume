@@ -136,9 +136,13 @@ export default class My extends Component<IProps, Istate> {
         url:'/pages/resume/resume-item/resumeItem'
       })
     }else if (page === 5) {
-
+      Taro.navigateTo({
+        url:'/pages/resume/skill/skill'
+      })
     }else if (page === 6) {
-
+      Taro.navigateTo({
+        url:'/pages/resume/artWork/artWork'
+      })
     }
   }
   render() {
@@ -188,7 +192,7 @@ export default class My extends Component<IProps, Istate> {
               </View>
               <View className='item' onClick={() => this.goToPage(5)}>
                 <Image className='item-img' src='../../img/my/mine_icon_jiayouzhan_3x.png'></Image>
-                <Text className='item-name'>证书技能</Text>
+                <Text className='item-name'>个人技能</Text>
               </View>
               <View className='item' onClick={() => this.goToPage(6)}>
                 <Image className='item-img' src='../../img/my/mine_icon_jiayouzhan_3x.png'></Image>

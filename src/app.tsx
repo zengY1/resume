@@ -32,7 +32,11 @@ class App extends Component {
       'pages/addOrEdit/addSchool/addSchool',
       'pages/resume/school/school',
       'pages/myPage/phone/index',
-      'pages/addOrEdit/addUserInfo/addUserInfo'
+      'pages/addOrEdit/addUserInfo/addUserInfo',
+      'pages/resume/skill/skill',
+      'pages/addOrEdit/skill/skill',
+      'pages/resume/artWork/artWork',
+      'pages/addOrEdit/addArtWork/addArtWork',
     ],
     window: {
       backgroundTextStyle: 'light',

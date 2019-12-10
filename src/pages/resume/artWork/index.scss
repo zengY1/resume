@@ -1,0 +1,39 @@
+.card{
+    margin-bottom: 160rpx;
+}
+.bottomBtn{
+    width: 94%;
+    position: fixed;
+    bottom: 0;
+    background-color: white;
+    padding: 10rpx 20rpx 40rpx 20rpx;
+    
+}
+.infoItem{
+    display: flex;
+    margin: 20rpx;
+}
+.infoLabel{
+    width: 172rpx;
+    margin-right: 15rpx;
+}
+.infoContent{
+    display: flex;
+    flex-wrap: wrap;
+}
+.empty{
+    width: 100%;
+    height: 300rpx;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color:rgba(7, 17, 27, 0.3)
+}
+.tagBtn{
+    display: flex;
+    flex-direction: row-reverse;
+    margin-bottom: 20rpx;
+}
+.zhanwei{
+    width: 20rpx;
+}

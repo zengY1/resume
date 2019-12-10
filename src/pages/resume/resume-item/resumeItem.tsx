@@ -23,18 +23,32 @@ export default class ResumeItem extends Component<IProps, Istate> {
     // 删除项目经验
     deleteItem = (item) => {
         const that = this
-        httpUtil.request({
-            url: '/item/delete',
-            method: 'POST',
-            data: {
-                iid: item.id + '',
-                cid: item.cid
-            },
+        Taro.showModal({
+            title: '删除',
+            content: '确定删除该项目经验？',
             success(res) {
-                console.log('删除成功', res)
-                that.componentDidShow()
+                if (res.confirm) {
+                    httpUtil.request({
+                        url: '/item/delete',
+                        method: 'POST',
+                        data: {
+                            iid: item.id + '',
+                            cid: item.cid
+                        },
+                        success(res) {
+                            console.log('删除成功', res)
+                            that.componentDidShow()
+                            Taro.showToast({
+                                title: '删除成功！',
+                                icon: 'success',
+                                duration: 2000
+                            })
+                        }
+                    })
+                }
             }
         })
+        
     }
     // 编辑项目经验
     editItem = (item) => {
