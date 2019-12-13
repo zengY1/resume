@@ -26,7 +26,7 @@ export default class Index extends Component<IProps, Istate> {
       },
       getUserInfo: {},
       modalVisible: false,
-      current: 3,
+      current: 0,
       navigationBarTitleText: '首页'
     }
   }

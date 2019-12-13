@@ -7,17 +7,12 @@ interface IProps {
 
 }
 interface Istate {
-  userInfo?: any,
-  getUserInfo?: any,
-  modalVisible?: boolean,
-  current?:number
+ 
 }
 export default class First extends Component<IProps, Istate> {
   constructor(props) {
     super(props)
     this.state = {
-      getUserInfo: {},
-      modalVisible: false,
       current:1
     }
   }
@@ -35,12 +30,6 @@ export default class First extends Component<IProps, Istate> {
   componentWillMount() { }
 
   componentDidMount() {
-    const userInfo = Taro.getStorageSync('userInfo')
-    if (userInfo) {
-      this.setState({
-        getUserInfo: userInfo
-      })
-    }
   }
 
   componentWillUnmount() { }
@@ -49,43 +38,10 @@ export default class First extends Component<IProps, Istate> {
 
   componentDidHide() { }
 
-  goToUser=()=>{
-    Taro.navigateTo({url:'../resume/user/user'})
-  }
-  goToMap=()=>{
-    Taro.navigateTo({url:'../resume/map/map'})
-  }
-  goToUserInfo=()=>{
-    Taro.navigateTo({url:'../resume/resume-userInfo/resume-userInfo'})
-  }
-  goToTimeLine=()=>{
-    Taro.navigateTo({url:'../resume/timeLine/timeLine'})
-  }
-  goToSchool=()=>{
-    Taro.navigateTo({url:'../resume/school/school'})
-  }
- 
   render() {
-    const { getUserInfo, modalVisible } = this.state
-    console.log('modalVisible', getUserInfo)
     return (
       <View>
         <View className='wrapper'>
-          <View>
-            <View>
-              用户名：{getUserInfo.userName}
-            </View>
-            <View>头像：<Image src={getUserInfo.avatarUrl} className="img" style='height:120px;width:120px' /></View>
-          </View>
-          <AtCard
-            title='相关的API' 
-          >
-            <AtButton onClick={this.goToUser}>User的Api</AtButton>
-            <AtButton onClick={this.goToUserInfo}>resume-userInfo的Api</AtButton>
-            <AtButton onClick={this.goToMap}>map</AtButton>
-            <AtButton onClick={this.goToTimeLine}>timeLine</AtButton>
-            <AtButton onClick={this.goToSchool}>school</AtButton>
-          </AtCard>
           
         </View >
       </View>

@@ -63,13 +63,13 @@ export default class AddArtWork extends Component<IProps, Istate> {
         }
         if (workUrl == '') {
             Taro.atMessage({
-                'message': '个人作品的URL不能为空！',
+                'message': '作品的URL不能为空！',
                 'type': 'error',
             })
             return
         } else if (workName == '') {
             Taro.atMessage({
-                'message': '个人作品的名称不能为空！',
+                'message': '作品的名称不能为空！',
                 'type': 'error',
             })
             return

@@ -59,7 +59,7 @@ export default class TimeLine extends Component<IProps, Istate> {
             method: 'GET',
             success(res) {
                 const companyList = res.data
-                const {cid}=that.state
+                const { cid } = that.state
                 companyList.sort(function (a, b) {
                     const date1 = new Date(a.beginDate).getTime()
                     const date2 = new Date(b.beginDate).getTime()
@@ -74,11 +74,11 @@ export default class TimeLine extends Component<IProps, Istate> {
                     }
                     newArrList.push(a)
                 })
-                const inde=cid?newArrList.findIndex((item)=>item.id==cid):''
-                
+                const inde = cid ? newArrList.findIndex((item) => item.id == cid) : ''
+
                 that.setState({
                     companyList: newArrList,
-                    companyPickValue:inde
+                    companyPickValue: inde
                 })
             }
         })
@@ -154,6 +154,49 @@ export default class TimeLine extends Component<IProps, Istate> {
     // item的提交
     addItem = () => {
         const { iid, workDsc, itemDsc, itemName, postName, beginDate, overDate, cid } = this.state
+        if (itemName == '') {
+            Taro.atMessage({
+                'message': '项目的名称不能为空！',
+                'type': 'error',
+            })
+            return
+        } else if (itemDsc == '') {
+            Taro.atMessage({
+                'message': '项目的描述不能为空！',
+                'type': 'error',
+            })
+            return
+        } else if (postName == '') {
+            Taro.atMessage({
+                'message': '职位名称不能为空！',
+                'type': 'error',
+            })
+            return
+        } else if (cid == '') {
+            Taro.atMessage({
+                'message': '公司的名称不能为空！',
+                'type': 'error',
+            })
+            return
+        } else if (beginDate == '') {
+            Taro.atMessage({
+                'message': '开始时间不能为空！',
+                'type': 'error',
+            })
+            return
+        } else if (overDate == '') {
+            Taro.atMessage({
+                'message': '结束时间不能为空！',
+                'type': 'error',
+            })
+            return
+        } else if (workDsc == '') {
+            Taro.atMessage({
+                'message': '我的分工不能为空！',
+                'type': 'error',
+            })
+            return
+        }
         const options = {
             cid: cid,
             itemDsc: itemDsc,
@@ -198,8 +241,8 @@ export default class TimeLine extends Component<IProps, Istate> {
         console.log('add', options)
     }
     render() {
-        const { workDsc, itemDsc, itemName, postName, beginDate, overDate, companyList, companyPickValue,cid } = this.state
-        console.log('companyPickValue',companyPickValue)
+        const { workDsc, itemDsc, itemName, postName, beginDate, overDate, companyList, companyPickValue, cid } = this.state
+        console.log('companyPickValue', companyPickValue)
         return (
             <View>
                 <AtCard

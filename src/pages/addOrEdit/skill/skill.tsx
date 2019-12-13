@@ -65,6 +65,25 @@ export default class AddSkill extends Component<IProps, Istate> {
     // 个人技能的新增
     addSkill = () => {
         const { skillName, skillDsc, skillPickValue, sid } = this.state
+        if (skillName == '') {
+            Taro.atMessage({
+                'message': '名称不能为空！',
+                'type': 'error',
+            })
+            return
+        } else if (skillDsc == '') {
+            Taro.atMessage({
+                'message': '描述不能为空！',
+                'type': 'error',
+            })
+            return
+        } else if (skillPickValue == '') {
+            Taro.atMessage({
+                'message': '熟练程度不能为空！',
+                'type': 'error',
+            })
+            return
+        }
         const options = {
             skillName,
             skillDsc,
