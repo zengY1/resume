@@ -2,6 +2,7 @@ import Taro, { Component, Config } from '@tarojs/taro'
 import { View, Text, Image, Picker } from '@tarojs/components'
 import './index.scss'
 import { AtButton, AtCard, AtInput, AtForm, AtRadio, AtMessage } from 'taro-ui'
+import {salaryArr} from '../../../utils/static'
 const httpUtil = require('../../../utils/httpUtil')
 interface IProps {
 
@@ -17,13 +18,14 @@ interface Istate {
     birthday: string,
     provice: string,
     city: string,
-    price: string,
     resumeInfo?: any,
     cardTitle?: string,
     selector?: any,
     buttonType?: string,
     editId?: number,
-    address?:string
+    address?: string,
+    salary?: string,
+    salaryColumn?: any
 }
 export default class AddUserInfo extends Component<IProps, Istate> {
     constructor(props) {
@@ -36,17 +38,22 @@ export default class AddUserInfo extends Component<IProps, Istate> {
             birthday: '',
             provice: '',
             city: '',
-            price: '',
+            salary: '',
             resumeInfo: {},
             cardTitle: '新增',
             selector: ['男', '女'],
             buttonType: 'add',
             editId: 0,
-            address:''
+            address: '',
+            salaryColumn: [[], []]
         }
     }
     componentDidMount() {
         console.log(this.$router.params)
+        const salaryColumn = [salaryArr, salaryArr]
+        this.setState({
+            salaryColumn
+        })
         const infoId = this.$router.params.id
         if (infoId) {
             this.getResumeInfoById(infoId)
@@ -80,21 +87,21 @@ export default class AddUserInfo extends Component<IProps, Istate> {
                     birthday: resumeInfo.birthday,
                     provice: resumeInfo.province,
                     city: resumeInfo.city,
-                    price: resumeInfo.salary,
+                    salary: resumeInfo.salary,
                     buttonType: buttonType,
                     editId: resumeInfo.id,
                     cardTitle: '编辑',
-                    address:resumeInfo.address
+                    address: resumeInfo.address
                 })
             }
         })
     }
     // 提交
     onSubmit = () => {
-        const { mobile, realName, sex, birthday, provice, city, price,address } = this.state
+        const { mobile, realName, sex, birthday, provice, city, salary, address } = this.state
         if (mobile == '') {
             Taro.atMessage({
-                'message': '手机号码不能为空！',
+                'message': '联系方式不能为空！',
                 'type': 'error',
             })
             return
@@ -118,17 +125,17 @@ export default class AddUserInfo extends Component<IProps, Istate> {
             return
         } else if (provice == '') {
             Taro.atMessage({
-                'message': '户籍省不能为空！',
+                'message': '应聘岗位不能为空！',
                 'type': 'error',
             })
             return
         } else if (city == '') {
             Taro.atMessage({
-                'message': '户籍市不能为空！',
+                'message': '工作城市不能为空！',
                 'type': 'error',
             })
             return
-        } else if (price == '') {
+        } else if (salary == '') {
             Taro.atMessage({
                 'message': '期望薪资不能为空！',
                 'type': 'error',
@@ -145,7 +152,7 @@ export default class AddUserInfo extends Component<IProps, Istate> {
                 birthday,
                 province: provice,
                 city,
-                salary: price,
+                salary: salary,
                 address
             },
             success(res) {
@@ -171,9 +178,6 @@ export default class AddUserInfo extends Component<IProps, Istate> {
     changeDate = (data) => {
         this.setState({ birthday: data.detail.value })
     }
-    changePrice = (data) => {
-        this.setState({ price: data })
-    }
     changeCity = (data) => {
         this.setState({ city: data })
     }
@@ -183,8 +187,34 @@ export default class AddUserInfo extends Component<IProps, Istate> {
     changeAddress = (data) => {
         this.setState({ address: data })
     }
+    changeSalary = (data) => {
+        const salary = data.detail.value
+        const firstIndex = salary[0]
+        const lastIndex = salary[1] + salary[0]
+        if (firstIndex === lastIndex || firstIndex === lastIndex) {
+            this.setState({
+                salary: salaryArr[firstIndex]
+            })
+        } else {
+            this.setState({
+                salary: salaryArr[firstIndex] + '~' + salaryArr[lastIndex]
+            })
+        }
+        console.log('salary', salary)
+    }
+    salaryColumnChange = (data) => {
+        const column = data.detail.column
+        const value = data.detail.value
+        const newArr = salaryArr.slice(value, salaryArr.length)
+        if (column == 0) {
+            this.setState({
+                salaryColumn: [salaryArr, newArr]
+            })
+        }
+
+    }
     render() {
-        const { mobile, realName, sex, birthday, provice, city, price, resumeInfo, cardTitle, selector, address } = this.state
+        const { mobile, realName, sex, birthday, provice, city, resumeInfo, cardTitle, selector, address, salaryColumn, salary } = this.state
         return (
             <View>
                 <AtMessage />
@@ -217,29 +247,11 @@ export default class AddUserInfo extends Component<IProps, Istate> {
                         <AtInput
                             name='mobile'
                             border={true}
-                            title='手机号码'
+                            title='联系方式'
                             type='phone'
-                            placeholder='手机号码'
+                            placeholder='联系方式'
                             value={mobile}
                             onChange={(data) => this.changeMobile(data)}
-                        />
-                        <AtInput
-                            name='provice'
-                            border={true}
-                            title='户籍省'
-                            type='text'
-                            placeholder='户籍省'
-                            value={provice}
-                            onChange={(data) => this.changeProvice(data)}
-                        />
-                        <AtInput
-                            name='city'
-                            border={true}
-                            title='户籍市'
-                            type='text'
-                            placeholder='户籍市'
-                            value={city}
-                            onChange={(data) => this.changeCity(data)}
                         />
                         <AtInput
                             name='address'
@@ -251,14 +263,29 @@ export default class AddUserInfo extends Component<IProps, Istate> {
                             onChange={(data) => this.changeAddress(data)}
                         />
                         <AtInput
-                            name='price'
+                            name='provice'
                             border={true}
-                            title='期望薪资'
+                            title='应聘岗位'
                             type='text'
-                            placeholder='价格'
-                            value={price}
-                            onChange={(data) => this.changePrice(data)}
+                            placeholder='应聘岗位'
+                            value={provice}
+                            onChange={(data) => this.changeProvice(data)}
                         />
+                        <AtInput
+                            name='city'
+                            border={true}
+                            title='工作城市'
+                            type='text'
+                            placeholder='工作城市'
+                            value={city}
+                            onChange={(data) => this.changeCity(data)}
+                        />
+                        <View className='form-item'>
+                            <View className='label'>期望薪资</View>
+                            <Picker mode='multiSelector' range={salaryColumn} onChange={this.changeSalary} onColumnChange={this.salaryColumnChange} value={[0, 0]}>
+                                <View className='content'>{salary ? salary : '请选择'}</View>
+                            </Picker>
+                        </View>
                     </AtForm>
 
                     <AtButton onClick={this.onSubmit} type="primary">确认</AtButton>

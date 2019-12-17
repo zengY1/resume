@@ -1,6 +1,6 @@
 import Taro from '@tarojs/taro'
-const baseUrl = 'http://47.111.148.57:9090'
-// const baseUrl='http://localhost:9090'
+// const baseUrl = 'http://47.111.148.57:9090'
+const baseUrl='http://localhost:9090'
 
 function request(resquestHeader) {
     const accessToken = Taro.getStorageSync('token')
@@ -22,7 +22,7 @@ function request(resquestHeader) {
                     success(res){
                         if(res.confirm){
                             Taro.reLaunch({
-                                url:'/pages/index/index'
+                                url:'/pages/index/index?tab=2'
                             })
                         }
                         else{
@@ -39,7 +39,7 @@ function request(resquestHeader) {
                         if(res.confirm){
                             Taro.clearStorage()
                             Taro.reLaunch({
-                                url:'/pages/index/index'
+                                url:'/pages/index/index?tab=2'
                             })
                         }
                         else{

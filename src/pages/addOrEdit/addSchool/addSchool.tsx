@@ -1,13 +1,13 @@
 import Taro, { Component, Config } from '@tarojs/taro'
 import { View, Text, Image, Map, Picker } from '@tarojs/components'
 import './index.scss'
-import { AtButton, AtCard, AtInput, AtForm, AtRadio, AtTimeline, AtTextarea } from 'taro-ui'
+import { AtButton, AtCard, AtInput, AtForm, AtRadio, AtTimeline, AtTextarea,AtMessage } from 'taro-ui'
+import {records} from '../../../utils/static'
 const httpUtil = require('../../../utils/httpUtil')
 interface IProps {
 
 }
 interface Istate {
-    records?: any,
     record?: number,
     schoolName?: string,
     projectName?: string,
@@ -19,15 +19,11 @@ interface Istate {
     latitude?: string,
     id?: number,
     cardTitle?: string
-
-
-
 }
 export default class AddSchool extends Component<IProps, Istate> {
     constructor(props) {
         super(props)
         this.state = {
-            records: ['博士后', '博士', '硕士', '本科', '大专', '高中', '中专', '初中', '小学'],
             record: -1,
             schoolName: '',
             projectName: '',
@@ -227,9 +223,10 @@ export default class AddSchool extends Component<IProps, Istate> {
         })
     }
     render() {
-        const { records, record, schoolName, projectName, beginDate, overDate, address, schoolDsc, cardTitle } = this.state
+        const {  record, schoolName, projectName, beginDate, overDate, address, schoolDsc, cardTitle } = this.state
         return (
             <View>
+                 <AtMessage />
                 <AtCard
                     title={cardTitle}>
                     <AtForm>

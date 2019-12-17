@@ -1,0 +1,26 @@
+.company-info{
+    margin:0 5%;
+    
+ }
+ .infoItem {
+    display: flex;
+    margin: 20rpx;
+  }
+  
+  .infoLabel {
+    width: 172rpx;
+    // margin-right: 15rpx;
+  }
+  
+  .infoContent {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .goHere{
+     margin-left: 20rpx;
+     color: red;
+     padding: 5rpx;
+     border: 1px solid rgba(7, 17, 27, 0.3);
+     border-radius: 50rpx;
+     font-size: 20rpx;
+  }

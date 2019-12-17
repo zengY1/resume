@@ -1,7 +1,7 @@
 import Taro, { Component, Config } from '@tarojs/taro'
 import { View, Text, Image, Map, Picker } from '@tarojs/components'
 import './index.scss'
-import { AtButton, AtCard, AtInput, AtForm, AtRadio, AtTimeline, AtTextarea } from 'taro-ui'
+import { AtButton, AtCard, AtInput, AtForm,AtMessage, AtTimeline, AtTextarea } from 'taro-ui'
 const httpUtil = require('../../../utils/httpUtil')
 interface IProps {
 
@@ -241,6 +241,7 @@ export default class TimeLine extends Component<IProps, Istate> {
 
         return (
             <View>
+                 <AtMessage />
                 <AtCard
                     title={cardTitle}>
                     <AtForm>

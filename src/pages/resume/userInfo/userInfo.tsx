@@ -109,20 +109,24 @@ export default class User extends Component<IProps, Istate> {
                          <View className='infoContent'><Text>{resumeInfo.birthday}</Text></View>
                      </View>
                      <View className='infoItem'>
-                         <View className='infoLabel'><Text>籍贯：</Text></View>
-                         <View className='infoContent'><Text>{resumeInfo.province}-{resumeInfo.city}</Text></View>
+                         <View className='infoLabel'><Text>联系方式：</Text></View>
+                         <View className='infoContent'><Text>{resumeInfo.mobile}</Text></View>
                      </View>
                      <View className='infoItem'>
                          <View className='infoLabel'><Text>居住地址：</Text></View>
                          <View className='infoContent'><Text>{resumeInfo.address}</Text></View>
                      </View>
                      <View className='infoItem'>
-                         <View className='infoLabel'><Text>期望薪资：</Text></View>
-                         <View className='infoContent'><Text>{resumeInfo.salary}</Text></View>
+                         <View className='infoLabel'><Text>工作城市：</Text></View>
+                         <View className='infoContent'><Text>{resumeInfo.city}</Text></View>
                      </View>
                      <View className='infoItem'>
-                         <View className='infoLabel'><Text>联系方式：</Text></View>
-                         <View className='infoContent'><Text>{resumeInfo.mobile}</Text></View>
+                         <View className='infoLabel'><Text>求职岗位：</Text></View>
+                         <View className='infoContent'><Text>{resumeInfo.province}</Text></View>
+                     </View>
+                     <View className='infoItem'>
+                         <View className='infoLabel'><Text>期望薪资：</Text></View>
+                         <View className='infoContent'><Text>{resumeInfo.salary}</Text></View>
                      </View>
                  </View>:<View className='empty'>暂无信息！</View>
                 }

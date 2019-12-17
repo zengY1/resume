@@ -42,6 +42,13 @@ export default class Index extends Component<IProps, Istate> {
   componentWillMount() { }
 
   componentDidMount() {
+    const params = this.$router.params
+    const tab = parseInt(params.tab) 
+    if(tab){
+      this.setState({
+        current:tab
+      })
+    }
   }
 
   componentWillUnmount() { }

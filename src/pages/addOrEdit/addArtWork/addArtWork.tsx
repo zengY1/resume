@@ -1,7 +1,8 @@
 import Taro, { Component, Config } from '@tarojs/taro'
 import { View, Text, Image, Map, Picker } from '@tarojs/components'
 import './index.scss'
-import { AtButton, AtCard, AtInput, AtForm, AtRadio, AtTimeline, AtTextarea } from 'taro-ui'
+import { AtButton, AtCard, AtInput, AtForm, AtRadio, AtTimeline, AtTextarea ,AtMessage} from 'taro-ui'
+import { imgArr } from '../../../utils/static'
 const httpUtil = require('../../../utils/httpUtil')
 interface IProps {
 
@@ -10,15 +11,16 @@ interface Istate {
     workName?: string,
     workUrl?: any,
     wid?: any,
+    imgType?: string
 }
 export default class AddArtWork extends Component<IProps, Istate> {
     constructor(props) {
         super(props)
         this.state = {
             workName: '',
-
             wid: 0,
-            workUrl: ''
+            workUrl: '',
+            imgType: '-1'
         }
     }
     config: Config = {
@@ -48,18 +50,20 @@ export default class AddArtWork extends Component<IProps, Istate> {
                 console.log('res', res)
                 that.setState({
                     workName: data.workName,
-                    workUrl: data.workUrl
+                    workUrl: data.workUrl,
+                    imgType: data.imgType
                 })
             }
         })
     }
     // 个人技能的新增
     addSkill = () => {
-        const { workUrl, workName, wid } = this.state
+        const { workUrl, workName, wid, imgType } = this.state
         const options = {
             workUrl,
             workName,
-            wid: ''
+            wid: '',
+            imgType
         }
         if (workUrl == '') {
             Taro.atMessage({
@@ -70,6 +74,13 @@ export default class AddArtWork extends Component<IProps, Istate> {
         } else if (workName == '') {
             Taro.atMessage({
                 'message': '作品的名称不能为空！',
+                'type': 'error',
+            })
+            return
+        }
+        else if (imgType == '-1') {
+            Taro.atMessage({
+                'message': '作品的类型不能为空！',
                 'type': 'error',
             })
             return
@@ -119,14 +130,26 @@ export default class AddArtWork extends Component<IProps, Istate> {
             workUrl: data
         })
     }
-
+    // 类型
+    onImgTypeChange = (data) => {
+        this.setState({
+            imgType: data.detail.value
+        })
+    }
     render() {
-        const { workName, workUrl } = this.state
+        const { workName, workUrl, imgType } = this.state
         return (
             <View>
+                 <AtMessage />
                 <AtCard
                     title='新增的skill'>
                     <AtForm>
+                        <View className='form-item'>
+                            <View className='label'>类型</View>
+                            <Picker mode='selector' range={imgArr} onChange={this.onImgTypeChange}>
+                                <View className='content'>{imgType == '-1' ? '请选择' : imgArr[imgType]}</View>
+                            </Picker>
+                        </View>
                         <AtInput
                             name='work'
                             border={true}

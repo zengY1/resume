@@ -1,7 +1,7 @@
 import Taro, { Component, Config } from '@tarojs/taro'
 import { View, Text, Image, Map, Picker } from '@tarojs/components'
 import './index.scss'
-import { AtButton, AtCard, AtInput, AtForm, AtRadio, AtTimeline, AtTextarea } from 'taro-ui'
+import { AtButton, AtCard, AtInput, AtForm, AtRadio, AtTimeline, AtTextarea,AtMessage } from 'taro-ui'
 const httpUtil = require('../../../utils/httpUtil')
 interface IProps {
 
@@ -146,6 +146,7 @@ export default class AddSkill extends Component<IProps, Istate> {
         const { skillDsc, skillName, skillList, skillPickValue } = this.state
         return (
             <View>
+                 <AtMessage />
                 <AtCard
                     title='新增的skill'>
                     <AtForm>
