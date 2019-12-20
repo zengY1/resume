@@ -21,8 +21,8 @@ class App extends Component {
   config: Config = {
     pages: [
       'pages/index/index',
-      'pages/user/user',
       'pages/map/map',
+      'pages/shareResume/shareResume',
       'pages/myPage/phone/index',
       'pages/addOrEdit/addTimeLine/addTimeLine',
       'pages/addOrEdit/addItem/addItem',

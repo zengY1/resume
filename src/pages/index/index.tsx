@@ -4,6 +4,7 @@ import './index.scss'
 import { AtButton, AtCard, AtTabBar } from 'taro-ui'
 import First from '../first/index'
 import My from '../my/my'
+import User from '../second/second'
 const httpUtil = require('../../utils/httpUtil')
 interface IProps {
 
@@ -43,10 +44,10 @@ export default class Index extends Component<IProps, Istate> {
 
   componentDidMount() {
     const params = this.$router.params
-    const tab = parseInt(params.tab) 
-    if(tab){
+    const tab = parseInt(params.tab)
+    if (tab) {
       this.setState({
-        current:tab
+        current: tab
       })
     }
   }
@@ -79,7 +80,7 @@ export default class Index extends Component<IProps, Istate> {
     return (
       <View>
         {
-          current === 0 ? <First /> : current === 1 ? '' : <My />
+          current === 0 ? <First /> : current === 1 ? <User /> : <My />
         }
 
         <AtTabBar fixed={true}

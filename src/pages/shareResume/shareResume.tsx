@@ -14,7 +14,7 @@ interface Istate {
   skillList?: any,
   workList?: any
 }
-export default class First extends Component<IProps, Istate> {
+export default class ShareResume extends Component<IProps, Istate> {
   constructor(props) {
     super(props)
     this.state = {
@@ -39,18 +39,23 @@ export default class First extends Component<IProps, Istate> {
   componentWillMount() { }
 
   componentDidMount() {
-    this.getResumeInfo()
-    this.getResumeSchool()
-    this.getResumeCompany()
-    this.getResumeSkill()
-    this.getResumeArtWork()
+    const params = this.$router.params
+    const uid=params.uid?1:1
+    if(uid){
+    this.getResumeInfo(uid)
+    this.getResumeSchool(uid)
+    this.getResumeCompany(uid)
+    this.getResumeSkill(uid)
+    this.getResumeArtWork(uid)
+    }
   }
   // 获取简历的用户信息
-  getResumeInfo = () => {
+  getResumeInfo = (uid) => {
     const that = this
     httpUtil.request({
-      url: '/info/get',
+      url: '/info/get/share',
       method: 'GET',
+      data:{uid},
       success(res) {
         if (res.data) {
           that.setState({
@@ -61,11 +66,12 @@ export default class First extends Component<IProps, Istate> {
     })
   }
   //获取学历信息
-  getResumeSchool = () => {
+  getResumeSchool = (uid) => {
     const that = this
     httpUtil.request({
-      url: '/school/list',
+      url: '/school/list/share',
       method: 'GET',
+      data:{uid},
       success(res) {
         let list = res.data
         list.sort(function (a, b) {
@@ -80,11 +86,12 @@ export default class First extends Component<IProps, Istate> {
     })
   }
   // 获取工作信息
-  getResumeCompany = () => {
+  getResumeCompany = (uid) => {
     const that = this
     httpUtil.request({
-      url: '/company/list',
+      url: '/company/list/share',
       method: 'GET',
+      data:{uid},
       success(res) {
         const timeLineArr = res.data
         timeLineArr.sort(function (a, b) {
@@ -100,10 +107,11 @@ export default class First extends Component<IProps, Istate> {
     })
   }
   // 获取个人技能
-  getResumeSkill = () => {
+  getResumeSkill = (uid) => {
     const that = this
     httpUtil.request({
-      url: '/skill/list',
+      url: '/skill/list/share',
+      data:{uid},
       success(res) {
         if (res.errorCode == '00000') {
           let list = res.data
@@ -118,10 +126,11 @@ export default class First extends Component<IProps, Istate> {
     })
   }
   // 获取个人作品
-  getResumeArtWork = () => {
+  getResumeArtWork = (uid) => {
     const that = this
     httpUtil.request({
-      url: '/work/list',
+      url: '/work/list/share',
+      data:{uid},
       success(res) {
         if (res.errorCode == '00000') {
           let list = res.data

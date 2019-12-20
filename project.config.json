@@ -84,6 +84,13 @@
 					"pathName": "pages/addOrEdit/addUserInfo/addUserInfo",
 					"query": "",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/shareResume/shareResume",
+					"pathName": "pages/shareResume/shareResume",
+					"query": "",
+					"scene": null
 				}
 			]
 		}
