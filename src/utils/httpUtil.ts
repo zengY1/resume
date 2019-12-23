@@ -1,5 +1,5 @@
 import Taro from '@tarojs/taro'
-const baseUrl = 'http://47.111.147.57:9090'
+const baseUrl = 'https://wx.znike.top'
 // const baseUrl = 'http://localhost:9090'
 
 function request(resquestHeader) {

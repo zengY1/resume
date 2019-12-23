@@ -63,7 +63,7 @@ export default class Index extends Component<IProps, Istate> {
     if (data === 0) {
       navigationBarTitleText = '首页'
     } else if (data === 1) {
-      navigationBarTitleText = 'My'
+      navigationBarTitleText = '个人中心'
     } else {
       navigationBarTitleText = '我的'
     }
@@ -80,14 +80,13 @@ export default class Index extends Component<IProps, Istate> {
     return (
       <View>
         {
-          current === 0 ? <First /> : current === 1 ? <User /> : <My />
+          current === 0 ? <First /> : <My />
         }
 
         <AtTabBar fixed={true}
           tabList={[
-            { title: 'demo', iconType: 'bullet-list', text: 'new' },
-            { title: 'demo1', iconType: 'camera' },
-            { title: 'demo2', iconType: 'folder', text: '100', max: 99 }
+            { title: '首页', iconType: 'bullet-list' },
+            { title: '个人中心', iconType: 'folder'}
           ]}
           onClick={this.handleTabTest}
           current={this.state.current}

@@ -142,7 +142,7 @@ export default class TimeLine extends Component<IProps, Istate> {
                         }
                     </View>
                 </AtCard>
-                <View className='bottomBtn'><AtButton onClick={this.addTimeLine} type="primary">新增工作经历</AtButton></View>
+                <View className='bottomBtn'><AtButton onClick={this.addTimeLine} circle type="primary">新增工作经历</AtButton></View>
             </View>
         )
     }

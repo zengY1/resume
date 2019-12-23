@@ -39,11 +39,14 @@ export default class First extends Component<IProps, Istate> {
   componentWillMount() { }
 
   componentDidMount() {
-    this.getResumeInfo()
-    this.getResumeSchool()
-    this.getResumeCompany()
-    this.getResumeSkill()
-    this.getResumeArtWork()
+    const user = Taro.getStorageSync('userInfo')
+    if (user) {
+      this.getResumeInfo()
+      this.getResumeSchool()
+      this.getResumeCompany()
+      this.getResumeSkill()
+      this.getResumeArtWork()
+    }
   }
   // 获取简历的用户信息
   getResumeInfo = () => {

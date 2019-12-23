@@ -17,6 +17,9 @@ export default class ArtWork extends Component<IProps, Istate> {
             workList: []
         }
     }
+    config: Config = {
+        navigationBarTitleText: '个人作品'
+    }
     componentDidShow() {
         this.getWorkList()
     }

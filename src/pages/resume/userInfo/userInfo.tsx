@@ -94,6 +94,8 @@ export default class User extends Component<IProps, Istate> {
         const { resumeInfo, buttonType } = this.state
         return (
             <View>
+                <AtCard
+                    title='个人信息' className='card'>
                 {
                      buttonType === 'edit' ? <View className='item'>
                      <View className='infoItem'>
@@ -130,13 +132,15 @@ export default class User extends Component<IProps, Istate> {
                      </View>
                  </View>:<View className='empty'>暂无信息！</View>
                 }
-               
+                </AtCard>
+                <View className='bottomBtn'>
                 {
                     buttonType === 'edit' ? <View className='buttonGroup'>
                         <AtButton circle type="primary" onClick={this.goToAddPage} className='addBtn'>编辑个人信息</AtButton>
                         <AtButton circle onClick={this.delUserInfo} className='delBtn'>删除个人信息</AtButton>
                     </View> : <View className='oneBtn'><AtButton circle type="primary" onClick={this.goToAddPage} >新增个人信息</AtButton></View>
                 }
+                </View>
             </View>
         )
     }

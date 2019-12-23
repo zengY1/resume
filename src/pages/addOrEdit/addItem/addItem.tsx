@@ -17,6 +17,7 @@ interface Istate {
     iid?: any,
     companyList?: any,
     companyPickValue?: string,
+    cardTitle?:string
 
 
 }
@@ -29,15 +30,16 @@ export default class TimeLine extends Component<IProps, Istate> {
             beginDate: '',
             overDate: '',
             cid: 0,
-            itemDsc: '项目的描述，这是什么项目，是用来干什么用的',
-            workDsc: '我的分工 我在这项目中扮演着什么角色 负责什么模块',
+            itemDsc: '',
+            workDsc: '',
             iid: 0,
             companyList: [],
-            companyPickValue: ''
+            companyPickValue: '',
+            cardTitle: '新增项目经验',
         }
     }
     config: Config = {
-        navigationBarTitleText: 'addItem'
+        navigationBarTitleText: '新增项目经验'
     }
     componentDidMount() {
         const params = this.$router.params
@@ -45,6 +47,12 @@ export default class TimeLine extends Component<IProps, Istate> {
         const iid = params.iid
         if (iid) {
             this.getItemInfoByIid(iid)
+            Taro.setNavigationBarTitle({
+                title: '编辑项目经验'
+            })
+            this.setState({
+                cardTitle:'编辑项目经验'
+            })
         }
         this.getCompanyListByUid()
         this.setState({
@@ -153,7 +161,7 @@ export default class TimeLine extends Component<IProps, Istate> {
     }
     // item的提交
     addItem = () => {
-        const { iid, workDsc, itemDsc, itemName, postName, beginDate, overDate, cid } = this.state
+        const { iid, workDsc, itemDsc, itemName, postName, beginDate, overDate, cid, } = this.state
         if (itemName == '') {
             Taro.atMessage({
                 'message': '项目的名称不能为空！',
@@ -241,13 +249,13 @@ export default class TimeLine extends Component<IProps, Istate> {
         console.log('add', options)
     }
     render() {
-        const { workDsc, itemDsc, itemName, postName, beginDate, overDate, companyList, companyPickValue, cid } = this.state
+        const { workDsc, itemDsc, itemName, postName, beginDate, overDate, companyList, companyPickValue, cid,cardTitle } = this.state
         console.log('companyPickValue', companyPickValue)
         return (
             <View>
                  <AtMessage />
                 <AtCard
-                    title='新增的Item'>
+                    title={cardTitle}>
                     <AtForm>
                         <View className='form-item'>
                             <View className='label'>公司</View>

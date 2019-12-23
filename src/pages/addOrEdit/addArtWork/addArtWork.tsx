@@ -11,7 +11,8 @@ interface Istate {
     workName?: string,
     workUrl?: any,
     wid?: any,
-    imgType?: string
+    imgType?: string,
+    cardTitle?:string
 }
 export default class AddArtWork extends Component<IProps, Istate> {
     constructor(props) {
@@ -20,19 +21,24 @@ export default class AddArtWork extends Component<IProps, Istate> {
             workName: '',
             wid: 0,
             workUrl: '',
-            imgType: '-1'
+            imgType: '-1',
+            cardTitle:'新增个人作品'
         }
     }
     config: Config = {
-        navigationBarTitleText: 'addskill'
+        navigationBarTitleText: '新增个人作品'
     }
     componentDidMount() {
         const params = this.$router.params
         const wid = params.wid
         if (wid) {
             this.getSkillBySid(wid)
+            Taro.setNavigationBarTitle({
+                title: '编辑个人技能'
+            })
             this.setState({
-                wid: wid
+                wid: wid,
+                cardTitle:'编辑个人技能'
             })
         }
 
@@ -137,12 +143,12 @@ export default class AddArtWork extends Component<IProps, Istate> {
         })
     }
     render() {
-        const { workName, workUrl, imgType } = this.state
+        const { workName, workUrl, imgType ,cardTitle} = this.state
         return (
             <View>
                  <AtMessage />
                 <AtCard
-                    title='新增的skill'>
+                    title={cardTitle}>
                     <AtForm>
                         <View className='form-item'>
                             <View className='label'>类型</View>

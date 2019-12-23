@@ -17,6 +17,9 @@ export default class ResumeItem extends Component<IProps, Istate> {
             itemList: []
         }
     }
+    config: Config = {
+        navigationBarTitleText: '项目经验'
+    }
     goToAddItem = () => {
         Taro.navigateTo({ url: `/pages/addOrEdit/addItem/addItem` })
     }
@@ -70,7 +73,7 @@ export default class ResumeItem extends Component<IProps, Istate> {
         return (
             <View>
                 <AtCard
-                    title='项目经历' className='card'>
+                    title='项目经验' className='card'>
                     {itemList.length > 0 ? itemList.map((item, index) => {
                         return (
                             <View key={index} className='school-item'>

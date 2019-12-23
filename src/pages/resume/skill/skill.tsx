@@ -17,6 +17,9 @@ export default class Skill extends Component<IProps, Istate> {
             skillList: []
         }
     }
+    config: Config = {
+        navigationBarTitleText: '个人技能'
+    }
     componentDidShow() {
         this.getSkillList()
     }
@@ -82,7 +85,9 @@ export default class Skill extends Component<IProps, Istate> {
                 <AtCard
                     title='个人技能' className='card'>
                     <View>
-                        <View className='secord-title'>技能标签</View>
+                        {
+                            skillList.length > 0 ? <View className='secord-title'>技能标签</View> : ''
+                        }
                         <View className='tag-content'>
                             {
                                 skillList.length > 0 ? skillList.map((item, index) => {
@@ -106,7 +111,9 @@ export default class Skill extends Component<IProps, Istate> {
                         </View>
                     </View>
                     <View className='skill-list'>
-                        <View className='secord-title'>技能列表</View>
+                        {
+                            skillList.length > 0 ? <View className='secord-title'>技能列表</View> : ''
+                        }
                         {skillList.length > 0 ? skillList.map((item, index) => {
                             return (
                                 <View key={index} className='school-item' key={index}>

@@ -29,7 +29,7 @@ export default class AddSchool extends Component<IProps, Istate> {
             projectName: '',
             beginDate: '',
             overDate: '',
-            schoolDsc: '滁州学院，位于安徽省滁州市',
+            schoolDsc: '',
             address: '',
             longitude: '',
             latitude: '',

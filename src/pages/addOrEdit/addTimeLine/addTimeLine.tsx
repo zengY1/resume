@@ -31,15 +31,15 @@ export default class TimeLine extends Component<IProps, Istate> {
             latitude: 0,
             longitude: 0,
             address: '',
-            companyName: '这是第二家公司',
-            postName: '开发',
-            salary: '7777',
-            beginDate: '2019-12-01',
-            overDate: '2019-12-05',
+            companyName: '',
+            postName: '',
+            salary: '',
+            beginDate: '',
+            overDate: '',
             timeLineArr: [],
             cid: 0,
-            companyDsc: '1111',
-            workDsc: '1111',
+            companyDsc: '',
+            workDsc: '',
             cardTitle:'新增工作经历'
         }
     }
@@ -266,9 +266,9 @@ export default class TimeLine extends Component<IProps, Istate> {
                         <AtInput
                             name='salary'
                             border={true}
-                            title='价格'
+                            title='在职薪资'
                             type='text'
-                            placeholder='价格'
+                            placeholder='在职薪资'
                             value={salary}
                             onChange={(data) => this.changeSalary(data)}
                         />

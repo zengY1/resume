@@ -13,6 +13,7 @@ interface Istate {
     sid?: any,
     skillList?: any,
     skillPickValue?: string,
+    cardTitle?:string
 
 
 }
@@ -22,14 +23,15 @@ export default class AddSkill extends Component<IProps, Istate> {
         this.state = {
             skillName: '',
             cid: 0,
-            skillDsc: '项目的描述，这是什么项目，是用来干什么用的',
+            skillDsc: '',
             sid: 0,
             skillList: ['精通', '掌握', '熟悉', '了解', '其他'],
-            skillPickValue: ''
+            skillPickValue: '',
+            cardTitle:'新增个人技能'
         }
     }
     config: Config = {
-        navigationBarTitleText: 'addskill'
+        navigationBarTitleText: '新增个人技能'
     }
     componentDidMount() {
         const params = this.$router.params
@@ -37,8 +39,12 @@ export default class AddSkill extends Component<IProps, Istate> {
         console.log('sid', sid, params)
         if (sid) {
             this.getSkillBySid(sid)
+            Taro.setNavigationBarTitle({
+                title: '编辑个人技能'
+            })
             this.setState({
-                sid: sid
+                sid: sid,
+                cardTitle:'编辑个人技能'
             })
         }
 
@@ -143,12 +149,12 @@ export default class AddSkill extends Component<IProps, Istate> {
         })
     }
     render() {
-        const { skillDsc, skillName, skillList, skillPickValue } = this.state
+        const { skillDsc, skillName, skillList, skillPickValue,cardTitle } = this.state
         return (
             <View>
                  <AtMessage />
                 <AtCard
-                    title='新增的skill'>
+                    title={cardTitle}>
                     <AtForm>
                         <AtInput
                             name='skill'

@@ -1,6 +1,9 @@
 .item{
     // box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+.card{
+    margin-bottom: 160rpx;
+}
 .infoItem{
     display: flex;
     margin: 20rpx;
@@ -36,4 +39,12 @@
     justify-content: center;
     align-items: center;
     color:rgba(7, 17, 27, 0.3)
+}
+.bottomBtn{
+    width: 94%;
+    position: fixed;
+    bottom: 0;
+    background-color: white;
+    padding: 10rpx 20rpx 40rpx 20rpx;
+    
 }
