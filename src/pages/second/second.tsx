@@ -55,7 +55,7 @@ export default class User extends Component<IProps, Istate> {
   // 测试页面 uid为1
   onTestUid = () => {
     Taro.navigateTo({
-      url: `/pages/shareResume/shareResume?uid=1`
+      url: `/pages/shareResume/shareResume?uid=2`
     })
   }
   // 分享按钮
@@ -100,6 +100,9 @@ export default class User extends Component<IProps, Istate> {
       <View>
         <View className='item'>
           <AtButton onClick={this.onTestUid} type="primary">测试查看分享uid</AtButton>
+        </View>
+        <View className='item'>
+          <AtButton openType='share' type="primary">分享uid</AtButton>
         </View>
         <View className='item'>
           <AtButton type="primary" onClick={this.onResumeShare}>分享操作</AtButton>

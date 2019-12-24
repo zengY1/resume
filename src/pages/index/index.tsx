@@ -40,7 +40,14 @@ export default class Index extends Component<IProps, Istate> {
    */
 
 
-  componentWillMount() { }
+  componentWillMount() {
+    const params = this.$router.params
+    if (params.shareType == 'uid') {
+      Taro.navigateTo({
+        url: `/pages/shareResume/shareResume?uid=${params.uid}`
+      })
+    }
+  }
 
   componentDidMount() {
     const params = this.$router.params
@@ -53,8 +60,8 @@ export default class Index extends Component<IProps, Istate> {
   }
 
   componentWillUnmount() { }
-
-  componentDidShow() { }
+  componentDidShow() {
+  }
 
   componentDidHide() { }
   handleTabTest = (data) => {
@@ -72,6 +79,23 @@ export default class Index extends Component<IProps, Istate> {
       navigationBarTitleText: navigationBarTitleText
     })
   }
+  onShareAppMessage() {
+    const userInfo = Taro.getStorageSync('userInfo')
+    if (userInfo) {
+      return {
+        title: '个人简历信息',
+        path: `/pages/index/index?shareType=uid&uid=${userInfo.id}`,
+        success: function () {
+          console.log('成功！')
+        },
+        fail: function () {
+          console.log('失败！')
+        }
+      }
+    } else {
+
+    }
+  }
   render() {
     const { current, navigationBarTitleText } = this.state
     Taro.setNavigationBarTitle({
@@ -86,7 +110,8 @@ export default class Index extends Component<IProps, Istate> {
         <AtTabBar fixed={true}
           tabList={[
             { title: '首页', iconType: 'bullet-list' },
-            { title: '个人中心', iconType: 'folder'}
+            // { title: '测试', iconType: 'bullet-list' },
+            { title: '个人中心', iconType: 'folder' }
           ]}
           onClick={this.handleTabTest}
           current={this.state.current}

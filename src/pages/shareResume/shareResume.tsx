@@ -40,13 +40,13 @@ export default class ShareResume extends Component<IProps, Istate> {
 
   componentDidMount() {
     const params = this.$router.params
-    const uid=params.uid?1:1
-    if(uid){
-    this.getResumeInfo(uid)
-    this.getResumeSchool(uid)
-    this.getResumeCompany(uid)
-    this.getResumeSkill(uid)
-    this.getResumeArtWork(uid)
+    const uid = params.uid || 2
+    if (uid) {
+      this.getResumeInfo(uid)
+      this.getResumeSchool(uid)
+      this.getResumeCompany(uid)
+      this.getResumeSkill(uid)
+      this.getResumeArtWork(uid)
     }
   }
   // 获取简历的用户信息
@@ -55,7 +55,7 @@ export default class ShareResume extends Component<IProps, Istate> {
     httpUtil.request({
       url: '/info/get/share',
       method: 'GET',
-      data:{uid},
+      data: { uid },
       success(res) {
         if (res.data) {
           that.setState({
@@ -71,7 +71,7 @@ export default class ShareResume extends Component<IProps, Istate> {
     httpUtil.request({
       url: '/school/list/share',
       method: 'GET',
-      data:{uid},
+      data: { uid },
       success(res) {
         let list = res.data
         list.sort(function (a, b) {
@@ -91,7 +91,7 @@ export default class ShareResume extends Component<IProps, Istate> {
     httpUtil.request({
       url: '/company/list/share',
       method: 'GET',
-      data:{uid},
+      data: { uid },
       success(res) {
         const timeLineArr = res.data
         timeLineArr.sort(function (a, b) {
@@ -111,7 +111,7 @@ export default class ShareResume extends Component<IProps, Istate> {
     const that = this
     httpUtil.request({
       url: '/skill/list/share',
-      data:{uid},
+      data: { uid },
       success(res) {
         if (res.errorCode == '00000') {
           let list = res.data
@@ -130,7 +130,7 @@ export default class ShareResume extends Component<IProps, Istate> {
     const that = this
     httpUtil.request({
       url: '/work/list/share',
-      data:{uid},
+      data: { uid },
       success(res) {
         if (res.errorCode == '00000') {
           let list = res.data
@@ -155,6 +155,25 @@ export default class ShareResume extends Component<IProps, Istate> {
             })
           }
         })
+      }
+    })
+  }
+  // 打电话功能
+  callMobile = () => {
+    const { resumeInfo } = this.state
+    const mobile = resumeInfo.mobile
+    Taro.showModal({
+      title: '拨打电话！',
+      content: mobile,
+      success(res) {
+        if (res.confirm) {
+          Taro.makePhoneCall({
+            phoneNumber: mobile
+          })
+        }
+        else {
+
+        }
       }
     })
   }
@@ -315,7 +334,9 @@ export default class ShareResume extends Component<IProps, Istate> {
         {
           Object.keys(resumeInfo).length < 1 ? <View className='empty'>简历待完善！</View> : ''
         }
-
+        <View className='bottomBtn'>
+          <AtButton circle onClick={this.callMobile} type='primary'>立即联系</AtButton>
+        </View>
       </View>
     )
   }

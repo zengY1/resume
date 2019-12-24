@@ -304,6 +304,9 @@ export default class First extends Component<IProps, Istate> {
                 }
               </View>
             </AtCard>
+            <View className='bottomBtn'>
+              <AtButton openType='share' circle type="primary">分享我的简历</AtButton>
+            </View>
           </View> : ''
         }
         {

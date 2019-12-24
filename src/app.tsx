@@ -43,7 +43,7 @@ class App extends Component {
     window: {
       backgroundTextStyle: 'light',
       navigationBarBackgroundColor: '#fff',
-      navigationBarTitleText: '是微信吗？',
+      navigationBarTitleText: 'My简历',
       navigationBarTextStyle: 'black'
     },
     permission: {
@@ -55,7 +55,10 @@ class App extends Component {
 
   componentDidMount() { }
 
-  componentDidShow() { }
+  componentDidShow() {
+    const a=Taro.getSystemInfoSync()
+    console.log('app',a)
+   }
 
   componentDidHide() { }
 

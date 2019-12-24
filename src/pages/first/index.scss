@@ -1,7 +1,7 @@
 .wrapper {
   background-color: #F0F1F6;
   min-height: 100vh;
-  padding-bottom: 140rpx;
+  padding-bottom: 240rpx;
   padding-top: 10rpx;
 
   .fist-card {
@@ -167,5 +167,13 @@
     justify-content: center;
     align-items: center;
     color:rgba(7, 17, 27, 0.3)
+}
+.bottomBtn {
+  width: 94%;
+  position: fixed;
+  bottom: 90rpx;
+  background-color: white;
+  padding: 10rpx 20rpx 40rpx 20rpx;
+
 }
 }
