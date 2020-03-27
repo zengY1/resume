@@ -53,7 +53,6 @@ export default class ResumeCard extends Component<IProps, Istate> {
     }
 
     componentDidShow() {
-        this.drawBall()
     }
     // 爬虫获取tip
     getOneTip = () => {
@@ -66,6 +65,7 @@ export default class ResumeCard extends Component<IProps, Istate> {
                 that.setState({
                     tip: res.oneTips
                 })
+                that.drawBall(res.oneTips)
             }
         })
     }
@@ -103,18 +103,18 @@ export default class ResumeCard extends Component<IProps, Istate> {
         })
     }
     // canvas绘制
-    drawBall() {
+    drawBall(tip) {
         const query = Taro.createSelectorQuery()
         const that = this
         query.select('#mycanvas')
             .fields({ node: true, size: true })
             .exec((res) => {
-                that.testDraw(res)
+                that.testDraw(res, tip)
             })
 
     }
-    testDraw = (res) => {
-        const { codeImgUrl, cardInfo, tip } = this.state
+    testDraw = (res, tip) => {
+        const { codeImgUrl, cardInfo } = this.state
         const name = cardInfo.name
         const post = cardInfo.post
         const mobile = cardInfo.mobile
