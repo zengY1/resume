@@ -1,5 +1,5 @@
 import Taro, { Component, Config } from '@tarojs/taro'
-import { View, Text, Image } from '@tarojs/components'
+import { View, Text, Image, Canvas } from '@tarojs/components'
 import './index.scss'
 import { AtButton, AtCard, AtInput, AtForm, AtImagePicker } from 'taro-ui'
 const httpUtil = require('../../utils/httpUtil')
@@ -64,8 +64,8 @@ export default class User extends Component<IProps, Istate> {
     httpUtil.request({
       url: '/wx/code',
       success(res) {
-       
-        const codeImg =res
+
+        const codeImg = res
         console.log(codeImg)
         that.setState({
           codeImgUrl: codeImg
@@ -94,6 +94,12 @@ export default class User extends Component<IProps, Istate> {
   imageClick = (data) => {
     console.log('image', data)
   }
+  // canvas 生成图片
+  onCanvasImage = () => {
+    Taro.navigateTo({
+      url: `/pages/resumeCard/resumeCard`
+    })
+  }
   render() {
     const { files, codeImgUrl } = this.state
     return (
@@ -105,9 +111,12 @@ export default class User extends Component<IProps, Istate> {
           <AtButton openType='share' type="primary">分享uid</AtButton>
         </View>
         <View className='item'>
-          <AtButton type="primary" onClick={this.onResumeShare}>分享操作</AtButton>
+          <AtButton type="primary" onClick={this.onResumeShare}>获取小程序码</AtButton>
         </View>
-        <Image src='https://wx-resume.oss-cn-hangzhou.aliyuncs.com/codeImg/location.png' />
+        <View className='item'>
+          <AtButton type="primary" onClick={this.onCanvasImage}>生成名片</AtButton>
+        </View>
+        {/* <Image src='https://wx-resume.oss-cn-hangzhou.aliyuncs.com/codeImg/location.png' /> */}
         <View className='item'>
           <AtImagePicker
             files={files}
@@ -115,7 +124,12 @@ export default class User extends Component<IProps, Istate> {
             onImageClick={this.imageClick}
           />
         </View>
+        <View className="canvas-box">
+          <Canvas canvasId="myCanvas" style='width: 300px; height: 200px;' type="2d" />
+        </View>
+        <View>{codeImgUrl}</View>
         <Image src={codeImgUrl} />
+
       </View>
     )
   }

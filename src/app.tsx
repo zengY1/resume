@@ -38,7 +38,8 @@ class App extends Component {
       'pages/resume/skill/skill',
       'pages/resume/artWork/artWork',
       'pages/resume/schoolInfo/schoolInfo',
-      'pages/resume/skillList/skillList'
+      'pages/resume/skillList/skillList',
+      'pages/resumeCard/resumeCard'
     ],
     window: {
       backgroundTextStyle: 'light',

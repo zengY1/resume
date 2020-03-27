@@ -1,7 +1,7 @@
 import Taro, { Component, Config } from '@tarojs/taro'
-import { View, Text, Image, Map, Picker } from '@tarojs/components'
+import { View, Picker } from '@tarojs/components'
 import './index.scss'
-import { AtButton, AtCard, AtInput, AtForm, AtRadio, AtTimeline, AtTextarea,AtMessage } from 'taro-ui'
+import { AtButton, AtCard, AtInput, AtForm, AtTextarea,AtMessage } from 'taro-ui'
 const httpUtil = require('../../../utils/httpUtil')
 interface IProps {
 
@@ -102,7 +102,7 @@ export default class AddSkill extends Component<IProps, Istate> {
                 url: '/skill/edit',
                 method: 'POST',
                 data: options,
-                success(res) {
+                success() {
                     Taro.navigateBack()
                     Taro.showToast({
                         title: '编辑成功！',

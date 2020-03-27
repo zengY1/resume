@@ -1,7 +1,7 @@
 import Taro, { Component, Config } from '@tarojs/taro'
 import { View, Text, Image, Button } from '@tarojs/components'
 import './my.scss'
-import { AtButton, AtCard, AtTabBar, AtModal, AtModalHeader, AtModalContent, AtModalAction } from 'taro-ui'
+import { AtButton, AtList, AtListItem, AtModal, AtModalHeader, AtModalContent, AtModalAction } from 'taro-ui'
 const httpUtil = require('../../utils/httpUtil')
 interface IProps {
 
@@ -11,7 +11,8 @@ interface Istate {
   getUserInfo?: any,
   phoneModalVisible?: boolean,
   current?: number,
-  loginOutModal?: boolean
+  loginOutModal?: boolean,
+  contactModal?: boolean
 }
 export default class My extends Component<IProps, Istate> {
   constructor(props) {
@@ -20,7 +21,8 @@ export default class My extends Component<IProps, Istate> {
       getUserInfo: {},
       phoneModalVisible: false,
       current: 1,
-      loginOutModal: false
+      loginOutModal: false,
+      contactModal: false
     }
   }
   /**
@@ -92,11 +94,46 @@ export default class My extends Component<IProps, Istate> {
       }
     })
   }
+  // 预览我的简历
+  goToView = () => {
+    httpUtil.request({
+      url: '/info/uid',
+      method: 'post',
+      success(res) {
+        if (res.errorCode == '00000') {
+          const uid = res.data.uid
+          Taro.navigateTo({
+            url: `/pages/shareResume/shareResume?uid=${uid}`
+          })
+        } else {
+
+        }
+
+      }
+    })
+
+  }
+  // 生成简历图片
+  goToResumeCard = () => {
+    Taro.navigateTo({
+      url: `/pages/resumeCard/resumeCard`
+    })
+  }
+  // 联系客服
+  goToAdmin = () => {
+    this.setState({
+      contactModal: true
+    })
+  }
+  contactOk = (e) => {
+    console.log('e', e)
+  }
   // model的取消
   cancelModal = () => {
     this.setState({
       phoneModalVisible: false,
-      loginOutModal: false
+      loginOutModal: false,
+      contactModal: false
     })
   }
   // modal的确定
@@ -121,32 +158,32 @@ export default class My extends Component<IProps, Istate> {
   goToPage = (page) => {
     if (page === 1) {
       Taro.navigateTo({
-        url:'/pages/resume/userInfo/userInfo'
+        url: '/pages/resume/userInfo/userInfo'
       })
     } else if (page === 2) {
       Taro.navigateTo({
-        url:'/pages/resume/school/school'
+        url: '/pages/resume/school/school'
       })
-    }else if (page === 3) {
+    } else if (page === 3) {
       Taro.navigateTo({
-        url:'/pages/resume/timeLine/timeLine'
+        url: '/pages/resume/timeLine/timeLine'
       })
-    }else if (page === 4) {
+    } else if (page === 4) {
       Taro.navigateTo({
-        url:'/pages/resume/resume-item/resumeItem'
+        url: '/pages/resume/resume-item/resumeItem'
       })
-    }else if (page === 5) {
+    } else if (page === 5) {
       Taro.navigateTo({
-        url:'/pages/resume/skill/skill'
+        url: '/pages/resume/skill/skill'
       })
-    }else if (page === 6) {
+    } else if (page === 6) {
       Taro.navigateTo({
-        url:'/pages/resume/artWork/artWork'
+        url: '/pages/resume/artWork/artWork'
       })
     }
   }
   render() {
-    const { getUserInfo, phoneModalVisible, loginOutModal } = this.state
+    const { getUserInfo, phoneModalVisible, loginOutModal, contactModal } = this.state
     console.log('modalVisible', getUserInfo)
     return (
       <View className='page'>
@@ -173,44 +210,47 @@ export default class My extends Component<IProps, Istate> {
           <View className='main'>
             <View className='card'>
               <View className='item' onClick={() => this.goToPage(1)}>
-                <Image className='item-img' src='../../img/my/mine_icon_jiayouzhan_3x.png'></Image>
+                <Image className='item-img' src='../../img/my/user.png'></Image>
                 <Text className='item-name'>个人信息</Text>
               </View>
 
               <View className='item' onClick={() => this.goToPage(2)}>
-                <Image className='item-img' src='../../img/my/mine_icon_jiayouzhan_3x.png'></Image>
+                <Image className='item-img' src='../../img/my/school.png'></Image>
                 <Text className='item-name'>学历信息</Text>
               </View>
 
               <View className='item' onClick={() => this.goToPage(3)}>
-                <Image className='item-img' src='../../img/my/mine_icon_jiayouzhan_3x.png'></Image>
+                <Image className='item-img' src='../../img/my/work.png'></Image>
                 <Text className='item-name'>工作经历</Text>
               </View>
               <View className='item' onClick={() => this.goToPage(4)}>
-                <Image className='item-img' src='../../img/my/mine_icon_jiayouzhan_3x.png'></Image>
+                <Image className='item-img' src='../../img/my/item.png'></Image>
                 <Text className='item-name'>项目经验</Text>
               </View>
               <View className='item' onClick={() => this.goToPage(5)}>
-                <Image className='item-img' src='../../img/my/mine_icon_jiayouzhan_3x.png'></Image>
+                <Image className='item-img' src='../../img/my/skill.png'></Image>
                 <Text className='item-name'>个人技能</Text>
               </View>
               <View className='item' onClick={() => this.goToPage(6)}>
-                <Image className='item-img' src='../../img/my/mine_icon_jiayouzhan_3x.png'></Image>
+                <Image className='item-img' src='../../img/my/art.png'></Image>
                 <Text className='item-name'>个人作品</Text>
               </View>
-              {/* <View className='item' >
-                <Image className='item-img' src='../../img/my/mine_icon_jiayouzhan_3x.png'></Image>
-                <Text className='item-name'>联系客服</Text>
-              </View> */}
             </View>
-
+            <View className='main-list'>
+              <AtList>
+                <AtListItem title='预览简历' arrow='right' onClick={this.goToView} />
+                <AtListItem title='简历名片' arrow='right' onClick={this.goToResumeCard} />
+                <AtListItem title='联系客服' arrow='right' onClick={this.goToAdmin} />
+              </AtList>
+            </View>
           </View>
+
         </View>
         {/* 手机号的提示框 */}
         <AtModal isOpened={phoneModalVisible}>
           <AtModalHeader>绑定手机号</AtModalHeader>
           <AtModalContent>
-            <View>
+            <View className="modal-content">
               <View>绑定的手机号将用于web端的登陆和拨打电话的功能</View>
             </View>
           </AtModalContent>
@@ -220,11 +260,21 @@ export default class My extends Component<IProps, Istate> {
         <AtModal isOpened={loginOutModal}>
           <AtModalHeader>退出登录</AtModalHeader>
           <AtModalContent>
-            <View>
+            <View className="modal-content">
               <View>是否退出当前用户的登陆？</View>
             </View>
           </AtModalContent>
           <AtModalAction> <Button onClick={this.cancelModal}>取消</Button> <Button onClick={this.loginOutOk}>确定</Button> </AtModalAction>
+        </AtModal>
+        {/* 联系客服的提示 */}
+        <AtModal isOpened={contactModal}>
+          <AtModalHeader>联系客服</AtModalHeader>
+          <AtModalContent>
+            <View className="modal-content">
+              <View>是否进入客服会话？</View>
+            </View>
+          </AtModalContent>
+          <AtModalAction> <Button onClick={this.cancelModal}>取消</Button> <Button onClick={this.contactOk} openType="contact">确定</Button> </AtModalAction>
         </AtModal>
       </View>
     )

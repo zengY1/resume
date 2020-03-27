@@ -2,7 +2,7 @@ import Taro, { Component, Config } from '@tarojs/taro'
 import { View, Text, Image, Picker } from '@tarojs/components'
 import './index.scss'
 import { AtButton, AtCard, AtInput, AtForm, AtRadio, AtMessage } from 'taro-ui'
-import {salaryArr} from '../../../utils/static'
+import { salaryArr } from '../../../utils/static'
 const httpUtil = require('../../../utils/httpUtil')
 interface IProps {
 
@@ -25,7 +25,8 @@ interface Istate {
     editId?: number,
     address?: string,
     salary?: string,
-    salaryColumn?: any
+    salaryColumn?: any,
+    email?: string
 }
 export default class AddUserInfo extends Component<IProps, Istate> {
     constructor(props) {
@@ -45,7 +46,8 @@ export default class AddUserInfo extends Component<IProps, Istate> {
             buttonType: 'add',
             editId: 0,
             address: '',
-            salaryColumn: [[], []]
+            salaryColumn: [[], []],
+            email: ''
         }
     }
     componentDidMount() {
@@ -91,14 +93,15 @@ export default class AddUserInfo extends Component<IProps, Istate> {
                     buttonType: buttonType,
                     editId: resumeInfo.id,
                     cardTitle: '编辑',
-                    address: resumeInfo.address
+                    address: resumeInfo.address,
+                    email: resumeInfo.email
                 })
             }
         })
     }
     // 提交
     onSubmit = () => {
-        const { mobile, realName, sex, birthday, provice, city, salary, address } = this.state
+        const { mobile, realName, sex, birthday, provice, city, salary, address, email } = this.state
         if (mobile == '') {
             Taro.atMessage({
                 'message': '联系方式不能为空！',
@@ -153,7 +156,8 @@ export default class AddUserInfo extends Component<IProps, Istate> {
                 province: provice,
                 city,
                 salary: salary,
-                address
+                address,
+                email
             },
             success(res) {
                 if (res.code === '00000') {
@@ -171,6 +175,9 @@ export default class AddUserInfo extends Component<IProps, Istate> {
     }
     changeMobile = (data) => {
         this.setState({ mobile: data })
+    }
+    changeEmail = (data) => {
+        this.setState({ email: data })
     }
     changeSex = (data) => {
         this.setState({ sex: data.detail.value })
@@ -214,7 +221,7 @@ export default class AddUserInfo extends Component<IProps, Istate> {
 
     }
     render() {
-        const { mobile, realName, sex, birthday, provice, city, resumeInfo, cardTitle, selector, address, salaryColumn, salary } = this.state
+        const { mobile, realName, sex, birthday, provice, city, resumeInfo, cardTitle, selector, address, salaryColumn, salary, email } = this.state
         return (
             <View>
                 <AtMessage />
@@ -252,6 +259,15 @@ export default class AddUserInfo extends Component<IProps, Istate> {
                             placeholder='联系方式'
                             value={mobile}
                             onChange={(data) => this.changeMobile(data)}
+                        />
+                        <AtInput
+                            name='email'
+                            border={true}
+                            title='电子邮箱'
+                            type='text'
+                            placeholder='电子邮箱'
+                            value={email}
+                            onChange={(data) => this.changeEmail(data)}
                         />
                         <AtInput
                             name='address'

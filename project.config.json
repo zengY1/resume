@@ -26,7 +26,7 @@
 	"compileType": "miniprogram",
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},
-	"libVersion": "2.9.3",
+	"libVersion": "2.10.3",
 	"condition": {
 		"search": {
 			"current": -1,
@@ -90,6 +90,12 @@
 					"name": "pages/shareResume/shareResume",
 					"pathName": "pages/shareResume/shareResume",
 					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/resumeCard/resumeCard",
+					"pathName": "pages/resumeCard/resumeCard",
 					"scene": null
 				}
 			]

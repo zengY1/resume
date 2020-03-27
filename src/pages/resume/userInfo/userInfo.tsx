@@ -2,6 +2,7 @@ import Taro, { Component, Config } from '@tarojs/taro'
 import { View, Text, Image, Picker } from '@tarojs/components'
 import './index.scss'
 import { AtButton, AtCard, AtInput, AtForm, AtRadio } from 'taro-ui'
+import {dateUtil} from '../../../utils/static'
 const httpUtil = require('../../../utils/httpUtil')
 interface IProps {
 
@@ -113,6 +114,10 @@ export default class User extends Component<IProps, Istate> {
                      <View className='infoItem'>
                          <View className='infoLabel'><Text>联系方式：</Text></View>
                          <View className='infoContent'><Text>{resumeInfo.mobile}</Text></View>
+                     </View>
+                     <View className='infoItem'>
+                         <View className='infoLabel'><Text>电子邮箱：</Text></View>
+                         <View className='infoContent'><Text>{resumeInfo.email}</Text></View>
                      </View>
                      <View className='infoItem'>
                          <View className='infoLabel'><Text>居住地址：</Text></View>

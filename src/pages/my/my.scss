@@ -1,6 +1,7 @@
-.page{
+.page {
   // background-color: rgba(57, 77, 97, 0.1);
 }
+
 .container {
   position: relative;
 }
@@ -77,14 +78,23 @@
   align-self: center;
   padding: 0 50rpx;
 }
-.login_btn{
-    color: #FEFEFE;
-    border: none;
+
+.login_btn {
+  color: #FEFEFE;
+  border: none;
 }
-.main{
-  padding:30rpx 0;
+
+.main {
+  padding: 30rpx 0;
+  margin-bottom: 60rpx;
 }
-.card{
+
+.main-list {
+  margin-top: 20rpx;
+  padding-bottom: 50rpx;
+}
+
+.card {
   width: 94%;
   height: 100%;
   margin-left: 3%;
@@ -98,7 +108,7 @@
   border-radius: 4rpx;
 }
 
-.item{
+.item {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -106,15 +116,23 @@
   width: 33.33%;
   padding: 35rpx 0;
 }
-.item-img{
+
+.item-img {
   width: 64rpx;
   height: 64rpx;
 }
 
-.item-name{
+.item-name {
   padding-top: 13rpx;
   font-size: 24rpx;
   color: #666666;
   min-width: 80rpx;
   text-align: center;
+}
+
+.modal-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30rpx;
 }

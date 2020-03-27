@@ -1,0 +1,92 @@
+.resume-card {
+  background-color: rgba(7, 17, 27, 0.1);
+  height: calc(96vh);
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  padding-top: 40rpx;
+
+  .resume-canvas {
+    background-color: #fff;
+    // border: 1px solid black;
+    // padding: 20rpx;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20rpx 0;
+    width: 600rpx;
+
+    .card-name {
+      font-size: 60rpx;
+      text-align: center;
+    }
+
+    .card-main {
+      margin-top: 40rpx;
+      background-image: url('https://wx-resume.oss-cn-hangzhou.aliyuncs.com/codeImg/resume-model.jpg');
+      background-size: 100%;
+      width: 600rpx;
+      height: 400rpx;
+      // border: 1px solid red;
+
+      .main-info {
+        // border: 1px solid green;
+        margin-top: 45rpx;
+        margin-left: 140rpx;
+        font-size: 34rpx;
+        padding-left: 15rpx;
+
+        .main-post {}
+
+        .main-mobile {
+          margin-top: 80rpx;
+          margin-bottom: 80rpx;
+        }
+      }
+    }
+
+    .card-code {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      width: 100%;
+      height: 100%;
+
+      .card-code-img {
+        margin-top: 60rpx;
+        width: 164rpx;
+        height: 164rpx;
+        padding: 1rpx;
+        border: 1px solid rgba(7, 17, 27, 0.7);
+      }
+
+      .card-code-title {
+        font-size: 26rpx;
+        color: rgba(7, 17, 27, 0.7);
+      }
+    }
+
+    .card-line {
+      margin-top: 20rpx;
+      width: 100%;
+      height: 2rpx;
+      background-color: black;
+    }
+
+    .card-bottom-text {
+      margin-top: 20rpx;
+      width: 90%;
+      text-indent: 60rpx;
+    }
+  }
+
+  .card-btn {
+    width: 100%;
+    padding: 20rpx 0;
+    background-color: #fff;
+    position: fixed;
+    bottom: 0rpx;
+  }
+}

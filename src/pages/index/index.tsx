@@ -42,6 +42,7 @@ export default class Index extends Component<IProps, Istate> {
 
   componentWillMount() {
     const params = this.$router.params
+    console.log('params', params)
     if (params.shareType == 'uid') {
       Taro.navigateTo({
         url: `/pages/shareResume/shareResume?uid=${params.uid}`
@@ -104,6 +105,7 @@ export default class Index extends Component<IProps, Istate> {
     return (
       <View>
         {
+          // current === 0 ? <First /> : current === 1 ? <User /> : <My />
           current === 0 ? <First /> : <My />
         }
 

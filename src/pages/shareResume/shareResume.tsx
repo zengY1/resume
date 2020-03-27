@@ -2,7 +2,7 @@ import Taro, { Component, Config } from '@tarojs/taro'
 import { View, Text, Image } from '@tarojs/components'
 import './index.scss'
 import { AtButton, AtCard, AtTabBar, AtList, AtListItem } from 'taro-ui'
-import { records, getImgUrl } from '../../utils/static'
+import { records, getImgUrl,dateUtil } from '../../utils/static'
 const httpUtil = require('../../utils/httpUtil')
 interface IProps {
 
@@ -40,7 +40,7 @@ export default class ShareResume extends Component<IProps, Istate> {
 
   componentDidMount() {
     const params = this.$router.params
-    const uid = params.uid || 2
+    const uid = params.uid || params.scene
     if (uid) {
       this.getResumeInfo(uid)
       this.getResumeSchool(uid)
@@ -233,7 +233,7 @@ export default class ShareResume extends Component<IProps, Istate> {
                 <View>{resumeInfo.sex == '0' ? '男' : '女'}</View>
                 <View>{resumeInfo.mobile}</View>
                 <View>{resumeInfo.city}</View>
-                <View>{resumeInfo.birthday}</View>
+                <View>{dateUtil(resumeInfo.birthday)}岁</View>
               </View>
 
             </View>

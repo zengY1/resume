@@ -21,9 +21,8 @@ function request(resquestHeader) {
                     Taro.showModal({
                         title: '未登陆',
                         content: '请登陆',
-                        success(res) {
-                            console.log('modal', res)
-                            if (res.confirm) {
+                        success(resd) {
+                            if (resd.confirm) {
                                 Taro.reLaunch({
                                     url: '/pages/index/index?tab=2'
                                 })
@@ -42,8 +41,8 @@ function request(resquestHeader) {
                 Taro.showModal({
                     title: '登陆已过期',
                     content: '请重新登陆',
-                    success(res) {
-                        if (res.confirm) {
+                    success(resd) {
+                        if (resd.confirm) {
                             Taro.clearStorage()
                             Taro.reLaunch({
                                 url: '/pages/index/index?tab=2'
