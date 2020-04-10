@@ -24,6 +24,7 @@ class App extends Component {
       'pages/map/map',
       'pages/shareResume/shareResume',
       'pages/myPage/phone/index',
+      'pages/myPage/web/index',
       'pages/addOrEdit/addTimeLine/addTimeLine',
       'pages/addOrEdit/addItem/addItem',
       'pages/addOrEdit/addSchool/addSchool',

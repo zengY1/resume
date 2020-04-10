@@ -1,7 +1,7 @@
 import Taro, { Component, Config } from '@tarojs/taro'
 import { View, Text, Image, Map, Picker } from '@tarojs/components'
 import './index.scss'
-import { AtButton, AtCard, AtInput, AtForm,AtMessage, AtTimeline, AtTextarea } from 'taro-ui'
+import { AtButton, AtCard, AtInput, AtForm, AtMessage, AtTimeline, AtTextarea } from 'taro-ui'
 const httpUtil = require('../../../utils/httpUtil')
 interface IProps {
 
@@ -21,7 +21,7 @@ interface Istate {
     cid?: any,
     companyDsc?: any,
     workDsc?: any,
-    cardTitle?:string
+    cardTitle?: string
 
 }
 export default class TimeLine extends Component<IProps, Istate> {
@@ -40,7 +40,7 @@ export default class TimeLine extends Component<IProps, Istate> {
             cid: 0,
             companyDsc: '',
             workDsc: '',
-            cardTitle:'新增工作经历'
+            cardTitle: '新增工作经历'
         }
     }
     config: Config = {
@@ -51,7 +51,7 @@ export default class TimeLine extends Component<IProps, Istate> {
         const cid = params.cid
         if (cid) {
             this.getInfoByCid(cid)
-            this.setState({cardTitle:'编辑工作经历'})
+            this.setState({ cardTitle: '编辑工作经历' })
             Taro.setNavigationBarTitle({
                 title: '编辑工作经历'
             })
@@ -73,7 +73,9 @@ export default class TimeLine extends Component<IProps, Istate> {
                     postName: res.data.postName,
                     salary: res.data.salary,
                     beginDate: res.data.beginDate,
-                    overDate: res.data.overDate
+                    overDate: res.data.overDate,
+                    companyDsc: res.data.companyDsc,
+                    workDsc: res.data.workDsc
 
                 })
             }
@@ -237,11 +239,11 @@ export default class TimeLine extends Component<IProps, Istate> {
         }
     }
     render() {
-        const {cardTitle, workDsc, companyDsc, address, longitude, latitude, timeLine, companyName, postName, salary, beginDate, overDate, timeLineArr } = this.state
+        const { cardTitle, workDsc, companyDsc, address, longitude, latitude, timeLine, companyName, postName, salary, beginDate, overDate, timeLineArr } = this.state
 
         return (
             <View>
-                 <AtMessage />
+                <AtMessage />
                 <AtCard
                     title={cardTitle}>
                     <AtForm>

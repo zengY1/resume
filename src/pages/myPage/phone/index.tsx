@@ -113,7 +113,7 @@ export default class Phone extends Component<IProps, Istate> {
     render() {
         const { mobile, psd, rePsd } = this.state
         return (
-            <View>
+            <View className='phone'>
                 <AtMessage/>
                 <AtForm>
                     <AtInput
@@ -144,8 +144,8 @@ export default class Phone extends Component<IProps, Istate> {
                         onChange={(data) => this.changeRePsd(data)}
                     />
                 </AtForm>
-                <View>
-                    <AtButton onClick={this.addMobileBtn}>确认</AtButton>
+                <View className="phomeBtn">
+                    <AtButton onClick={this.addMobileBtn} type="primary">确认</AtButton>
                 </View>
             </View>
         )

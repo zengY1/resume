@@ -1,0 +1,25 @@
+.web {
+  padding: 30rpx;
+
+  .step {
+    .step-title {
+      display: flex;
+      justify-content: center;
+      font-size: 45rpx;
+      margin: 30rpx 0;
+    }
+
+    .step-content {
+      margin-left: 30rpx;
+      margin-top: 20rpx;
+    }
+
+    .step-btn {
+      display: flex;
+      align-items: center;
+    }
+    .help{
+      word-wrap: break-word;
+    }
+  }
+}

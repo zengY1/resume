@@ -96,6 +96,19 @@
 					"id": -1,
 					"name": "pages/resumeCard/resumeCard",
 					"pathName": "pages/resumeCard/resumeCard",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/myPage/phone/index",
+					"pathName": "pages/myPage/phone/index",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/myPage/web/index",
+					"pathName": "pages/myPage/web/index",
 					"scene": null
 				}
 			]

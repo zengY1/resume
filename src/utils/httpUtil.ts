@@ -1,6 +1,6 @@
 import Taro from '@tarojs/taro'
-const baseUrl = 'https://wx.znike.top'
-// const baseUrl = 'http://localhost:9090'
+// const baseUrl = 'https://wx.znike.top'
+const baseUrl = 'http://localhost:9090'
 
 function request(resquestHeader) {
     const accessToken = Taro.getStorageSync('token')

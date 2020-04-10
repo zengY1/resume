@@ -58,7 +58,7 @@ export default class AddSchool extends Component<IProps, Istate> {
         const that = this
         httpUtil.request({
             url: '/school/schoolBySid',
-            data: { id: sid },
+            data: { sid: sid },
             success(res) {
                 console.log('res', res)
                 const data = res.data

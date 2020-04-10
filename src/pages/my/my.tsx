@@ -119,6 +119,10 @@ export default class My extends Component<IProps, Istate> {
       url: `/pages/resumeCard/resumeCard`
     })
   }
+  // 在web上编辑
+  goToWeb=()=>{
+    Taro.navigateTo({ url: '../myPage/web/index' })
+  }
   // 联系客服
   goToAdmin = () => {
     this.setState({
@@ -240,6 +244,7 @@ export default class My extends Component<IProps, Istate> {
               <AtList>
                 <AtListItem title='预览简历' arrow='right' onClick={this.goToView} />
                 <AtListItem title='简历名片' arrow='right' onClick={this.goToResumeCard} />
+                <AtListItem title='网页编辑' arrow='right' onClick={this.goToWeb} />
                 <AtListItem title='联系客服' arrow='right' onClick={this.goToAdmin} />
               </AtList>
             </View>
@@ -251,7 +256,7 @@ export default class My extends Component<IProps, Istate> {
           <AtModalHeader>绑定手机号</AtModalHeader>
           <AtModalContent>
             <View className="modal-content">
-              <View>绑定的手机号将用于web端的登陆和拨打电话的功能</View>
+              <View>未绑定的用户将无法使用电脑端的简历编辑、预览、导出和拨打电话等功能。</View>
             </View>
           </AtModalContent>
           <AtModalAction> <Button onClick={this.cancelModal}>取消</Button> <Button onClick={this.modalOk}>确定</Button> </AtModalAction>
