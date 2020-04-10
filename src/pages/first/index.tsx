@@ -2,7 +2,7 @@ import Taro, { Component, Config } from '@tarojs/taro'
 import { View, Text, Image } from '@tarojs/components'
 import './index.scss'
 import { AtButton, AtCard, AtTabBar, AtList, AtListItem } from 'taro-ui'
-import { records, getImgUrl,dateUtil } from '../../utils/static'
+import { records, getImgUrl, dateUtil } from '../../utils/static'
 const httpUtil = require('../../utils/httpUtil')
 interface IProps {
 
@@ -33,7 +33,7 @@ export default class First extends Component<IProps, Istate> {
    * 提示和声明 navigationBarTextStyle: 'black' | 'white' 类型冲突, 需要显示声明类型
    */
   config: Config = {
-    navigationBarTitleText: '首页'
+    navigationBarTitleText: '预览简历'
   }
 
   componentWillMount() { }
@@ -168,10 +168,10 @@ export default class First extends Component<IProps, Istate> {
   }
   render() {
     const { resumeInfo, schoolList, timeLineArr, skillList, workList } = this.state
-    console.log('resume', workList)
+    // console.log('resume', workList)
     const time = timeLineArr.map((item, index) => {
       return (
-        <View key={index}>
+        <View key={item.id}>
           <View className='timeLine-item'>
             <View className='circle-line'>
               <View className='circle'></View>
@@ -210,7 +210,6 @@ export default class First extends Component<IProps, Istate> {
                 <View>{resumeInfo.city}</View>
                 <View>{dateUtil(resumeInfo.birthday)}岁</View>
               </View>
-
             </View>
           </View>
           <View className='item'>
@@ -240,6 +239,7 @@ export default class First extends Component<IProps, Istate> {
                         extraText={item.projectName}
                         note={records[item.record]}
                         onClick={() => this.goToSchoolInfo(item)}
+                        key={item.id}
                       />
                     )
                   })
@@ -268,15 +268,15 @@ export default class First extends Component<IProps, Istate> {
                   {skillList.map((item, index) => {
                     let targe
                     if (item.skillGrade == 0) {
-                      targe = <View className='skill-tag tag-one' key={index}>{item.skillName}</View>
+                      targe = <View className='skill-tag tag-one' key={item.id}>{item.skillName}</View>
                     } else if (item.skillGrade == 1) {
-                      targe = <View className='skill-tag tag-two' key={index}>{item.skillName}</View>
+                      targe = <View className='skill-tag tag-two' key={item.id}>{item.skillName}</View>
                     } else if (item.skillGrade == 2) {
-                      targe = <View className='skill-tag tag-three' key={index}>{item.skillName}</View>
+                      targe = <View className='skill-tag tag-three' key={item.id}>{item.skillName}</View>
                     } else if (item.skillGrade == 3) {
-                      targe = <View className='skill-tag tag-four' key={index}>{item.skillName}</View>
+                      targe = <View className='skill-tag tag-four' key={item.id}>{item.skillName}</View>
                     } else if (item.skillGrade == 4) {
-                      targe = <View className='skill-tag tag-five' key={index}>{item.skillName}</View>
+                      targe = <View className='skill-tag tag-five' key={item.id}>{item.skillName}</View>
                     }
                     return (
                       targe
@@ -295,7 +295,7 @@ export default class First extends Component<IProps, Istate> {
                 {
                   workList.map((item, index) => {
                     return (
-                      <View className='art-item' onClick={() => { this.cloneArtWordUrl(item) }}>
+                      <View className='art-item' onClick={() => { this.cloneArtWordUrl(item) }} key={item.id}>
                         <Image className='item-img' src={getImgUrl(item.imgType)}></Image>
                         <View className='item-title'>{item.workName}</View>
                       </View>

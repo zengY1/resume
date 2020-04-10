@@ -103,12 +103,20 @@
 					"id": -1,
 					"name": "pages/myPage/phone/index",
 					"pathName": "pages/myPage/phone/index",
+					"query": "",
 					"scene": null
 				},
 				{
 					"id": -1,
 					"name": "pages/myPage/web/index",
 					"pathName": "pages/myPage/web/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/resume/skillList/skillList",
+					"pathName": "pages/resume/skillList/skillList",
 					"scene": null
 				}
 			]

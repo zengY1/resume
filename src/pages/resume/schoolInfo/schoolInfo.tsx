@@ -44,7 +44,7 @@ export default class SchoolInfo extends Component<IProps, Istate> {
             current: 0,
             schoolDsc: '',
             itemArr: [],
-            tabList: [{ title: '公司简介' }],
+            tabList: [{ title: '学校简介' }],
         }
     }
     componentDidShow() {
@@ -156,7 +156,7 @@ export default class SchoolInfo extends Component<IProps, Istate> {
                             itemArr ? itemArr.map((item, index) => {
                                 console.log('item', item)
                                 return (
-                                    <AtTabsPane current={current} index={index + 1} key={index + 1}>
+                                    <AtTabsPane current={current} index={index + 1} key={item.id}>
                                         {/* 修改和删除项目经验 */}
                                         {/* <AtTag type='primary' size='small' active={true} circle onClick={() => this.editItem(item)}>编辑</AtTag>
                                         <AtTag size='small' active={true} circle onClick={() => this.deleteItem(item)}>删除</AtTag> */}

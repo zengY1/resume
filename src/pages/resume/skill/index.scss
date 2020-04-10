@@ -19,17 +19,19 @@
   display: flex;
   margin: 20rpx;
   flex-direction: row;
-}
+  .infoLabel {
+    margin-right: 15rpx;
+    margin-top: 12rpx;
+    width: 13rpx;
+    height: 13rpx;
+    background-color: black;
+    border-radius: 50%;
+  }
 
-.infoLabel {
-  margin-right: 15rpx;
-  margin-top: 12rpx;
-  width: 13rpx;
-  height: 13rpx;
-  background-color: black;
-  border-radius: 50%;
+  .info-value {
+    width: 580rpx;
+  }
 }
-
 
 .empty {
   width: 100%;

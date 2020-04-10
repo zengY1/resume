@@ -1,6 +1,7 @@
 import Taro, { Component, Config } from '@tarojs/taro'
 import { View, Text, Image, Map } from '@tarojs/components'
 import './index.scss'
+import { skillGradeOptions } from '../../../utils/static'
 import { AtButton, AtCard, AtInput, AtForm, AtRadio, AtTimeline, AtTextarea, AtTag } from 'taro-ui'
 const httpUtil = require('../../../utils/httpUtil')
 interface IProps {
@@ -16,6 +17,9 @@ export default class SkillList extends Component<IProps, Istate> {
         this.state = {
             skillList: []
         }
+    }
+    config: Config = {
+        navigationBarTitleText: '个人技能'
     }
     componentDidShow() {
         this.getSkillList()
@@ -38,7 +42,7 @@ export default class SkillList extends Component<IProps, Istate> {
             }
         })
     }
-   
+
     render() {
         const { skillList } = this.state
         return (
@@ -52,15 +56,15 @@ export default class SkillList extends Component<IProps, Istate> {
                                 skillList.length > 0 ? skillList.map((item, index) => {
                                     let targe
                                     if (item.skillGrade == 0) {
-                                        targe = <View className='skill-tag tag-one' key={index}>{item.skillName}</View>
+                                        targe = <View className='skill-tag tag-one' key={item.id}>{item.skillName}</View>
                                     } else if (item.skillGrade == 1) {
-                                        targe = <View className='skill-tag tag-two' key={index}>{item.skillName}</View>
+                                        targe = <View className='skill-tag tag-two' key={item.id}>{item.skillName}</View>
                                     } else if (item.skillGrade == 2) {
-                                        targe = <View className='skill-tag tag-three' key={index}>{item.skillName}</View>
+                                        targe = <View className='skill-tag tag-three' key={item.id}>{item.skillName}</View>
                                     } else if (item.skillGrade == 3) {
-                                        targe = <View className='skill-tag tag-four' key={index}>{item.skillName}</View>
+                                        targe = <View className='skill-tag tag-four' key={item.id}>{item.skillName}</View>
                                     } else if (item.skillGrade == 4) {
-                                        targe = <View className='skill-tag tag-five' key={index}>{item.skillName}</View>
+                                        targe = <View className='skill-tag tag-five' key={item.id}>{item.skillName}</View>
                                     }
                                     return (
                                         targe
@@ -73,10 +77,10 @@ export default class SkillList extends Component<IProps, Istate> {
                         <View className='secord-title'>技能列表</View>
                         {skillList.length > 0 ? skillList.map((item, index) => {
                             return (
-                                <View key={index} className='school-item' key={index}>
+                                <View key={item.id} className='school-item'>
                                     <View className='infoItem'>
                                         <View className='infoLabel'></View>
-                                        <View><Text>{item.skillDsc}</Text></View>
+                                        <View className='info-value'><Text>{item.skillName}</Text>-<Text>{skillGradeOptions[item.skillGrade].label}</Text>：<Text>{item.skillDsc}</Text></View>
                                     </View>
                                 </View>
                             )

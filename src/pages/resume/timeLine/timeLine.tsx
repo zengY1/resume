@@ -100,7 +100,7 @@ export default class TimeLine extends Component<IProps, Istate> {
 
         const time = timeLineArr.map((item, index) => {
             return (
-                <View key={index}>
+                <View key={item.id}>
                     <View className='timeLine-item'>
                         <View className='circle-line'>
                             <View className='circle'></View>

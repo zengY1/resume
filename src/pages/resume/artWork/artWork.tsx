@@ -82,7 +82,7 @@ export default class ArtWork extends Component<IProps, Istate> {
                     title='个人作品' className='card'>
                     {workList.length > 0 ? workList.map((item, index) => {
                         return (
-                            <View key={index} className='school-item'>
+                            <View key={item.id} className='school-item'>
                                 <View className='infoItem'>
                                     <View className='infoLabel'><Text>作品名称：</Text></View>
                                     <View className='infoContent'><Text>{item.workName}</Text></View>

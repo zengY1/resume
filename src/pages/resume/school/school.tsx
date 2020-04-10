@@ -94,7 +94,7 @@ export default class School extends Component<IProps, Istate> {
                     title='教育经历' className='card'>
                     {schoolList.length > 0 ? schoolList.map((item, index) => {
                         return (
-                            <View key={index} className='school-item'>
+                            <View key={item.id} className='school-item'>
                                 <View className='infoItem'>
                                     <View className='infoLabel'><Text>学校：</Text></View>
                                     <View className='infoContent'><Text>{item.schoolName}</Text></View>

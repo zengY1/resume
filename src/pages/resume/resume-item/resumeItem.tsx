@@ -76,7 +76,7 @@ export default class ResumeItem extends Component<IProps, Istate> {
                     title='项目经验' className='card'>
                     {itemList.length > 0 ? itemList.map((item, index) => {
                         return (
-                            <View key={index} className='school-item'>
+                            <View key={item.id} className='school-item'>
                                 <View className='infoItem'>
                                     <View className='infoLabel'><Text>项目名称：</Text></View>
                                     <View className='infoContent'><Text>{item.itemName}</Text></View>

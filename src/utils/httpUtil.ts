@@ -16,26 +16,17 @@ function request(resquestHeader) {
         },
         success: function (res) {
             if (res.data.code == '40001') {
-                const tag = Taro.getStorageSync('tag')
-                if (tag != 1) {
-                    Taro.showModal({
-                        title: '未登陆',
-                        content: '请登陆',
-                        success(resd) {
-                            if (resd.confirm) {
-                                Taro.reLaunch({
-                                    url: '/pages/index/index?tab=2'
-                                })
-                                Taro.setStorageSync('tag', 1)
-                            }
-                            else {
-
-                            }
+                Taro.showModal({
+                    title: '未登陆',
+                    content: '请登陆',
+                    success(resd) {
+                        if (resd.confirm) {
+                            Taro.reLaunch({
+                                url: '/pages/index/index?tab=2'
+                            })
                         }
-                    })
-                }else{
-                   
-                }
+                    }
+                })
             }
             else if (res.data.code == '40003') {
                 Taro.showModal({
@@ -47,10 +38,6 @@ function request(resquestHeader) {
                             Taro.reLaunch({
                                 url: '/pages/index/index?tab=2'
                             })
-                            Taro.setStorageSync('tag', 1)
-                        }
-                        else {
-
                         }
                     }
                 })
