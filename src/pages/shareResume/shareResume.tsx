@@ -1,7 +1,7 @@
 import Taro, { Component, Config } from '@tarojs/taro'
 import { View, Text, Image } from '@tarojs/components'
 import './index.scss'
-import { AtButton, AtCard, AtTabBar, AtList, AtListItem } from 'taro-ui'
+import { AtButton, AtCard, AtList, AtListItem } from 'taro-ui'
 import { records, getImgUrl, dateUtil } from '../../utils/static'
 const httpUtil = require('../../utils/httpUtil')
 interface IProps {
@@ -144,7 +144,6 @@ export default class ShareResume extends Component<IProps, Istate> {
   }
   // 点击复制
   cloneArtWordUrl = (data) => {
-    console.log('data', data)
     const url = data.workUrl
     Taro.setClipboardData({
       data: url,
@@ -194,7 +193,7 @@ export default class ShareResume extends Component<IProps, Istate> {
   }
   render() {
     const { resumeInfo, schoolList, timeLineArr, skillList, workList } = this.state
-    console.log('resume', workList)
+
     const time = timeLineArr.map((item, index) => {
       return (
         <View key={item.id}>
@@ -291,24 +290,27 @@ export default class ShareResume extends Component<IProps, Istate> {
           skillList.length > 0 ? <View className='item'>
             <AtCard title='个人技能'>
               <AtList hasBorder={false}>
-                <View onClick={this.gotoSkillList}>
-                  {skillList.map((item, index) => {
-                    let targe
-                    if (item.skillGrade == 0) {
-                      targe = <View className='skill-tag tag-one' key={item.id}>{item.skillName}</View>
-                    } else if (item.skillGrade == 1) {
-                      targe = <View className='skill-tag tag-two' key={item.id}>{item.skillName}</View>
-                    } else if (item.skillGrade == 2) {
-                      targe = <View className='skill-tag tag-three' key={item.id}>{item.skillName}</View>
-                    } else if (item.skillGrade == 3) {
-                      targe = <View className='skill-tag tag-four' key={item.id}>{item.skillName}</View>
-                    } else if (item.skillGrade == 4) {
-                      targe = <View className='skill-tag tag-five' key={item.id}>{item.skillName}</View>
-                    }
-                    return (
-                      targe
-                    )
-                  })}
+              <View onClick={this.gotoSkillList} className='skill-item'>
+                    <View className='skill'>
+                      {skillList.map((item, index) => {
+                        let targe
+                        if (item.skillGrade == 0) {
+                          targe = <View className='skill-tag tag-one' key={item.id}>{item.skillName}</View>
+                        } else if (item.skillGrade == 1) {
+                          targe = <View className='skill-tag tag-two' key={item.id}>{item.skillName}</View>
+                        } else if (item.skillGrade == 2) {
+                          targe = <View className='skill-tag tag-three' key={item.id}>{item.skillName}</View>
+                        } else if (item.skillGrade == 3) {
+                          targe = <View className='skill-tag tag-four' key={item.id}>{item.skillName}</View>
+                        } else if (item.skillGrade == 4) {
+                          targe = <View className='skill-tag tag-five' key={item.id}>{item.skillName}</View>
+                        }
+                        return (
+                          targe
+                        )
+                      })}
+                    </View>
+                    <View className='skill-right-arrow'></View>
                 </View>
               </AtList>
             </AtCard>

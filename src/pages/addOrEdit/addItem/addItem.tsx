@@ -1,7 +1,7 @@
 import Taro, { Component, Config } from '@tarojs/taro'
-import { View, Text, Image, Map, Picker } from '@tarojs/components'
+import { View, Picker } from '@tarojs/components'
 import './index.scss'
-import { AtButton, AtCard, AtInput, AtForm, AtRadio, AtTimeline, AtTextarea,AtMessage } from 'taro-ui'
+import { AtButton, AtCard, AtInput, AtForm, AtTextarea,AtMessage } from 'taro-ui'
 const httpUtil = require('../../../utils/httpUtil')
 interface IProps {
 
@@ -99,7 +99,6 @@ export default class TimeLine extends Component<IProps, Istate> {
             data: { iid: iid },
             success(res) {
                 const info = res.data
-                console.log('itemInfo', info.cid)
                 that.setState({
                     iid: info.id,
                     itemName: info.itemName,
@@ -115,14 +114,12 @@ export default class TimeLine extends Component<IProps, Istate> {
     }
     // 项目名称
     changeItemName = (data) => {
-        console.log('公司名称：', data)
         this.setState({
             itemName: data
         })
     }
     // 岗位名称
     changePostName = (data) => {
-        console.log('岗位名称：', data)
         this.setState({
             postName: data
         })
@@ -143,14 +140,12 @@ export default class TimeLine extends Component<IProps, Istate> {
     }
     // 工作的描述
     changeWorkDsc = (data) => {
-        console.log('res', data.detail.value)
         this.setState({
             workDsc: data.detail.value
         })
     }
     // 公司的选择
     companySelectChange = (data) => {
-        console.log('select', data.detail.value)
         const value = data.detail.value
         const { companyList } = this.state
         this.setState({
@@ -221,7 +216,6 @@ export default class TimeLine extends Component<IProps, Istate> {
                 method: 'POST',
                 data: options,
                 success(res) {
-                    console.log('res', res)
                     Taro.navigateBack()
                     Taro.showToast({
                         title: '编辑成功！',
@@ -236,7 +230,6 @@ export default class TimeLine extends Component<IProps, Istate> {
                 method: 'POST',
                 data: options,
                 success(res) {
-                    console.log('res', res)
                     Taro.navigateBack()
                     Taro.showToast({
                         title: '新增成功！',
@@ -246,11 +239,9 @@ export default class TimeLine extends Component<IProps, Istate> {
                 }
             })
         }
-        console.log('add', options)
     }
     render() {
         const { workDsc, itemDsc, itemName, postName, beginDate, overDate, companyList, companyPickValue, cid,cardTitle } = this.state
-        console.log('companyPickValue', companyPickValue)
         return (
             <View>
                  <AtMessage />

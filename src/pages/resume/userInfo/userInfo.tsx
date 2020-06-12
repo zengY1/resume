@@ -1,8 +1,7 @@
 import Taro, { Component, Config } from '@tarojs/taro'
-import { View, Text, Image, Picker } from '@tarojs/components'
+import { View, Text } from '@tarojs/components'
 import './index.scss'
-import { AtButton, AtCard, AtInput, AtForm, AtRadio } from 'taro-ui'
-import {dateUtil} from '../../../utils/static'
+import { AtButton, AtCard } from 'taro-ui'
 const httpUtil = require('../../../utils/httpUtil')
 interface IProps {
 
@@ -23,9 +22,6 @@ export default class User extends Component<IProps, Istate> {
     config: Config = {
         navigationBarTitleText: '个人信息'
     }
-    // componentDidMount() {
-    //     this.getResumeInfo()
-    // }
     componentDidShow(){
         this.getResumeInfo()
     }
@@ -36,7 +32,6 @@ export default class User extends Component<IProps, Istate> {
             url: '/info/get',
             method: 'GET',
             success(res) {
-                console.log(res)
                 const buttonType = res.data ? 'edit' : 'add'
                 that.setState({
                     resumeInfo: res.data,
@@ -75,7 +70,6 @@ export default class User extends Component<IProps, Istate> {
                             id: resumeInfo.id
                         },
                         success(res) {
-                            console.log('res',res)
                             if (res.code == '00000') {
                                 Taro.showToast({
                                     title: '删除成功！'

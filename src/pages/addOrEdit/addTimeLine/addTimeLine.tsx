@@ -1,7 +1,7 @@
 import Taro, { Component, Config } from '@tarojs/taro'
-import { View, Text, Image, Map, Picker } from '@tarojs/components'
+import { View, Picker } from '@tarojs/components'
 import './index.scss'
-import { AtButton, AtCard, AtInput, AtForm, AtMessage, AtTimeline, AtTextarea } from 'taro-ui'
+import { AtButton, AtCard, AtInput, AtForm, AtMessage, AtTextarea } from 'taro-ui'
 const httpUtil = require('../../../utils/httpUtil')
 interface IProps {
 
@@ -143,7 +143,7 @@ export default class TimeLine extends Component<IProps, Istate> {
             return
         } else if (postName == '') {
             Taro.atMessage({
-                'message': '岗位名称不能为空！',
+                'message': '职位名称不能为空！',
                 'type': 'error',
             })
             return
@@ -227,7 +227,6 @@ export default class TimeLine extends Component<IProps, Istate> {
                     companyDsc
                 },
                 success(res) {
-                    console.log('res', res)
                     Taro.navigateBack()
                     Taro.showToast({
                         title: '新增成功！',

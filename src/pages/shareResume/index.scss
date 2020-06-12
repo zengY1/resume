@@ -105,7 +105,23 @@
       position: absolute;
       right: 80rpx;
     }
-  
+    .skill-item {
+      position: relative;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+  .skill{
+    width: 630rpx;
+  }
+    .skill-right-arrow {
+      width: 20rpx;
+      height: 20rpx;
+      border-top: 6rpx solid #ccc;
+      border-right: 6rpx solid #ccc;
+      transform: rotate(45deg);
+      right: 80rpx;
+    }
     .skill-tag {
       padding: 2rpx 20rpx 2rpx 20rpx;
       border-radius: 50rpx;
@@ -145,7 +161,7 @@
         display: flex;
         flex-direction: column;
         width: 30%;
-        justify-content: center;
+        // justify-content: center;
         align-items: center;
   
         .item-img {
@@ -157,6 +173,7 @@
         .item-title {
           padding: 10rpx 0;
           font-size: 28rpx;
+          text-align: center;
         }
       }
     }

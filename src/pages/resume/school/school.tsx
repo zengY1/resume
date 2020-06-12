@@ -1,7 +1,7 @@
 import Taro, { Component, Config } from '@tarojs/taro'
-import { View, Text, Image, Map, Picker } from '@tarojs/components'
+import { View, Text} from '@tarojs/components'
 import './index.scss'
-import { AtButton, AtCard, AtInput, AtForm, AtRadio, AtTimeline, AtTextarea, AtTag } from 'taro-ui'
+import { AtButton, AtCard, AtTag } from 'taro-ui'
 import {records} from '../../../utils/static'
 const httpUtil = require('../../../utils/httpUtil')
 interface IProps {
@@ -43,7 +43,6 @@ export default class School extends Component<IProps, Istate> {
         httpUtil.request({
             url: '/school/list',
             success(res) {
-                console.log('res', res)
                 let list = res.data
                 list.sort(function (a, b) {
                     const date1 = new Date(a.schoolBeginDate).getTime()
@@ -73,7 +72,6 @@ export default class School extends Component<IProps, Istate> {
                         },
                         success(res) {
                             that.componentDidShow()
-                            console.log('res', res)
                         }
                     })
                 }
@@ -86,8 +84,7 @@ export default class School extends Component<IProps, Istate> {
         Taro.navigateTo({ url: `/pages/addOrEdit/addSchool/addSchool?sid=${data.id}` })
     }
     render() {
-        const { record, schoolName, projectName, beginDate, overDate, schoolList } = this.state
-        console.log('schoolList', schoolList)
+        const {schoolList } = this.state
         return (
             <View>
                 <AtCard

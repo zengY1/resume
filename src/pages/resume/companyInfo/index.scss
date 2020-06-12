@@ -4,17 +4,18 @@
 }
 .infoItem {
    display: flex;
-   margin: 20rpx;
+   margin: 20rpx 0 0 20rpx;
  }
  
  .infoLabel {
-   width: 172rpx;
+   width: 200rpx;
    // margin-right: 15rpx;
  }
  
  .infoContent {
    display: flex;
    flex-wrap: wrap;
+   width: 550rpx;
  }
  .goHere{
     margin-left: 20rpx;

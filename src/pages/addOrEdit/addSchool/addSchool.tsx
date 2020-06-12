@@ -1,7 +1,7 @@
 import Taro, { Component, Config } from '@tarojs/taro'
-import { View, Text, Image, Map, Picker } from '@tarojs/components'
+import { View, Text, Picker } from '@tarojs/components'
 import './index.scss'
-import { AtButton, AtCard, AtInput, AtForm, AtRadio, AtTimeline, AtTextarea,AtMessage } from 'taro-ui'
+import { AtButton, AtCard, AtInput, AtForm, AtTextarea,AtMessage } from 'taro-ui'
 import {records} from '../../../utils/static'
 const httpUtil = require('../../../utils/httpUtil')
 interface IProps {
@@ -60,7 +60,6 @@ export default class AddSchool extends Component<IProps, Istate> {
             url: '/school/schoolBySid',
             data: { sid: sid },
             success(res) {
-                console.log('res', res)
                 const data = res.data
                 that.setState({
                     address: data.address,
@@ -80,7 +79,6 @@ export default class AddSchool extends Component<IProps, Istate> {
     }
     // 学历
     onRecordsChange = (data) => {
-        console.log('data', data)
         this.setState({ record: data.detail.value })
     }
     // 学校名称
@@ -113,13 +111,7 @@ export default class AddSchool extends Component<IProps, Istate> {
                 'type': 'error',
             })
             return
-        } else if (projectName == '') {
-            Taro.atMessage({
-                'message': '专业名称不能为空！',
-                'type': 'error',
-            })
-            return
-        } else if (record == -1) {
+        }else if (record == -1) {
             Taro.atMessage({
                 'message': '学历不能为空！',
                 'type': 'error',
@@ -140,12 +132,6 @@ export default class AddSchool extends Component<IProps, Istate> {
         } else if (overDate == '') {
             Taro.atMessage({
                 'message': '毕业时间不能为空！',
-                'type': 'error',
-            })
-            return
-        } else if (schoolDsc == '') {
-            Taro.atMessage({
-                'message': '学校简介不能为空！',
                 'type': 'error',
             })
             return
@@ -192,7 +178,6 @@ export default class AddSchool extends Component<IProps, Istate> {
                     longitude: longitude
                 },
                 success(res) {
-                    console.log('res', res)
                     Taro.navigateBack()
                     Taro.showToast({
                         title: '新增成功！'
@@ -207,7 +192,6 @@ export default class AddSchool extends Component<IProps, Istate> {
         const that = this
         Taro.chooseLocation({
             success(res) {
-                console.log(res)
                 that.setState({
                     address: res.address,
                     longitude: res.longitude,
@@ -244,7 +228,7 @@ export default class AddSchool extends Component<IProps, Istate> {
                             border={false}
                             title='专业名称'
                             type='text'
-                            placeholder='请输出专业名称'
+                            placeholder='(选)请输出专业名称'
                             value={projectName}
                             onChange={(data) => this.changeProjectName(data)}
                         />
@@ -277,7 +261,7 @@ export default class AddSchool extends Component<IProps, Istate> {
                         <View className='form-item'>
                             <View className='label'>学校简介</View>
                             <View className='content'>
-                                <AtTextarea value={schoolDsc} onChange={this.changeSchoolDsc} maxLength={200} placeholder='请输入学校简介' className='schoolDsc' />
+                                <AtTextarea value={schoolDsc} onChange={this.changeSchoolDsc} maxLength={200} placeholder='(选)请输入学校简介' className='schoolDsc' />
                             </View>
                         </View>
 

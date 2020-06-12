@@ -1,11 +1,9 @@
-import Taro, { Component, Config } from '@tarojs/taro'
-import { View, Text, Image } from '@tarojs/components'
+import Taro, { Component} from '@tarojs/taro'
+import { View} from '@tarojs/components'
 import './index.scss'
-import { AtButton, AtCard, AtTabBar } from 'taro-ui'
+import { AtTabBar } from 'taro-ui'
 import First from '../first/index'
 import My from '../my/my'
-import User from '../second/second'
-const httpUtil = require('../../utils/httpUtil')
 interface IProps {
 
 }
@@ -42,7 +40,6 @@ export default class Index extends Component<IProps, Istate> {
 
   componentWillMount() {
     const params = this.$router.params
-    console.log('params', params)
     if (params.shareType == 'uid') {
       Taro.navigateTo({
         url: `/pages/shareResume/shareResume?uid=${params.uid}`
@@ -66,7 +63,6 @@ export default class Index extends Component<IProps, Istate> {
 
   componentDidHide() { }
   handleTabTest = (data) => {
-    console.log('res', data)
     let navigationBarTitleText = '首页'
     if (data === 0) {
       navigationBarTitleText = '首页'
@@ -87,10 +83,10 @@ export default class Index extends Component<IProps, Istate> {
         title: '个人简历信息',
         path: `/pages/index/index?shareType=uid&uid=${userInfo.id}`,
         success: function () {
-          console.log('成功！')
+    
         },
         fail: function () {
-          console.log('失败！')
+       
         }
       }
     } else {

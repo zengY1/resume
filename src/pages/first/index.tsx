@@ -46,9 +46,7 @@ export default class First extends Component<IProps, Istate> {
 
   componentWillMount() {
     const notice = Taro.getStorageSync('noticeModal')
-    console.log('notice', notice)
     if (notice) {
-      console.log('aaa', notice)
       this.setState({
         noticeModalVisible: false
       })
@@ -190,7 +188,6 @@ export default class First extends Component<IProps, Istate> {
   }
   // 点击复制
   cloneArtWordUrl = (data) => {
-    console.log('data', data)
     const url = data.workUrl
     Taro.setClipboardData({
       data: url,
@@ -228,7 +225,6 @@ export default class First extends Component<IProps, Istate> {
   }
   render() {
     const { resumeInfo, schoolList, timeLineArr, skillList, workList, noticeString, noticeModalVisible, columnArr, noticeModalData } = this.state
-    // console.log('resume', workList)
     const time = timeLineArr.map((item, index) => {
       return (
         <View key={item.id}>
@@ -260,23 +256,23 @@ export default class First extends Component<IProps, Istate> {
     })
     return (
       <View>
-         {/* 系统的通知提醒 */}
-         <AtModal isOpened={noticeModalVisible && noticeModalData} closeOnClickOverlay={false}>
-            <AtModalHeader>{columnArr[0].noticeTitle}</AtModalHeader>
-            <AtModalContent>
-              <View className="modal-content">
-                <View>{columnArr[0].noticeContent}</View>
-              </View>
-            </AtModalContent>
-            <AtModalAction><Button onClick={this.modalOk}>确定</Button> </AtModalAction>
-          </AtModal>
-          {noticeString == '' ? '' :
-            <View className='notice'>
-              <AtNoticebar icon='volume-plus' marquee>
-                {noticeString}
-              </AtNoticebar>
+        {/* 系统的通知提醒 */}
+        <AtModal isOpened={noticeModalVisible && noticeModalData} closeOnClickOverlay={false}>
+          <AtModalHeader>{columnArr[0].noticeTitle}</AtModalHeader>
+          <AtModalContent>
+            <View className="modal-content">
+              <View>{columnArr[0].noticeContent}</View>
             </View>
-          }
+          </AtModalContent>
+          <AtModalAction><Button onClick={this.modalOk}>确定</Button> </AtModalAction>
+        </AtModal>
+        {noticeString == '' ? '' :
+          <View className='notice'>
+            <AtNoticebar icon='volume-plus' marquee>
+              {noticeString}
+            </AtNoticebar>
+          </View>
+        }
         <View className='wrapper'>
           {Object.keys(resumeInfo).length > 0 ? <View>
             <View className='fist-card'>
@@ -342,24 +338,27 @@ export default class First extends Component<IProps, Istate> {
             skillList.length > 0 ? <View className='item'>
               <AtCard title='个人技能'>
                 <AtList hasBorder={false}>
-                  <View onClick={this.gotoSkillList}>
-                    {skillList.map((item, index) => {
-                      let targe
-                      if (item.skillGrade == 0) {
-                        targe = <View className='skill-tag tag-one' key={item.id}>{item.skillName}</View>
-                      } else if (item.skillGrade == 1) {
-                        targe = <View className='skill-tag tag-two' key={item.id}>{item.skillName}</View>
-                      } else if (item.skillGrade == 2) {
-                        targe = <View className='skill-tag tag-three' key={item.id}>{item.skillName}</View>
-                      } else if (item.skillGrade == 3) {
-                        targe = <View className='skill-tag tag-four' key={item.id}>{item.skillName}</View>
-                      } else if (item.skillGrade == 4) {
-                        targe = <View className='skill-tag tag-five' key={item.id}>{item.skillName}</View>
-                      }
-                      return (
-                        targe
-                      )
-                    })}
+                  <View onClick={this.gotoSkillList} className='skill-item'>
+                    <View className='skill'>
+                      {skillList.map((item, index) => {
+                        let targe
+                        if (item.skillGrade == 0) {
+                          targe = <View className='skill-tag tag-one' key={item.id}>{item.skillName}</View>
+                        } else if (item.skillGrade == 1) {
+                          targe = <View className='skill-tag tag-two' key={item.id}>{item.skillName}</View>
+                        } else if (item.skillGrade == 2) {
+                          targe = <View className='skill-tag tag-three' key={item.id}>{item.skillName}</View>
+                        } else if (item.skillGrade == 3) {
+                          targe = <View className='skill-tag tag-four' key={item.id}>{item.skillName}</View>
+                        } else if (item.skillGrade == 4) {
+                          targe = <View className='skill-tag tag-five' key={item.id}>{item.skillName}</View>
+                        }
+                        return (
+                          targe
+                        )
+                      })}
+                    </View>
+                    <View className='skill-right-arrow'></View>
                   </View>
                 </AtList>
               </AtCard>

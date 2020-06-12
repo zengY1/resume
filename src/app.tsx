@@ -58,8 +58,6 @@ class App extends Component {
   componentDidMount() { }
 
   componentDidShow() {
-    const a=Taro.getSystemInfoSync()
-    console.log('app',a)
    }
 
   componentDidHide() { }

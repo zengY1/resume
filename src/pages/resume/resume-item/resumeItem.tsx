@@ -1,7 +1,7 @@
 import Taro, { Component, Config } from '@tarojs/taro'
-import { View, Text, Image, Map } from '@tarojs/components'
+import { View, Text} from '@tarojs/components'
 import './index.scss'
-import { AtButton, AtCard, AtInput, AtForm, AtRadio, AtTimeline, AtTextarea, AtTag } from 'taro-ui'
+import { AtButton, AtCard, AtTag } from 'taro-ui'
 const httpUtil = require('../../../utils/httpUtil')
 interface IProps {
 
@@ -39,7 +39,6 @@ export default class ResumeItem extends Component<IProps, Istate> {
                             cid: item.cid
                         },
                         success(res) {
-                            console.log('删除成功', res)
                             that.componentDidShow()
                             Taro.showToast({
                                 title: '删除成功！',
@@ -63,7 +62,6 @@ export default class ResumeItem extends Component<IProps, Istate> {
             url: '/item/listByUid',
             method: 'GET',
             success(res) {
-                console.log('itemList', res)
                 that.setState({ itemList: res.data })
             }
         })
@@ -87,7 +85,7 @@ export default class ResumeItem extends Component<IProps, Istate> {
                                 </View>
                                 <View className='infoItem'>
                                     <View className='infoLabel'><Text>项目时间：</Text></View>
-                                    <View className='infoContent'><Text>{item.itemBeginDate}至{item.itemBeginDate}</Text></View>
+                                    <View className='infoContent'><Text>{item.itemBeginDate}至{item.itemOverDate}</Text></View>
                                 </View>
                                 <View className='infoItem'>
                                     <View className='infoLabel'><Text>项目描述：</Text></View>

@@ -66,7 +66,6 @@ export default class User extends Component<IProps, Istate> {
       success(res) {
 
         const codeImg = res
-        console.log(codeImg)
         that.setState({
           codeImgUrl: codeImg
         })
@@ -78,21 +77,19 @@ export default class User extends Component<IProps, Istate> {
       title: '分享页面的分享title',
       path: '/pages/index/index',
       success: function () {
-        console.log('成功！')
+  
       },
       fail: function () {
-        console.log('失败！')
       }
     }
   }
   putImageChange = (data) => {
-    console.log('dataImg', data)
     this.setState({
       files: data
     })
   }
   imageClick = (data) => {
-    console.log('image', data)
+  
   }
   // canvas 生成图片
   onCanvasImage = () => {

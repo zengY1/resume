@@ -41,7 +41,7 @@ export default class MapTest extends Component<IProps, Istate> {
         const that = this
         Taro.getLocation({
             success(res) {
-                console.log('res',res)
+             
                 that.setState({
                     longitude: res.longitude,
                     latitude: res.latitude
@@ -50,13 +50,13 @@ export default class MapTest extends Component<IProps, Istate> {
         })
     }
     onTap = (e) => {
-        console.log(e)
+        
     }
     getLocation = (e) => {
         const that = this
         Taro.chooseLocation({
             success(res) {
-                console.log(res)
+             
                 that.setState({
                     address: res.address,
                     longitude: res.longitude,
@@ -66,7 +66,7 @@ export default class MapTest extends Component<IProps, Istate> {
         })
     }
     changeCompanyDsc=()=>{
-        console.log('text')
+      
     }
     render() {
         const { address, longitude, latitude,markers ,companyDsc} = this.state

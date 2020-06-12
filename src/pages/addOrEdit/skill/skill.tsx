@@ -36,7 +36,6 @@ export default class AddSkill extends Component<IProps, Istate> {
     componentDidMount() {
         const params = this.$router.params
         const sid = params.sid
-        console.log('sid', sid, params)
         if (sid) {
             this.getSkillBySid(sid)
             Taro.setNavigationBarTitle({
@@ -59,7 +58,6 @@ export default class AddSkill extends Component<IProps, Istate> {
             },
             success(res) {
                 const data = res.data
-                console.log('res', res)
                 that.setState({
                     skillName: data.skillName,
                     skillDsc: data.skillDsc,
@@ -117,7 +115,6 @@ export default class AddSkill extends Component<IProps, Istate> {
                 method: 'POST',
                 data: options,
                 success(res) {
-                    console.log('success', res)
                     Taro.navigateBack()
                     Taro.showToast({
                         title: '新增成功！',
@@ -130,7 +127,6 @@ export default class AddSkill extends Component<IProps, Istate> {
     }
     // 项目名称
     changeSkillName = (data) => {
-        console.log('公司名称：', data)
         this.setState({
             skillName: data
         })
@@ -143,7 +139,6 @@ export default class AddSkill extends Component<IProps, Istate> {
     }
     // 公司的选择
     skillSelectChange = (data) => {
-        console.log('select', data.detail.value)
         this.setState({
             skillPickValue: data.detail.value
         })

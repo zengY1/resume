@@ -1,7 +1,7 @@
 import Taro, { Component, Config } from '@tarojs/taro'
-import { View, Text, Image, Canvas } from '@tarojs/components'
+import { View, Image, Canvas } from '@tarojs/components'
 import './index.scss'
-import { AtButton, AtCard, AtInput, AtForm, AtImagePicker } from 'taro-ui'
+import { AtButton } from 'taro-ui'
 const httpUtil = require('../../utils/httpUtil')
 interface IProps {
 
@@ -61,7 +61,6 @@ export default class ResumeCard extends Component<IProps, Istate> {
             url: '/wx/desc',
             method: 'GET',
             success(res) {
-                console.log(res)
                 that.setState({
                     tip: res.oneTips
                 })
@@ -76,7 +75,6 @@ export default class ResumeCard extends Component<IProps, Istate> {
             url: '/info/get',
             method: 'GET',
             success(res) {
-                console.log(res)
                 that.setState({
                     cardInfo: {
                         name: res.data.realName,
@@ -95,7 +93,6 @@ export default class ResumeCard extends Component<IProps, Istate> {
             url: '/wx/code',
             success(res) {
                 const codeImg = res
-                console.log(codeImg)
                 that.setState({
                     codeImgUrl: codeImg
                 })
@@ -211,7 +208,6 @@ export default class ResumeCard extends Component<IProps, Istate> {
         })
         Taro.getSetting({
             success(res) {
-                console.log('setting', res)
                 if (!res.authSetting['secope.writePhotosAlbum']) {
                     Taro.authorize({
                         scope: 'scope.writePhotosAlbum',

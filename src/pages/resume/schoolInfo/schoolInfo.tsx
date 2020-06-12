@@ -1,8 +1,8 @@
-import Taro, { Component, Config, saveImageToPhotosAlbum } from '@tarojs/taro'
-import { View, Text, Image, Map, Picker } from '@tarojs/components'
+import Taro, { Component} from '@tarojs/taro'
+import { View, Text, Map } from '@tarojs/components'
 import './index.scss'
 import { records } from '../../../utils/static'
-import { AtButton, AtIcon, AtInput, AtForm, AtRadio, AtTimeline, AtTag, AtTabs, AtTabsPane } from 'taro-ui'
+import { AtTabs, AtTabsPane } from 'taro-ui'
 const httpUtil = require('../../../utils/httpUtil')
 interface IProps {
 
@@ -50,7 +50,6 @@ export default class SchoolInfo extends Component<IProps, Istate> {
     componentDidShow() {
         const params = this.$router.params
         const sid = params.sid
-        console.log('companyInfoCid', sid)
         if (sid) {
             this.getCompanyInfoByCid(sid)
 
@@ -63,7 +62,6 @@ export default class SchoolInfo extends Component<IProps, Istate> {
             url: '/school/schoolBySid',
             data: { sid: sid },
             success(res) {
-                console.log('res', res.data)
                 Taro.setNavigationBarTitle({
                     title: res.data.schoolName
                 })
@@ -77,7 +75,7 @@ export default class SchoolInfo extends Component<IProps, Istate> {
                     record: res.data.record,
                     beginDate: res.data.schoolBeginDate,
                     overDate: res.data.schoolOverDate,
-                    schoolDsc: res.data.schoolDsc
+                    schoolDsc: res.data.schoolDsc,
                     markers: [{
                         id: 1,
                         longitude: res.data.longitude,
@@ -117,7 +115,7 @@ export default class SchoolInfo extends Component<IProps, Istate> {
         })
     }
     render() {
-        const { itemArr, schoolDsc, current, tabList, longitude, latitude, timeLine, companyName, postName, record, beginDate, overDate, timeLineArr, markers, address } = this.state
+        const { itemArr, schoolDsc, current, tabList, longitude, latitude, companyName, postName, record, beginDate, overDate, timeLineArr, markers, address } = this.state
 
         return (
             <View>
@@ -130,10 +128,11 @@ export default class SchoolInfo extends Component<IProps, Istate> {
                                     <View className='infoLabel'><Text>学校名称：</Text></View>
                                     <View className='infoContent'><Text>{companyName}</Text></View>
                                 </View>
-                                <View className='infoItem'>
+                                {postName == '' ? '' : <View className='infoItem'>
                                     <View className='infoLabel'><Text>专业名称：</Text></View>
                                     <View className='infoContent'><Text>{postName}</Text></View>
-                                </View>
+                                </View>}
+
                                 <View className='infoItem'>
                                     <View className='infoLabel'><Text>学历：</Text></View>
                                     <View className='infoContent'><Text>{records[record]}</Text></View>
@@ -146,15 +145,16 @@ export default class SchoolInfo extends Component<IProps, Istate> {
                                     <View className='infoLabel'><Text>在职时间：</Text></View>
                                     <View className='infoContent'><Text>{beginDate}至{overDate}</Text></View>
                                 </View>
-                                <View className='infoItem'>
+                                {schoolDsc == '' ? '' : <View className='infoItem'>
                                     <View className='infoLabel'><Text>学校简介：</Text></View>
                                     <View className='infoContent'><Text>{schoolDsc}</Text></View>
                                 </View>
+                                }
+
                             </View>
                         </AtTabsPane>
                         {
                             itemArr ? itemArr.map((item, index) => {
-                                console.log('item', item)
                                 return (
                                     <AtTabsPane current={current} index={index + 1} key={item.id}>
                                         {/* 修改和删除项目经验 */}

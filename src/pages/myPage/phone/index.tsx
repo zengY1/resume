@@ -1,7 +1,7 @@
 import Taro, { Component, Config } from '@tarojs/taro'
-import { View, Text, Image } from '@tarojs/components'
+import { View } from '@tarojs/components'
 import './index.scss'
-import { AtButton, AtCard, AtTabBar, AtForm, AtInput,AtMessage } from 'taro-ui'
+import { AtButton, AtForm, AtInput,AtMessage } from 'taro-ui'
 const httpUtil = require('../../../utils/httpUtil')
 import regMobile from '../../../utils/mobile'
 interface IProps {
@@ -38,21 +38,18 @@ export default class Phone extends Component<IProps, Istate> {
     componentDidHide() { }
     // 手机号码的事件
     changemobile=(data)=>{
-        console.log('mobile',data)
         this.setState({
             mobile:data
         })
     }
     // 密码的事件
     changePsd=(data)=>{
-        console.log('psd',data)
         this.setState({
             psd:data
         })
     }
     // 确认密码事件
     changeRePsd=(data)=>{
-        console.log('repsd',data)
         this.setState({
             rePsd:data
         })
@@ -84,7 +81,6 @@ export default class Phone extends Component<IProps, Istate> {
                     passWord:psd
                 },
                 success(res){
-                    console.log('新增手机号码',res)
                     if(res.code=='20001'){
                         Taro.showToast({
                             title:'该手机号已绑定其他用户，请联系客服修改！',

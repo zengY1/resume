@@ -1,5 +1,17 @@
 import Taro, { Component, Config } from '@tarojs/taro'
 import { View, Text, Image, Button } from '@tarojs/components'
+import {Art,
+  Call,
+  Feedback,
+  Bg,
+  Bianji,
+  Item,
+  Out,
+  School,
+  Skill,
+  Touxiang,
+  User,
+  Work} from '../../img'
 import './my.scss'
 import { AtButton, AtList, AtListItem, AtModal, AtModalHeader, AtModalContent, AtModalAction } from 'taro-ui'
 const httpUtil = require('../../utils/httpUtil')
@@ -65,11 +77,9 @@ export default class My extends Component<IProps, Istate> {
   userLogin = (e) => {
     const that = this
     const userInfo = e.detail.userInfo
-    console.log('userInfo', userInfo)
     Taro.login({
       success: function (res) {
         const code = res.code
-        console.log('res', code)
         httpUtil.request({
           url: '/auth/login',
           method: 'POST',
@@ -81,7 +91,6 @@ export default class My extends Component<IProps, Istate> {
             avatarUrl: userInfo.avatarUrl
           },
           success: function (res) {
-            console.log('success', res)
             Taro.setStorage({ key: 'token', data: res.token })
             Taro.setStorage({ key: 'userInfo', data: res.info[0] })
             Taro.setStorage({ key: 'mobile', data: res.info[0].mobile })
@@ -130,7 +139,6 @@ export default class My extends Component<IProps, Istate> {
     })
   }
   contactOk = (e) => {
-    console.log('e', e)
   }
   // model的取消
   cancelModal = () => {
@@ -188,22 +196,21 @@ export default class My extends Component<IProps, Istate> {
   }
   render() {
     const { getUserInfo, phoneModalVisible, loginOutModal, contactModal } = this.state
-    console.log('modalVisible', getUserInfo)
     return (
       <View className='page'>
         <View className='container'>
           <View className='top-container'>
-            <Image className='bg-img' src='../../img/my/mine_bg_3x.png'></Image>
+            <Image className='bg-img' src={Bg}></Image>
 
             <View className='logout' >
               <View className='logout_item' hidden={getUserInfo.id ? false : true} onClick={this.loginOut}>
-                <Image className='logout-img' src='../../img/my/icon_out_3x.png'></Image>
+                <Image className='logout-img' src={Out}></Image>
                 <Text className='logout-txt' >退出</Text>
               </View>
             </View>
 
             <View className='user'>
-              <Image className='avatar-img' src={getUserInfo.id ? getUserInfo.avatarUrl : '../../img/my/mine_def_touxiang_3x.png'}></Image>
+              <Image className='avatar-img' src={getUserInfo.id ? getUserInfo.avatarUrl : Touxiang}></Image>
               <View className='user-info-mobile'>
                 {
                   getUserInfo.id ? <Text>{getUserInfo.userName}</Text> : <AtButton onGetUserInfo={this.userLogin} openType="getUserInfo"><Text className='login_btn'>请登陆</Text></AtButton>
@@ -214,29 +221,29 @@ export default class My extends Component<IProps, Istate> {
           <View className='main'>
             <View className='card'>
               <View className='item' onClick={() => this.goToPage(1)}>
-                <Image className='item-img' src='../../img/my/user.png'></Image>
+                <Image className='item-img' src={User}></Image>
                 <Text className='item-name'>个人信息</Text>
               </View>
 
               <View className='item' onClick={() => this.goToPage(2)}>
-                <Image className='item-img' src='../../img/my/school.png'></Image>
+                <Image className='item-img' src={School}></Image>
                 <Text className='item-name'>学历信息</Text>
               </View>
 
               <View className='item' onClick={() => this.goToPage(3)}>
-                <Image className='item-img' src='../../img/my/work.png'></Image>
+                <Image className='item-img' src={Work}></Image>
                 <Text className='item-name'>工作经历</Text>
               </View>
               <View className='item' onClick={() => this.goToPage(4)}>
-                <Image className='item-img' src='../../img/my/item.png'></Image>
+                <Image className='item-img' src={Item}></Image>
                 <Text className='item-name'>项目经验</Text>
               </View>
               <View className='item' onClick={() => this.goToPage(5)}>
-                <Image className='item-img' src='../../img/my/skill.png'></Image>
+                <Image className='item-img' src={Skill}></Image>
                 <Text className='item-name'>个人技能</Text>
               </View>
               <View className='item' onClick={() => this.goToPage(6)}>
-                <Image className='item-img' src='../../img/my/art.png'></Image>
+                <Image className='item-img' src={Art}></Image>
                 <Text className='item-name'>个人作品</Text>
               </View>
             </View>

@@ -1,7 +1,7 @@
 import Taro, { Component, Config } from '@tarojs/taro'
-import { View, Text, Image, Map, Picker } from '@tarojs/components'
+import { View,Picker } from '@tarojs/components'
 import './index.scss'
-import { AtButton, AtCard, AtInput, AtForm, AtRadio, AtTimeline, AtTextarea ,AtMessage} from 'taro-ui'
+import { AtButton, AtCard, AtInput, AtForm,AtMessage} from 'taro-ui'
 import { imgArr } from '../../../utils/static'
 const httpUtil = require('../../../utils/httpUtil')
 interface IProps {
@@ -53,7 +53,6 @@ export default class AddArtWork extends Component<IProps, Istate> {
             },
             success(res) {
                 const data = res.data
-                console.log('res', res)
                 that.setState({
                     workName: data.workName,
                     workUrl: data.workUrl,
@@ -112,7 +111,6 @@ export default class AddArtWork extends Component<IProps, Istate> {
                 method: 'POST',
                 data: options,
                 success(res) {
-                    console.log('success', res)
                     Taro.navigateBack()
                     Taro.showToast({
                         title: '新增成功！',
@@ -125,7 +123,6 @@ export default class AddArtWork extends Component<IProps, Istate> {
     }
     // 项目名称
     changeWorkName = (data) => {
-        console.log('公司名称：', data)
         this.setState({
             workName: data
         })

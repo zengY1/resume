@@ -1,8 +1,8 @@
 import Taro, { Component, Config } from '@tarojs/taro'
-import { View, Text, Image, Map } from '@tarojs/components'
+import { View, Text } from '@tarojs/components'
 import './index.scss'
 import { skillGradeOptions } from '../../../utils/static'
-import { AtButton, AtCard, AtInput, AtForm, AtRadio, AtTimeline, AtTextarea, AtTag } from 'taro-ui'
+import { AtButton, AtCard, AtTag } from 'taro-ui'
 const httpUtil = require('../../../utils/httpUtil')
 interface IProps {
 
@@ -59,7 +59,6 @@ export default class Skill extends Component<IProps, Istate> {
                         method: 'POST',
                         data: { sid: item.id },
                         success(res) {
-                            console.log('res', res)
                             if (res.errorCode == '00000') {
                                 that.getSkillList()
                                 Taro.showToast({

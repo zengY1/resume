@@ -1,7 +1,7 @@
-import Taro, { Component, Config, saveImageToPhotosAlbum } from '@tarojs/taro'
-import { View, Text, Image, Map, Picker } from '@tarojs/components'
+import Taro, { Component } from '@tarojs/taro'
+import { View, Text, Map} from '@tarojs/components'
 import './index.scss'
-import { AtButton, AtIcon, AtInput, AtForm, AtRadio, AtTimeline, AtTag, AtTabs, AtTabsPane } from 'taro-ui'
+import {  AtTabs, AtTabsPane } from 'taro-ui'
 const httpUtil = require('../../../utils/httpUtil')
 interface IProps {
 
@@ -51,7 +51,6 @@ export default class CompanyInfo extends Component<IProps, Istate> {
     componentDidShow() {
         const params = this.$router.params
         const cid = params.cid
-        console.log('companyInfoCid', cid)
         if (cid) {
             this.getCompanyInfoByCid(cid)
             this.getItemInfoByCid(cid)
@@ -65,7 +64,6 @@ export default class CompanyInfo extends Component<IProps, Istate> {
             url: '/company/getCompanyById',
             data: { cid: cid },
             success(res) {
-                console.log('res', res.data)
                 Taro.setNavigationBarTitle({
                     title: res.data.companyName
                 })
@@ -119,7 +117,6 @@ export default class CompanyInfo extends Component<IProps, Istate> {
                 re_itemArr.map((item) => {
                     tabList.push({ title: item.itemName })
                 })
-                console.log('获取公司下的项目', re_itemArr)
                 that.setState({
                     itemArr: res.data,
                     tabList: tabList
@@ -152,7 +149,6 @@ export default class CompanyInfo extends Component<IProps, Istate> {
                 cid: item.cid
             },
             success(res) {
-                console.log('删除成功', res)
                 that.getCompanyInfoByCid(item.cid)
                 that.getItemInfoByCid(item.cid)
                 that.setState({ current: 0 })
@@ -214,7 +210,6 @@ export default class CompanyInfo extends Component<IProps, Istate> {
                         </AtTabsPane>
                         {
                             itemArr ? itemArr.map((item, index) => {
-                                console.log('item', item)
                                 return (
                                     <AtTabsPane current={current} index={index + 1} key={item.id}>
                                         {/* 修改和删除项目经验 */}

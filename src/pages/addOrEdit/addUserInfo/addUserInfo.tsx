@@ -1,7 +1,7 @@
-import Taro, { Component, Config } from '@tarojs/taro'
-import { View, Text, Image, Picker } from '@tarojs/components'
+import Taro, { Component } from '@tarojs/taro'
+import { View, Picker } from '@tarojs/components'
 import './index.scss'
-import { AtButton, AtCard, AtInput, AtForm, AtRadio, AtMessage } from 'taro-ui'
+import { AtButton, AtCard, AtInput, AtForm,AtMessage } from 'taro-ui'
 import { salaryArr } from '../../../utils/static'
 const httpUtil = require('../../../utils/httpUtil')
 interface IProps {
@@ -51,7 +51,6 @@ export default class AddUserInfo extends Component<IProps, Istate> {
         }
     }
     componentDidMount() {
-        console.log(this.$router.params)
         const salaryColumn = [salaryArr, salaryArr]
         this.setState({
             salaryColumn
@@ -79,7 +78,6 @@ export default class AddUserInfo extends Component<IProps, Istate> {
                 id: id
             },
             success(res) {
-                console.log(res)
                 const buttonType = res.data ? 'edit' : 'add'
                 const resumeInfo = res.data
                 that.setState({
@@ -102,13 +100,7 @@ export default class AddUserInfo extends Component<IProps, Istate> {
     // 提交
     onSubmit = () => {
         const { mobile, realName, sex, birthday, provice, city, salary, address, email } = this.state
-        if (mobile == '') {
-            Taro.atMessage({
-                'message': '联系方式不能为空！',
-                'type': 'error',
-            })
-            return
-        } else if (realName == '') {
+        if (realName == '') {
             Taro.atMessage({
                 'message': '姓名不能为空！',
                 'type': 'error',
@@ -123,6 +115,18 @@ export default class AddUserInfo extends Component<IProps, Istate> {
         } else if (birthday == '') {
             Taro.atMessage({
                 'message': '出生日期不能为空！',
+                'type': 'error',
+            })
+            return
+        } else if (mobile == '') {
+            Taro.atMessage({
+                'message': '联系方式不能为空！',
+                'type': 'error',
+            })
+            return
+        } else if (email == '') {
+            Taro.atMessage({
+                'message': '电子邮箱不能为空！',
                 'type': 'error',
             })
             return
@@ -166,7 +170,6 @@ export default class AddUserInfo extends Component<IProps, Istate> {
                         title: '操作成功！'
                     })
                 }
-                console.log('edit', res)
             }
         })
     }
@@ -207,7 +210,6 @@ export default class AddUserInfo extends Component<IProps, Istate> {
                 salary: salaryArr[firstIndex] + '~' + salaryArr[lastIndex]
             })
         }
-        console.log('salary', salary)
     }
     salaryColumnChange = (data) => {
         const column = data.detail.column
@@ -230,6 +232,7 @@ export default class AddUserInfo extends Component<IProps, Istate> {
                 >
                     <AtForm>
                         <AtInput
+                            required
                             name='realName'
                             border={true}
                             title='姓名'
@@ -274,7 +277,7 @@ export default class AddUserInfo extends Component<IProps, Istate> {
                             border={true}
                             title='居住地址'
                             type='text'
-                            placeholder='居住地址'
+                            placeholder='(选)居住地址'
                             value={address}
                             onChange={(data) => this.changeAddress(data)}
                         />
