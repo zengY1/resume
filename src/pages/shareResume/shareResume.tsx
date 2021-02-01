@@ -335,9 +335,6 @@ export default class ShareResume extends Component<IProps, Istate> {
             </AtCard>
           </View> : ''
         }
-        {
-          Object.keys(resumeInfo).length < 1 ? <View className='empty'>简历待完善！</View> : ''
-        }
         <View className='bottomBtn'>
           <AtButton circle onClick={this.callMobile} type='primary'>立即联系</AtButton>
         </View>

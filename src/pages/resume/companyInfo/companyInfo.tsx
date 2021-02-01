@@ -186,10 +186,10 @@ export default class CompanyInfo extends Component<IProps, Istate> {
                                     <View className='infoLabel'><Text>岗位名称：</Text></View>
                                     <View className='infoContent'><Text>{postName}</Text></View>
                                 </View>
-                                <View className='infoItem'>
+                                {/* <View className='infoItem'>
                                     <View className='infoLabel'><Text>在职薪资：</Text></View>
                                     <View className='infoContent'><Text>{salary}</Text></View>
-                                </View>
+                                </View> */}
                                 <View className='infoItem'>
                                     <View className='infoLabel'><Text>公司地址：</Text></View>
                                     <View className='infoContent'><View>{address}<Text className='goHere' onClick={this.locationGoHere}>去这里</Text></View></View>

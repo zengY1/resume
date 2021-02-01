@@ -1,125 +1,123 @@
 {
-	"miniprogramRoot": "dist/",
-	"projectname": "resume",
-	"description": "resume",
-	"appid": "wx189bc51661fe41eb",
-	"setting": {
-		"urlCheck": false,
-		"es6": true,
-		"enhance": true,
-		"postcss": false,
-		"minified": false,
-		"newFeature": true,
-		"coverView": true,
-		"nodeModules": true,
-		"autoAudits": false,
-		"checkInvalidKey": true,
-		"checkSiteMap": true,
-		"uploadWithSourceMap": true,
-		"babelSetting": {
-			"ignore": [],
-			"disablePlugins": [],
-			"outputPath": ""
-		},
-		"bundle": true
-	},
-	"compileType": "miniprogram",
-	"simulatorType": "wechat",
-	"simulatorPluginLibVersion": {},
-	"libVersion": "2.10.4",
-	"condition": {
-		"search": {
-			"current": -1,
-			"list": []
-		},
-		"conversation": {
-			"current": -1,
-			"list": []
-		},
-		"plugin": {
-			"current": -1,
-			"list": []
-		},
-		"game": {
-			"list": []
-		},
-		"gamePlugin": {
-			"current": -1,
-			"list": []
-		},
-		"miniprogram": {
-			"current": -1,
-			"list": [
-				{
-					"id": -1,
-					"name": "timeLine",
-					"pathName": "pages/timeLine/timeLine",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": 1,
-					"name": "pages/resume/companyInfo/companyInfo",
-					"pathName": "pages/resume/companyInfo/companyInfo",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/school/school",
-					"pathName": "pages/school/school",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/resume/userInfo/userInfo",
-					"pathName": "pages/resume/userInfo/userInfo",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/addOrEdit/addUserInfo/addUserInfo",
-					"pathName": "pages/addOrEdit/addUserInfo/addUserInfo",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/shareResume/shareResume",
-					"pathName": "pages/shareResume/shareResume",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/resumeCard/resumeCard",
-					"pathName": "pages/resumeCard/resumeCard",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/myPage/phone/index",
-					"pathName": "pages/myPage/phone/index",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/myPage/web/index",
-					"pathName": "pages/myPage/web/index",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/resume/skillList/skillList",
-					"pathName": "pages/resume/skillList/skillList",
-					"scene": null
-				}
-			]
-		}
-	}
+  "miniprogramRoot": "dist/",
+  "projectname": "resume",
+  "description": "resume",
+  "appid": "wx189bc51661fe41eb",
+  "setting": {
+    "urlCheck": false,
+    "es6": true,
+    "enhance": true,
+    "postcss": false,
+    "minified": false,
+    "newFeature": true,
+    "coverView": true,
+    "nodeModules": true,
+    "autoAudits": false,
+    "checkInvalidKey": true,
+    "checkSiteMap": true,
+    "uploadWithSourceMap": true,
+    "babelSetting": {
+      "ignore": [],
+      "disablePlugins": [],
+      "outputPath": ""
+    },
+    "bundle": false,
+    "useMultiFrameRuntime": true,
+    "useApiHook": true,
+    "useApiHostProcess": false
+  },
+  "compileType": "miniprogram",
+  "simulatorType": "wechat",
+  "simulatorPluginLibVersion": {},
+  "libVersion": "2.10.4",
+  "condition": {
+    "search": {
+      "list": []
+    },
+    "conversation": {
+      "list": []
+    },
+    "plugin": {
+      "list": []
+    },
+    "game": {
+      "list": []
+    },
+    "gamePlugin": {
+      "list": []
+    },
+    "miniprogram": {
+      "list": [
+        {
+          "id": -1,
+          "name": "timeLine",
+          "pathName": "pages/timeLine/timeLine",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": 1,
+          "name": "pages/resume/companyInfo/companyInfo",
+          "pathName": "pages/resume/companyInfo/companyInfo",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/school/school",
+          "pathName": "pages/school/school",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/resume/userInfo/userInfo",
+          "pathName": "pages/resume/userInfo/userInfo",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/addOrEdit/addUserInfo/addUserInfo",
+          "pathName": "pages/addOrEdit/addUserInfo/addUserInfo",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/shareResume/shareResume",
+          "pathName": "pages/shareResume/shareResume",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/resumeCard/resumeCard",
+          "pathName": "pages/resumeCard/resumeCard",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/myPage/phone/index",
+          "pathName": "pages/myPage/phone/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/myPage/web/index",
+          "pathName": "pages/myPage/web/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/resume/skillList/skillList",
+          "pathName": "pages/resume/skillList/skillList",
+          "scene": null
+        }
+      ]
+    }
+  }
 }

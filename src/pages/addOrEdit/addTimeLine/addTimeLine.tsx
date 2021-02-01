@@ -153,12 +153,12 @@ export default class TimeLine extends Component<IProps, Istate> {
                 'type': 'error',
             })
             return
-        } else if (salary == '') {
-            Taro.atMessage({
-                'message': '在职薪资不能为空！',
-                'type': 'error',
-            })
-            return
+        // } else if (salary == '') {
+        //     Taro.atMessage({
+        //         'message': '在职薪资不能为空！',
+        //         'type': 'error',
+        //     })
+        //     return
         } else if (beginDate == '') {
             Taro.atMessage({
                 'message': '入职时间不能为空！',
@@ -264,7 +264,7 @@ export default class TimeLine extends Component<IProps, Istate> {
                             value={postName}
                             onChange={(data) => this.changePostName(data)}
                         />
-                        <AtInput
+                        {/* <AtInput
                             name='salary'
                             border={true}
                             title='在职薪资'
@@ -272,7 +272,7 @@ export default class TimeLine extends Component<IProps, Istate> {
                             placeholder='在职薪资'
                             value={salary}
                             onChange={(data) => this.changeSalary(data)}
-                        />
+                        /> */}
                         <View className='form-item'>
                             <View className='label'>公司地址</View>
                             <View onClick={this.getLocation}>{address == '' ? '请选择' : address}</View>

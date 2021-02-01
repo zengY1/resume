@@ -387,9 +387,11 @@ export default class First extends Component<IProps, Istate> {
             </View> : ''
           }
           {
-            Object.keys(resumeInfo).length < 1 ? <View className='empty'>简历待完善！</View> : ''
+            Taro.getStorageSync('token')&&Object.keys(resumeInfo).length < 1 ? <View className='empty'>当前简历为空，请完善您的简历！</View> : ''
           }
-
+          {
+            Taro.getStorageSync('token') ?"": <View className='empty'>当前未登录，请您先登录！</View> 
+          }
         </View>
       </View>
     )
